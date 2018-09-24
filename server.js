@@ -1,11 +1,12 @@
 // var http = require('http');
 var util = require('util');
-var express = require('express'); 
-var cors = require('cors'); 
-var request = require('request'); 
+var express = require('express');
+var cors = require('cors');
+var fs = require('fs'); 
+var request = require('request');
 var formidable = require('formidable');
 
-var app = express(); 
+var app = express();
 app.use(cors());
 
 http.createServer(function (req, res) {
