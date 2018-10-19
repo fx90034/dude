@@ -1,13 +1,41 @@
-// var http = require('http');
-var util = require('util');
-var express = require('express');
-var cors = require('cors');
-var fs = require('fs'); 
-var request = require('request');
-var formidable = require('formidable');
+const util = require('util');
+const express = require('express');
+// import express from 'express';
+const cors = require('cors');
+const fs = require('fs');
+const http = require('http');
+// const request = require('request');
+const formidable = require('formidable');
+
+const port = 8080;
 
 var app = express();
 app.use(cors());
+
+// Load index.html under /public folder
+app.use(express.static('public'))
+
+// Return 'Hello World ' when the root is called
+// app.get('/hello', (rea, res) => res.send('Hello World!'));
+ app.get('/hello', (rea, res) => {
+	 debugger
+	 res.send('Hello World!')
+ })
+
+app.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+debugger
+  console.log(`server is listening on ${port}`)
+})
+
+//////////////////////////////////////////////
+
+const requestHandler = (request, response) => {
+  console.log(request.url)
+  response.end('Hello Node.js Server!')
+}
 
 http.createServer(function (req, res) {
    if (req.url == '/login' && req.method.toLowerCase() == 'post') {
@@ -48,7 +76,12 @@ http.createServer(function (req, res) {
    res.end();
 
 })
+/*.listen(port, (err) => {
+	if(err)
+		console.log(err)
+}
+)
 
-app.listen(8080);
-
+console.log(`Server is started and listening on port: ${port}`);
+*/
 //end
