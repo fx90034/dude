@@ -8,6 +8,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const cors = require('cors');
+const engine = require('ejs-locals');
 const passport = require('passport');
 const errorHandler = require('errorhandler');
 // const passport = require('passport');
@@ -72,8 +73,9 @@ app.use(passport.session());
 
 // Configure view engine to render EJS templates.
 // app.set('views', __dirname + '/views');
-app.set('views', __dirname + '/../public');
+app.set('views', '../public');
 app.set('view engine', 'ejs');
+app.engine('ejs', engine);
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -111,6 +113,11 @@ app.get('/profile',
 	function(req, res){
 		res.render('profile', { user: req.user });
 	});
+
+  app.get('/test',
+  	function(req, res) {
+  		res.render('index', { title: req.user, body: req.user });
+  	});
 
 // app.listen(8080, () => console.log('Server running on http://localhost:8080/'));
 var server = app.listen(7398, function() {
