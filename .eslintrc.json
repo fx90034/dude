@@ -1,0 +1,35 @@
+{
+    "env": {
+        "browser": true,
+        "node": true
+    },
+    "parserOptions": {
+        "ecmaVersion": 6
+    },
+    "rules": {
+        "indent": [
+            "off",
+            "tab"
+        ],
+        "linebreak-style": [
+            "warn",
+            "windows"
+        ],
+        "quotes": [
+            "warn",
+            "single"
+        ],
+        "semi": [
+            "warn",
+            "always"
+        ],
+        "no-console": "off"
+    },
+	"plugins": [
+		 "security"
+	],
+	"extends": [
+		 "eslint:recommended",
+		 "plugin:security/recommended"
+	]
+}
