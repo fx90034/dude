@@ -62,7 +62,7 @@ app.use(require('body-parser').urlencoded({ extended: true }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
 
 // Initialize Passport and restore authentication state, if any, from the session.
-require('./routes/api/init')//.init(app);
+require('./routes/auth/init')//.init(app);
 app.use(passport.initialize());
 app.use(passport.session());
 
