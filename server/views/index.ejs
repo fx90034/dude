@@ -5,20 +5,38 @@
 </head>
 
 <body>
+  <div id="holder">
 
-<% include header.ejs%>
-
-
-<!-- Insert Body here -->
-<div class="container">
-
-    <div class="starter-template">
-        <%- body %>
+  <header>
+    <div class="d-flex justify-content-center font-weight-bold" style="border-bottom:4px solid ">
+      <h2 class="font-weight-bold"> BingoBo: where Smart Home starts.</h2>
     </div>
+  </header>
 
-</div><!-- /.container -->
+  <div id="body" class="container">
+    <div class="row" style="margin-top: 30px;font-size:small; ">
+        <label for="basic-url">Phone Number</label>
+        <input type="text" class="form-control" style="border-bottom:2px solid " name="phone">
+    </div>
+  </div><!-- /.container -->
 
-<% include footer.ejs%>
+  <footer style="margin-bottom: 3px;">
+      <div class="d-flex justify-content-center">
+          <a href="#" class="btn btn-dark btn-lg font-weight-bold"
+                      style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;" tabindex="-1" role="button">Sign up</a>
+          <a href="#" class="btn btn-secondary btn-lg font-weight-bold disabled"
+                      style="font-size:medium; border-radius: 22px; width: 120px;" tabindex="-1" role="button" aria-disabled="true">Next</a>
+      </div>
+    </footer>
+<!--
+        <button type="button" class="btn btn-dark" style="width: 100px;">Sign up</button>
+        <button type="button" class="btn btn-dark"  style="width: 100px;" disabled>Next</button>
 
+        <button type="button" class="btn btn-dark">Retry</button>
+        <button type="button" class="btn btn-light">Next</button>
+-->
+
+
+  </div?
 </body>
 </html>
