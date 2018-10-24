@@ -31,6 +31,13 @@ body {
    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+}
+
 .btn-space {
     margin-right: 10px;
 }
