@@ -15,8 +15,9 @@ const engine = require('ejs-locals');
 const passport = require('passport');
 const errorHandler = require('errorhandler');
 const router = require('./routes');
+const validator = require('validator');
 
-var debug = require('debug');
+const debug = require('debug')('http');
 
 // The Passport require must be below all models
 // require('./config/passport');
@@ -29,16 +30,21 @@ var app = express();
 
 // Configure our app
 app.use(cors());
-app.use(require('./routes'));
-app.use(require('morgan')('dev'));
+app.use(router);
+
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+
+app.use(require('morgan')('dev')); // ('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
-app.use(cookieParser())
+app.use(cookieParser());
+
 app.use(session({
-	secret: 'passport-tutorial',
+	secret: 'bingobo',
 	cookie: {
 		httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
-		//    secure: true, // only send cookie over https
+		secure: false, // only send cookie over https
 		maxAge: 60000 // 60000*60*24 // set cookie expiry length in ms
 	},
 	resave: false,
@@ -53,28 +59,40 @@ app.use(express.static('../public'));
 app.set('view engine', 'ejs');
 app.engine('ejs', engine);
 
-// Use application-level middleware for common functionality, including
-// logging, parsing, and session handling.
-
-app.use(require('morgan')('combined'));
-app.use(require('cookie-parser')());
-app.use(require('body-parser').urlencoded({ extended: true }));
-app.use(require('express-session')({ secret: 'keyboard cat', resave: false, saveUninitialized: false }));
-
 // Initialize Passport and restore authentication state, if any, from the session.
 require('./routes/auth/init')//.init(app);
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Define routes.
-app.get('/home',
-	function(req, res) {
-		res.render('home', { title: req.user, user: req.user });
-	});
-
 app.get('/',
 	function(req, res) {
 		res.render('index', { title: req.user, body: req.user });
+	});
+
+app.get('/home',
+	function(req, res) {
+		var user = req.session.user;
+		var message = req.message;
+		if(user) {
+debug('username = ' + user.name);
+			res.render('main', { title: user.name, user: user.name });
+		}
+		else
+			res.render('home', { title: req.user, user: '', message: message });
+	});
+
+app.post('/pass',
+	function(req, res) {
+		var name = req.body.name;
+		var pass = req.body.pass;
+debug('pass = ' + pass);
+		if(name && pass)
+			res.render('login', { title: username, user: username });
+		else if(name)
+			res.render('pass', { title: req.user, user: name });
+		else
+			res.render('home', { title: req.user, user: '' });
 	});
 
 var Users = [];
@@ -84,21 +102,63 @@ app.get('/signup', function(req, res){
 });
 
 app.post('/signup', function(req, res){
-   if(!req.body.id || !req.body.password){
-      res.status("400");
-      res.send("Invalid details!");
+	let username = req.body.username;
+debug('signup: username = ' + username)
+debug("Users length = " + Users.length)
+  if(!username){
+//      res.status("400");
+//      res.send("Invalid details!");
+		res.render('signup', { message: "Please enter your username to get started."});
    } else {
       Users.filter(function(user){
-         if(user.id === req.body.id){
+debug('signup: Users = ' + user.name)
+         if(user.name === username){
             res.render('signup', {
-               message: "User Already Exists! Login or choose another user id"});
+               message: "User Already Exists! Login or choose a different username"});
          }
       });
-      var newUser = {id: req.body.id, password: req.body.password};
-      Users.push(newUser);
-      req.session.user = newUser;
-      res.redirect('/protected_page');
-   }
+		}
+
+		if(validator.isMobilePhone(username, "en-US")) {
+debug('isMobilePhone: username = ' + username)
+			res.render('credential', { user: username, type: 'phone', message: '' });
+		}
+
+		else if(validator.isEmail(username)) {
+debug('isEmail: username = ' + username)
+			res.render('credential', { user: username, type: 'email', message: '' });
+		}
+
+		res.render('home', { message: "Please enter a valid username to get started."});
+});
+
+app.get('/credential', function(req, res) {
+	res.render('signup');
+});
+
+app.post('/credential', function(req, res) {
+	var user = req.body.user;
+	var pass = req.body.pass;
+	var type = req.body.type;
+debug('creadential: user = ' + user)
+debug('creadential: pass = ' + pass)
+	if(!user){
+//    res.status("400");
+//    res.send("Invalid details!");
+		res.render('signup', { message: "Please enter your username to get started."})
+  }
+
+//	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
+//		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
+		var newUser = { name: user, type: type, pass: pass };
+		Users.push(newUser);
+		req.session.user = newUser;
+
+	 	res.render('profile', { user: user });
+//	}
+//	else
+//		res.render('credential', { user: user , type: type, message: "Please enter a valid password." });
+//																message: "Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long."});
 });
 
 app.get('/login',

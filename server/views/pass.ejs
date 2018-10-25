@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <% include head.ejs %>
+    <title><%= user %></title>
+</head>
+
+<body>
+  <div id="holder">
+    <header>
+      <div class="d-flex justify-content-center font-weight-bold" style="border-bottom:4px solid ">
+        <h2 class="font-weight-bold">Enter your password.</h2>
+      </div>
+    </header>
+
+    <form action="/login" method="post">
+    <div id="body" class="container">
+      <div class="row" style="margin-top: 30px;font-size:small; ">
+          <label for="basic-url">Password</label>
+          <input type="hidden" name="user" value=<%=user%>>
+          <input type="password" class="form-control" style="border-bottom:1px solid " name="pass" value="">
+      </div>
+      <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
+        <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>
+      </div>
+    </div><!-- /.container -->
+
+    <footer style="margin-bottom: 3px;">
+        <div class="d-flex justify-content-center">
+            <a href="#" class="btn btn-secondary btn-lg font-weight-bold disabled"
+                        style="font-size:medium; border-radius: 22px; width: 120px;"
+                        tabindex="-1" role="button" disabled onclick="submit();">Sign In</a>
+        </div>
+      </footer>
+      </form>
+  </div>
+</body>
+</html>
