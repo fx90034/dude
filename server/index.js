@@ -122,11 +122,13 @@ debug('signup: Users = ' + user.name)
 		if(validator.isMobilePhone(username, "en-US")) {
 debug('isMobilePhone: username = ' + username)
 			res.render('credential', { user: username, type: 'phone', message: '' });
+			return;
 		}
 
 		else if(validator.isEmail(username)) {
 debug('isEmail: username = ' + username)
 			res.render('credential', { user: username, type: 'email', message: '' });
+			return;
 		}
 
 		res.render('home', { message: "Please enter a valid username to get started."});
@@ -246,6 +248,7 @@ app.use(function (err, req, res, next) {
   console.error(err.stack)
   res.status(500).send('Something broke!')
 });
+
 // development error handler
 // will print stacktrace
 if (app.get('env') === 'development') {
