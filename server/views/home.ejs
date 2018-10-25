@@ -21,6 +21,10 @@
 
    document.getElementById("form").action = "/login";
  }
+ function signup() {
+   document.getElementById("form").action = "/signup";
+   submit();
+ }
  function pass() {
    res.render('pass', { user: '<%=user %>' });
 //   document.getElementById("form").action = '/pass';
@@ -52,7 +56,7 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-outline-dark btn-lg font-weight-bold"
                         style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-                        tabindex="-1" role="button" onclick="submit;">Sign up</button>
+                        tabindex="-1" role="button" onclick="signup();">Sign up</button>
             <button class="btn btn-secondary btn-lg font-weight-bold disabled" id="next"
                         style="font-size:medium; border-radius: 22px; width: 120px;"
                         tabindex="-1" role="button" disabled onclick="pass();">Next</button>
