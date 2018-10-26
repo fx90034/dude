@@ -19,15 +19,14 @@
    document.getElementById("next").classList.remove("disabled");
    document.getElementById("next").classList.add("btn-dark");
 
-   document.getElementById("form").action = "/login";
+   document.getElementById("form").action = "/pass";
  }
  function signup() {
    document.getElementById("form").action = "/signup";
    submit();
  }
  function pass() {
-   res.render('pass', { user: '<%=user %>' });
-//   document.getElementById("form").action = '/pass';
+   document.getElementById("form").action = '/pass';
  }
 </script>
 

@@ -84,15 +84,23 @@ debug('username = ' + user.name);
 
 app.post('/pass',
 	function(req, res) {
-		var name = req.body.name;
-		var pass = req.body.pass;
-debug('pass = ' + pass);
-		if(name && pass)
-			res.render('login', { title: username, user: username });
-		else if(name)
-			res.render('pass', { title: req.user, user: name });
-		else
-			res.render('home', { title: req.user, user: '' });
+		var username = req.body.username;
+debug('In pass: ' + username);
+		if(username) {
+			if(validator.isMobilePhone(username, "en-US")) {
+debug('isMobilePhone: username = ' + username)
+				res.render('pass', { user: username });
+				return;
+			}
+
+			else if(validator.isEmail(username)) {
+debug('isEmail: username = ' + username)
+				res.render('pass', { user: username });
+				return;
+			}
+		}
+
+		res.render('home', { user: '', message: "Please enter a valid username to get started." });
 	});
 
 var Users = [];
@@ -108,13 +116,13 @@ debug("Users length = " + Users.length)
   if(!username){
 //      res.status("400");
 //      res.send("Invalid details!");
-		res.render('signup', { message: "Please enter your username to get started."});
+		res.render('signup', { message: "Please enter your username to get started." });
    } else {
       Users.filter(function(user){
 debug('signup: Users = ' + user.name)
          if(user.name === username){
             res.render('signup', {
-               message: "User Already Exists! Login or choose a different username"});
+               message: "User Already Exists! Login or choose a different username" });
          }
       });
 		}
@@ -142,21 +150,32 @@ app.post('/credential', function(req, res) {
 	var user = req.body.user;
 	var pass = req.body.pass;
 	var type = req.body.type;
+	var remember = req.body.remember;
 debug('creadential: user = ' + user)
 debug('creadential: pass = ' + pass)
+debug('creadential: type = ' + type)
+debug('creadential: remember = ' + remember)
 	if(!user){
 //    res.status("400");
 //    res.send("Invalid details!");
-		res.render('signup', { message: "Please enter your username to get started."})
+		res.render('signup', { message: "Please enter your username to get started."});
+		return;
   }
 
 //	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
 //		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
-		var newUser = { name: user, type: type, pass: pass };
+		var newUser = { id: null, name: user, type: type, pass: pass, remember: remember };
 		Users.push(newUser);
 		req.session.user = newUser;
 
-	 	res.render('profile', { user: user });
+		const db = require('./models');
+		var id;
+		db.users.addNewUser(newUser, function(err, id) {
+			if(!err) {
+				newUser.id = id;
+				res.render('profile', { user: newUser });
+			}
+		});
 //	}
 //	else
 //		res.render('credential', { user: user , type: type, message: "Please enter a valid password." });
@@ -171,7 +190,7 @@ app.get('/login',
 app.post('/login',
 	passport.authenticate('local', {
     successRedirect: 'profile',
-    failureRedirect: 'login' }),
+    failureRedirect: 'home' }),
 	function(req, res) {
 		res.redirect('/');
 	});
@@ -182,7 +201,7 @@ app.get('/logout',
       console.log("user logged out.")
    });
 		req.logout();
-		res.redirect('/');
+		res.redirect('/home');
 	});
 
 app.get('/profile',
