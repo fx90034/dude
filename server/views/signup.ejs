@@ -17,13 +17,15 @@ console.log("In signup: " + message);
    document.getElementById("next").classList.remove("disabled");
    document.getElementById("next").classList.add("btn-dark");
  }
-
- function doRedirect() {
+ function cancel() {
    var parent = document.getElementById("holder");
    var child = document.getElementById("form");
    parent.remove(child);
    window.location.href = "home";
-   return;
+ }
+ function signup() {
+   document.getElementById("form").action = "/signup";
+   submit();
  }
 </script>
 
@@ -39,7 +41,8 @@ console.log("In signup: " + message);
     <div id="body" class="container">
       <div class="row" style="margin-top: 30px;font-size:small; ">
           <label for="basic-url">Username (Phone number or email address)</label>
-          <input type="text" class="form-control" style="border-bottom:1px solid " name="username">
+          <input type="text" class="form-control" style="border-bottom:1px solid "
+          name="username" value="" onclick="javascript: enable();">
       </div>
       <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
         <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>
@@ -50,10 +53,10 @@ console.log("In signup: " + message);
         <div class="d-flex justify-content-center">
             <button class="btn btn-outline-dark btn-lg font-weight-bold"
                         style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-                        tabindex="-1" role="button" onclick="doRedirect();">Cancel</button>
+                        tabindex="-1" role="button" onclick="cancel();">Cancel</button>
             <button class="btn btn-secondary btn-lg font-weight-bold disabled" id="next"
                         style="font-size:medium; border-radius: 22px; width: 120px;"
-                        tabindex="-1" role="button" disabled onclick="submit();">Next</button>
+                        tabindex="-1" role="button" disabled onclick="signup();">Next</button>
         </div>
       </footer>
     </form>
