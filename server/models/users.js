@@ -23,7 +23,7 @@ console.log("findByUsername: name = " + name)
 		for (var i = 0, len = records.length; i < len; i++) {
 			var record = records[i];
 console.log("record.name = " + record.name)
-			if (record.name === name) {
+			if (record.name.toUpperCase() === name.toUpperCase()) {
 				console.log("User found:" + name);
 				return callback(null, record);
 			}
@@ -34,7 +34,8 @@ console.log("record.name = " + record.name)
 
 exports.addNewUser = function(user, callback) {
 	var len = records.length;
-
+console.log("user.name = " + user.name);
+console.log("user.pass = " + user.pass);
 //	var newUser = { id: len+1, name: user, type: type, pass: pass, remember: remember };
 	var newUser = { id: len+1, name: user.name, pass: user.pass, remember: user.remember };
 	records.push(newUser);

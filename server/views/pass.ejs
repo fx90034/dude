@@ -3,28 +3,35 @@
 
 <head>
     <% include head.ejs %>
-    <title><%= user %></title>
 </head>
-<% console.log("In pass.ejs."); %>
+<% console.log("In pass.ejs.");
+   var msg = "Please enter a valid credential to login.";
+   if(message)
+    msg = message;
+    console.log("Username = " + username);
+ %>
 <body>
   <div id="holder">
     <header>
       <div class="d-flex justify-content-center font-weight-bold" style="border-bottom:4px solid ">
-        <h3 class="font-weight-bold">Enter your password.</h3>
+        <h3 class="font-weight-bold"><%=msg %></h3>
       </div>
     </header>
 
     <form action="/login" method="post">
     <div id="body" class="container">
-      <div class="row disabled" style="margin-top: 30px;font-size:small;">
+      <div class="row" style="margin-top: 30px;font-size:small;">
           <label for="basic-url">Username (Phone number or email address)</label>
           <input type="text" class="form-control" style="border-bottom:1px solid "
-                 name="username" disabled value="<%=user %>">
+                 name="username" value="<%=username %>" autocomplete="off">
       </div>
       <div class="row" style="margin-top: 30px;font-size:small;">
           <label for="basic-url">Password</label>
-          <input type="hidden" name="username" value=<%=user%>>
-          <input type="password" class="form-control" style="border-bottom:1px solid " name="password" value="">
+          <input type="password" class="form-control" style="border-bottom:1px solid "
+                 name="password" value="" autocomplete="off">
+      </div>
+      <div class="row" style="margin-top: 30px;font-size:small; font-color: red">
+          <label id="note" for="basic-url"></label>
       </div>
       <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
         <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>
@@ -35,7 +42,7 @@
         <div class="d-flex justify-content-center">
             <button class="btn btn-secondary btn-lg font-weight-bold"
                         style="font-size:medium; border-radius: 22px; width: 120px;"
-                        tabindex="-1" role="button" onclick="submit();">Sign In</button>
+                        tabindex="-1" role="button" onclick="login();">Sign In</button>
         </div>
       </footer>
       </form>

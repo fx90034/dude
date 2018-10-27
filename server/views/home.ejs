@@ -4,16 +4,14 @@
 <head>
     <%  include head.ejs %>
     <title>Home</title>
-    <% var msg = "BingoBo: where Smart Home starts.";
+    <% var msg = "SmartHub brings you a sweat home.";
        if(message)
         msg = message;
-
-       var user = "";
     %>
 </head>
 
 <script type="text/javascript">
- function enable() {
+  function enable() {
    document.getElementById("next").disabled = false;
    document.getElementById("next").classList.remove("btn-secondary");
    document.getElementById("next").classList.remove("disabled");
@@ -26,7 +24,8 @@
    submit();
  }
  function pass() {
-   document.getElementById("form").action = '/pass';
+     document.getElementById("form").action = '/pass';
+     submit();
  }
 </script>
 
@@ -43,8 +42,11 @@
       <div class="row" style="margin-top: 30px;font-size:small; ">
           <label for="basic-url">Username (Phone number or email address)</label>
           <input type="text" class="form-control" style="border-bottom:1px solid "
-                 name="username" value="<%=user %>"
+                 name="username" value=""
                  onclick="javascript: enable();">
+      </div>
+      <div class="row" style="margin-top: 30px;font-size:small; font-color: red">
+          <label id="note" for="basic-url"></label>
       </div>
       <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
         <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>

@@ -19,22 +19,23 @@ const USER = {
   * will be set at `req.user` in route handlers after authentication.
   */
 //function initPassport () {
-  passport.use(new LocalStrategy((user, pass, callback) => {
+  passport.use(new LocalStrategy((username, password, callback) => {
     console.log('@@@@@@@@@@@@@')
-  	db.users.findByUsername(user, (err, User) => {
+  	db.users.findByUsername(username, (err, user) => {
   		if(err)
   			return callback(err);
 
-  		// User not found
-  		if(!User)
-  			return callback(null, false);
-
+  		// user not found
+  		if(!user)
+  			return callback(null, false, { message: "Invalid username or password" });
+console.log("!!!! user = " + user.pass)
+console.log("!!!! password = " + password)
       // warning  Potential timing attack, right side: true
       // security/detect-possible-timing-attacks
-  		if(User.pass != pass)
-  			return callback(null, false);
+  		if(user.pass != password)
+  			return callback(null, false, { message: "Invalid username or password" });
 
-  		return callback(null, User);
+  		return callback(null, user);
   		/* Always use hashed passwords and fixed time comparison
   		bcrypt.compare(pass, User.pass, (err, isValid) => {
   			if(err)
@@ -60,13 +61,13 @@ const USER = {
     serializing, and querying the user record by ID from the database when
     deserializing.
 */
-passport.serializeUser(function(User, callback) {
-  callback(null, User.id);
+passport.serializeUser(function(user, callback) {
+  callback(null, user.id);
 });
 
 passport.deserializeUser(function(id, callback) {
-  db.users.findById(id, function (err, User) {
+  db.users.findById(id, function (err, user) {
     if (err) { return callback(err); }
-    callback(null, User);
+    callback(null, user);
   });
 });

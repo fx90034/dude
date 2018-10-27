@@ -3,6 +3,10 @@
 
 <head>
     <%  include head.ejs %>
+    <%  if(message == null || message == 'undefined')
+          message = '';
+console.log("In signup: " + message);
+    %>
     <title>Sign Up</title>
 </head>
 
@@ -31,13 +35,11 @@
       </div>
     </header>
 
-    <form id="form" action='/signup' method="post">
+    <form id="form" action='/credential' method="post">
     <div id="body" class="container">
       <div class="row" style="margin-top: 30px;font-size:small; ">
           <label for="basic-url">Username (Phone number or email address)</label>
-          <input type="text" class="form-control" style="border-bottom:1px solid "
-                 name="username"
-                 onclick="javascript: enable();">
+          <input type="text" class="form-control" style="border-bottom:1px solid " name="username">
       </div>
       <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
         <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>

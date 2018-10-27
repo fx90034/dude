@@ -79,7 +79,7 @@ debug('username = ' + user.name);
 			res.render('main', { title: user.name, user: user.name });
 		}
 		else
-			res.render('home', { title: req.user, user: '', message: message });
+			res.render('home', { message: message });
 	});
 
 app.post('/pass',
@@ -89,18 +89,18 @@ debug('In pass: ' + username);
 		if(username) {
 			if(validator.isMobilePhone(username, "en-US")) {
 debug('isMobilePhone: username = ' + username)
-				res.render('pass', { user: username });
+				res.render('pass', { username: username, message: '' });
 				return;
 			}
 
 			else if(validator.isEmail(username)) {
 debug('isEmail: username = ' + username)
-				res.render('pass', { user: username });
+				res.render('pass', { username: username, message: '' });
 				return;
 			}
 		}
 
-		res.render('home', { user: '', message: "Please enter a valid username to get started." });
+		res.render('home', { message: "Please enter a valid username to get started." });
 	});
 
 var Users = [];
@@ -113,16 +113,21 @@ app.post('/signup', function(req, res){
 	let username = req.body.username;
 debug('signup: username = ' + username)
 debug("Users length = " + Users.length)
-  if(!username){
+  if(!username) {
 //      res.status("400");
 //      res.send("Invalid details!");
 		res.render('signup', { message: "Please enter your username to get started." });
-   } else {
+		return;
+   }
+
+	 else {
+		 // TODO: Verify against database
       Users.filter(function(user){
 debug('signup: Users = ' + user.name)
-         if(user.name === username){
+         if(user.name.toUpperCase() === username.toUpperCase()){
             res.render('signup', {
                message: "User Already Exists! Login or choose a different username" });
+						return;
          }
       });
 		}
@@ -147,8 +152,8 @@ app.get('/credential', function(req, res) {
 });
 
 app.post('/credential', function(req, res) {
-	var user = req.body.user;
-	var pass = req.body.pass;
+	var user = req.body.username;
+	var pass = req.body.password;
 	var type = req.body.type;
 	var remember = req.body.remember;
 debug('creadential: user = ' + user)
@@ -186,7 +191,7 @@ app.get('/login',
 	function(req, res, next){
 		res.render('login');
 	});
-
+/*
 app.post('/login',
 	passport.authenticate('local', {
     successRedirect: 'profile',
@@ -194,6 +199,26 @@ app.post('/login',
 	function(req, res) {
 		res.redirect('/');
 	});
+*/
+app.post('/login', function(req, res, next) {
+  passport.authenticate('local', function(err, user, info) {
+    if (err) {
+			console.error(err);
+			res.redirect('pass', { username: '', message: 'Failed authentication.' });
+			// return next(err);
+		}
+    if (!user) {
+			console.error("User not found.");
+			console.error(info.message);
+			return res.render('pass', { username: '', message: info.message });
+		}
+    req.logIn(user, function(err) {
+			debug("!!")
+      if (err) { return next(err); }
+      return res.redirect('profile');
+    });
+  })(req, res, next);
+});
 
 app.get('/logout',
 	function(req, res){
