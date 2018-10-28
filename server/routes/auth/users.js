@@ -2,7 +2,7 @@
 
 const passport = require('passport');
 const router = require('express').Router();
-const Users = require('../../models');
+const Users = require('../../models/users');
 
 //POST new user route (optional, everyone has access)
 router.post('/', (req, res, next) => {

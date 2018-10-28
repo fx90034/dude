@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%  include head.ejs %>
+    <title>Home</title>
+    <% var msg = "SmartHub: Bring you a sweat home.";
+       if(message)
+        msg = message;
+    %>
+</head>
+
+<script type="text/javascript">
+  function enable() {
+   document.getElementById("next").disabled = false;
+   document.getElementById("next").classList.remove("btn-secondary");
+   document.getElementById("next").classList.remove("disabled");
+   document.getElementById("next").classList.add("btn-dark");
+
+   document.getElementById("form").action = "/auth/pass";
+ }
+ function signup() {
+   document.getElementById("form").action = "/auth/signup";
+   submit();
+ }
+ function pass() {
+     document.getElementById("form").action = '/auth/pass';
+     submit();
+ }
+</script>
+
+<body>
+  <div id="holder">
+    <header>
+      <div class="d-flex justify-content-center font-weight-bold" style="border-bottom:4px solid">
+        <h2 class="font-weight-bold"><%=msg %></h2>
+      </div>
+    </header>
+
+    <form id="form" action='/auth/signup' method="post">
+    <div id="body" class="container">
+      <div class="row" style="margin-top: 30px;font-size:small; ">
+          <label for="basic-url">Username (Phone number or email address)</label>
+          <input type="text" class="form-control" style="border-bottom:1px solid "
+                 name="username" value=""
+                 onclick="javascript: enable();">
+      </div>
+      <div class="row" style="margin-top: 30px;font-size:small; font-color: red">
+          <label id="note" for="basic-url"></label>
+      </div>
+      <div class="row d-flex justify-content-center" style="margin-top: 30px;font-size:small">
+        <img src='images/qr-code.png' align="center" width="30%" height="30%"></img>
+      </div>
+    </div><!-- /.container -->
+
+    <footer style="margin-bottom: 3px;">
+        <div class="d-flex justify-content-center">
+            <button class="btn btn-outline-dark btn-lg font-weight-bold"
+                        style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
+                        tabindex="-1" role="button" onclick="signup();">Sign up</button>
+            <button class="btn btn-secondary btn-lg font-weight-bold disabled" id="next"
+                        style="font-size:medium; border-radius: 22px; width: 120px;"
+                        tabindex="-1" role="button" disabled onclick="pass();">Next</button>
+        </div>
+      </footer>
+    </form>
+<!--
+        <button type="button" class="btn btn-dark" style="width: 100px;">Sign up</button>
+        <button type="button" class="btn btn-dark"  style="width: 100px;" disabled>Next</button>
+
+        <button type="button" class="btn btn-dark">Retry</button>
+        <button type="button" class="btn btn-light">Next</button>
+-->
+  </div>
+</body>
+</html>

@@ -3,7 +3,8 @@
 const passport = require('passport');
 // const bcrypt = require('bcrypt');
 const LocalStrategy = require('passport-local').Strategy;
-const db = require('../../models');
+const db = require('../../models/users');
+const debug = require('debug')('http');
 /*
 const USER = {
 	username: 'test-user',
@@ -20,7 +21,7 @@ const USER = {
   */
 //function initPassport () {
   passport.use(new LocalStrategy((username, password, callback) => {
-    console.log('@@@@@@@@@@@@@')
+debug('@@@@@@@@@@@@@')
   	db.users.findByUsername(username, (err, user) => {
   		if(err)
   			return callback(err);
@@ -28,8 +29,8 @@ const USER = {
   		// user not found
   		if(!user)
   			return callback(null, false, { message: "Invalid username or password" });
-console.log("!!!! user = " + user.pass)
-console.log("!!!! password = " + password)
+debug("!!!! user = " + user.pass)
+debug("!!!! password = " + password)
       // warning  Potential timing attack, right side: true
       // security/detect-possible-timing-attacks
   		if(user.pass != password)

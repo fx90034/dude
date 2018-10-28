@@ -12,11 +12,7 @@ const session = require('express-session');
 const cors = require('cors');
 const favicon = require('serve-favicon');
 const engine = require('ejs-locals');
-const passport = require('passport');
 const errorHandler = require('errorhandler');
-const router = require('./routes');
-const validator = require('validator');
-
 const debug = require('debug')('http');
 
 // The Passport require must be below all models
@@ -28,20 +24,19 @@ const isProduction = process.env.NODE_ENV === 'production';
 // Create a new Express application.
 var app = express();
 
-// Configure our app
-app.use(cors());
-app.use(router);
-
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
-
+app.use(cors());
 app.use(require('morgan')('dev')); // ('combined'));
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(cookieParser());
 
+// If you run into a 500 error "Cannot set property X of undefined", it means that
+// you placed those lines below app.use(app.router).
+// It's important that app.use(app.router) is below in your configuration function.
 app.use(session({
-	secret: 'bingobo',
+	secret: 'temp secret',
 	cookie: {
 		httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
 		secure: false, // only send cookie over https
@@ -51,209 +46,25 @@ app.use(session({
 	saveUninitialized: false
 }));
 
-// app.use(express.static(path.join(__dirname, '/views')));
-app.use(express.static('../public'));
 // Configure view engine to render EJS templates.
 // app.set('views', __dirname + '/views');
 // app.set('views', '../public');
 app.set('view engine', 'ejs');
 app.engine('ejs', engine);
 
-// Initialize Passport and restore authentication state, if any, from the session.
-require('./routes/auth/init')//.init(app);
-app.use(passport.initialize());
-app.use(passport.session());
+// app.use(express.static(path.join(__dirname, '/views')));
+app.use(express.static('../public'));
+// Configure our app
+const router = require('./routes');
+app.use(router);
+const auth = require('./routes/auth');
+app.use('/auth', auth);
 
 // Define routes.
 app.get('/',
 	function(req, res) {
-		res.render('index', { title: req.user, body: req.user });
+		res.render('auth/index', { title: req.user, body: req.user });
 	});
-
-app.get('/home',
-	function(req, res) {
-		var user = req.session.user;
-		var message = req.message;
-		if(user) {
-debug('username = ' + user.name);
-			res.render('main', { title: user.name, user: user.name });
-		}
-		else
-			res.render('home', { message: message });
-	});
-
-app.post('/pass',
-	function(req, res) {
-		var username = req.body.username;
-debug('In pass: ' + username);
-		if(username) {
-			if(validator.isMobilePhone(username, "en-US")) {
-debug('isMobilePhone: username = ' + username)
-				res.render('pass', { username: username, message: '' });
-				return;
-			}
-
-			else if(validator.isEmail(username)) {
-debug('isEmail: username = ' + username)
-				res.render('pass', { username: username, message: '' });
-				return;
-			}
-		}
-
-		res.render('home', { message: "Please enter a valid username to get started." });
-	});
-
-var Users = [];
-
-app.get('/signup', function(req, res){
-   res.render('signup');
-});
-
-app.post('/signup', function(req, res){
-	let username = req.body.username;
-debug('signup: username = ' + username)
-debug("Users length = " + Users.length)
-  if(!username) {
-//      res.status("400");
-//      res.send("Invalid details!");
-		res.render('signup', { message: "Please enter your username to get started." });
-		return;
-   }
-
-	 else {
-		 // TODO: Verify against database
-      Users.filter(function(user){
-debug('signup: Users = ' + user.name)
-         if(user.name.toUpperCase() === username.toUpperCase()){
-            res.render('signup', {
-               message: "User Already Exists! Login or choose a different username" });
-						return;
-         }
-      });
-		}
-
-		if(validator.isMobilePhone(username, "en-US")) {
-debug('isMobilePhone: username = ' + username)
-			res.render('credential', { user: username, type: 'phone', message: '' });
-			return;
-		}
-
-		else if(validator.isEmail(username)) {
-debug('isEmail: username = ' + username)
-			res.render('credential', { user: username, type: 'email', message: '' });
-			return;
-		}
-
-		res.render('home', { message: "Please enter a valid username to get started."});
-});
-
-app.get('/credential', function(req, res) {
-	res.render('signup');
-});
-
-app.post('/credential', function(req, res) {
-	var user = req.body.username;
-	var pass = req.body.password;
-	var type = req.body.type;
-	var remember = req.body.remember;
-debug('creadential: user = ' + user)
-debug('creadential: pass = ' + pass)
-debug('creadential: type = ' + type)
-debug('creadential: remember = ' + remember)
-	if(!user){
-//    res.status("400");
-//    res.send("Invalid details!");
-		res.render('signup', { message: "Please enter your username to get started."});
-		return;
-  }
-
-//	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
-//		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
-		var newUser = { id: null, name: user, type: type, pass: pass, remember: remember };
-		Users.push(newUser);
-		req.session.user = newUser;
-
-		const db = require('./models');
-		var id;
-		db.users.addNewUser(newUser, function(err, id) {
-			if(!err) {
-				newUser.id = id;
-				res.render('profile', { user: newUser });
-			}
-		});
-//	}
-//	else
-//		res.render('credential', { user: user , type: type, message: "Please enter a valid password." });
-//																message: "Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long."});
-});
-
-app.get('/login',
-	function(req, res, next){
-		res.render('login');
-	});
-/*
-app.post('/login',
-	passport.authenticate('local', {
-    successRedirect: 'profile',
-    failureRedirect: 'home' }),
-	function(req, res) {
-		res.redirect('/');
-	});
-*/
-app.post('/login', function(req, res, next) {
-  passport.authenticate('local', function(err, user, info) {
-    if (err) {
-			console.error(err);
-			res.redirect('pass', { username: '', message: 'Failed authentication.' });
-			// return next(err);
-		}
-    if (!user) {
-			console.error("User not found.");
-			console.error(info.message);
-			return res.render('pass', { username: '', message: info.message });
-		}
-    req.logIn(user, function(err) {
-			debug("!!")
-      if (err) { return next(err); }
-      return res.redirect('profile');
-    });
-  })(req, res, next);
-});
-
-app.get('/logout',
-	function(req, res){
-    req.session.destroy(function(){
-      console.log("user logged out.")
-   });
-		req.logout();
-		res.redirect('/home');
-	});
-
-app.get('/profile',
-	require('connect-ensure-login').ensureLoggedIn(),
-	function(req, res){
-		res.render('profile', { user: req.user });
-	});
-
-function checkSignIn(req, res){
-   if(req.session.user){
-      next();     //If session exists, proceed to page
-   } else {
-      var err = new Error("Not logged in!");
-      console.log(req.session.user);
-      next(err);  //Error, trying to access unauthorized page!
-   }
-}
-
-app.get('/protected_page', checkSignIn, function(req, res){
-   res.render('protected_page', {id: req.session.user.id})
-});
-
-app.use('/protected_page', function(err, req, res, next){
-console.log(err);
-   //User should be authenticated! Redirect him to log in.
-   res.redirect('/login');
-});
 
 app.get('*', function(req, res){
    res.send('Sorry, this is an invalid URL.');
