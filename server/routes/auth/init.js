@@ -71,13 +71,25 @@ debug("pass = " + user.doc.pass)
     serializing, and querying the user record by ID from the database when
     deserializing.
 */
+/*
 passport.serializeUser(function(user, callback) {
   callback(null, user._id);
 });
 
 passport.deserializeUser(function(_id, callback) {
-  db.users.findById(_id, function (err, user) {
+  db.users.findById(id, function (err, user) {
     if (err) { return callback(err); }
     callback(null, user);
+  });
+});
+*/
+passport.serializeUser(function(user, callback) {
+  callback(null, user.name);
+});
+
+passport.deserializeUser(function(name, callback) {
+  db.users.queryUser(name, function (err, user) {
+    if (err) { return callback(err); }
+    callback(null, user.doc);
   });
 });

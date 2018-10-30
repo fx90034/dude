@@ -83,9 +83,6 @@ debug('signup: Users = ' + user.name)
          }
       });
 */
-  if(type === 'email')
-    username = username.toLowerCase();
-
   db.users.queryUser(username, function(err, body) {
    if(body) {
        res.render('auth/signup', { message: "User Already Exists! Login or choose a different username" });
@@ -129,8 +126,8 @@ debug('creadential: remember = ' + remember)
 
 		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {
-				newUser.id = body._id;
-				res.render('auth/profile', { user: body });
+				newUser._id = body.id;
+				res.render('auth/profile', { user: newUser });
 			}
 		});
 //	}
@@ -156,7 +153,7 @@ router.post('/login', function(req, res, next) {
   passport.authenticate('local', function(err, user, info) {
     if (err) {
 			console.error(err);
-			res.redirect('auth/pass', { username: '', message: 'Failed authentication.' });
+			res.render('auth/pass', { username: '', message: 'Failed authentication.' });
 			// return next(err);
 		}
     if (!user) {
@@ -176,11 +173,12 @@ debug("in auth/login: req.session.user = " + user.name);
 
 router.get('/logout',
 	function(req, res){
+debug('in logout: ' + req.session.user._id)
     req.session.destroy(function(){
       console.log("user logged out.")
    });
 		req.logout();
-		res.redirect('home');
+		res.render('auth/home', { message: '' });
 	});
 
 router.get('/profile',

@@ -12,6 +12,7 @@ var records = [
 ];
 
 exports.findById = function(id, callback) {
+debug("in findById: id = " + id);
 	process.nextTick(function() {
 		var idx = id - 1;
 		if (records[idx]) {
@@ -57,7 +58,7 @@ debug("user.pass = " + user.pass);
 exports.queryUser = function(username, callback) {
 debug("queryUser: " + username);
 //	user.search('users', 'user_name', { type: 'email' }).then((body) => {
-	users.view('auth', 'username', {'key': username,  'include_docs': true }, function(err, body) {
+	users.view('auth', 'username', {'key': username.toLowerCase(),  'include_docs': true }, function(err, body) {
 		if(err) {
 			console.error(err);
 			return callback(err, null);
