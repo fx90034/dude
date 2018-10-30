@@ -93,7 +93,7 @@ debug('signup: Users = ' + user.name)
    }
 
    else {
-     res.render('auth/credential', { user: username, type: 'email', message: '' });
+     res.render('auth/credential', { user: username, type: type, message: '' });
    }
   });
 });
@@ -167,8 +167,9 @@ router.post('/login', function(req, res, next) {
     req.logIn(user, function(err) {
       if (err) { return next(err); }
       req.session.user = user;
+debug(user)
 debug("in auth/login: req.session.user = " + user.name);
-      return res.redirect('profile');
+      return res.render('auth/profile', { user: user });
     });
   })(req, res, next);
 });
@@ -183,8 +184,9 @@ router.get('/logout',
 	});
 
 router.get('/profile',
-	require('connect-ensure-login').ensureLoggedIn(),
+//	require('connect-ensure-login').ensureLoggedIn(),
 	function(req, res){
+debug("In /profile.")
 		res.render('auth/profile', { user: req.session.user });
 	});
 

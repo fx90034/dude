@@ -57,12 +57,21 @@ debug("user.pass = " + user.pass);
 exports.queryUser = function(username, callback) {
 debug("queryUser: " + username);
 //	user.search('users', 'user_name', { type: 'email' }).then((body) => {
-	users.view('auth', 'username', { 'type': 'email', include_docs: true }, function(err, body) {
+	users.view('auth', 'username', {'key': username,  'include_docs': true }, function(err, body) {
 		if(err) {
 			console.error(err);
 			return callback(err, null);
 		}
 /* debug(body.rows)
+alice.view('characters', 'happy_ones', {
+  'key': 'Tea Party',
+  'include_docs': true
+}).then((body) => {
+  body.rows.forEach((doc) => {
+    console.log(doc.value);
+  });
+});
+//  body.rows.foreach(function(doc) {}
 		for (i=0; i<body.rows.length; i++) {
 //		body.rows.foreach(function(doc) {
 debug(body.rows[i].value)

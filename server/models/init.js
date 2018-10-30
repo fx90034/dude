@@ -10,7 +10,7 @@ try {
          "views": {
             "username": {
                "map": function (doc) {
-                  emit(doc.name, doc.name);
+                  emit(doc.name, doc.pass);
                }
             }
          }
