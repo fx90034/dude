@@ -1,5 +1,10 @@
 // server/db/users.js
 
+// var nano = require('nano')('http://localhost:8825');
+// var users = nano.use('users');
+var users = require('nano')('http://localhost:8825/users');
+const debug = require('debug')('http');
+
 var records = [
 	{ id: 1, name: 'jack', pass: 'secret', displayName: 'Jack', emails: [ { value: 'jack@example.com' } ] }
 	, { id: 2, name: 'jill', pass: 'birthday', displayName: 'Jill', emails: [ { value: 'jill@example.com' } ] }
@@ -18,11 +23,11 @@ exports.findById = function(id, callback) {
 };
 
 exports.findByUsername = function(name, callback) {
-console.log("findByUsername: name = " + name)
+debug("findByUsername: name = " + name)
 	process.nextTick(function() {
 		for (var i = 0, len = records.length; i < len; i++) {
 			var record = records[i];
-console.log("record.name = " + record.name)
+debug("record.name = " + record.name)
 			if (record.name.toUpperCase() === name.toUpperCase()) {
 				console.log("User found:" + name);
 				return callback(null, record);
@@ -33,12 +38,48 @@ console.log("record.name = " + record.name)
 };
 
 exports.addNewUser = function(user, callback) {
-	var len = records.length;
-console.log("user.name = " + user.name);
-console.log("user.pass = " + user.pass);
+debug("addNewUser");
+debug("user.name = " + user.name);
+debug("user.pass = " + user.pass);
 //	var newUser = { id: len+1, name: user, type: type, pass: pass, remember: remember };
-	var newUser = { id: len+1, name: user.name, pass: user.pass, remember: user.remember };
-	records.push(newUser);
+	var newUser = { name: user.name, pass: user.pass, remember: user.remember, type: user.type, key: 'users' };
+//	records.push(newUser);
+	users.insert(newUser, null, function(err, body) {
+		if(err) {
+			console.err(err);
+			return callback(err, null);
+		}
+		console.log(body);
+		callback(null,body);
+	});
+}
 
-	return callback(null, len+1);
+exports.queryUser = function(username, callback) {
+debug("queryUser: " + username);
+//	user.search('users', 'user_name', { type: 'email' }).then((body) => {
+	users.view('auth', 'username', { 'type': 'email', include_docs: true }, function(err, body) {
+		if(err) {
+			console.error(err);
+			return callback(err, null);
+		}
+/* debug(body.rows)
+		for (i=0; i<body.rows.length; i++) {
+//		body.rows.foreach(function(doc) {
+debug(body.rows[i].value)
+			if(body.rows[i].value === username) {
+				return callback(null, true);
+			}
+		}
+		callback(null, false); */
+debug(body)
+		if(body.rows.length == 0)
+			return callback(null, null);
+		else
+			return callback(null, body.rows[0]);
+	});
+}
+
+exports.updateUser = function(user, callback) {
+debug("updateUser");
+
 }

@@ -5,6 +5,7 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const db = require('../../models/users');
 const debug = require('debug')('http');
+const bcrypt = require('bcrypt');
 /*
 const USER = {
 	username: 'test-user',
@@ -22,30 +23,38 @@ const USER = {
 //function initPassport () {
   passport.use(new LocalStrategy((username, password, callback) => {
 debug('@@@@@@@@@@@@@')
-  	db.users.findByUsername(username, (err, user) => {
+  	db.users.queryUser(username, (err, user) => {
   		if(err)
   			return callback(err);
 
   		// user not found
   		if(!user)
   			return callback(null, false, { message: "Invalid username or password" });
-debug("!!!! user = " + user.pass)
+debug("!!!! user = " + username)
 debug("!!!! password = " + password)
-      // warning  Potential timing attack, right side: true
-      // security/detect-possible-timing-attacks
+debug("pass = " + user.doc.pass)
+      /* warning  Potential timing attack, right side: true
+         security/detect-possible-timing-attacks
   		if(user.pass != password)
   			return callback(null, false, { message: "Invalid username or password" });
 
-  		return callback(null, user);
-  		/* Always use hashed passwords and fixed time comparison
-  		bcrypt.compare(pass, User.pass, (err, isValid) => {
+  		return callback(null, user); */
+  		// Always use hashed passwords and fixed time comparison
+      if(bcrypt.compareSync(password, user.doc.pass)) {
+        return callback(null, user.doc);
+      }
+      else {
+        return callback(null, false, { message: "Invalid username or password" });
+      }
+/*
+  		bcrypt.compare(hash, user.pass, (err, isValid) => {
   			if(err)
   				return callback(err);
 
   			if(!isValid)
-  				return callback(null, false);
+  				return callback(null, false, { message: "Invalid username or password" });
 
-  			return callback(null, User);
+  			return callback(null, user);
   		}); */
   	});
   }
@@ -63,11 +72,11 @@ debug("!!!! password = " + password)
     deserializing.
 */
 passport.serializeUser(function(user, callback) {
-  callback(null, user.id);
+  callback(null, user._id);
 });
 
-passport.deserializeUser(function(id, callback) {
-  db.users.findById(id, function (err, user) {
+passport.deserializeUser(function(_id, callback) {
+  db.users.findById(_id, function (err, user) {
     if (err) { return callback(err); }
     callback(null, user);
   });

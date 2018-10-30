@@ -136,8 +136,7 @@ var server = app.listen(7398, function() {
     else {
       console.log("debug is not enabled");
     }
-    debug("debug is asdf");
-    debug('isProduction = ' + isProduction);
+debug('isProduction = ' + isProduction);
   }
  console.log('Express server listening on port %s', port);
 });

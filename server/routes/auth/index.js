@@ -3,6 +3,8 @@ const router = express.Router();
 const debug = require('debug')('http');
 const validator = require('validator');
 const passport = require('passport');
+const db = require('../../models/users');
+const bcrypt = require('bcrypt');
 
 // Initialize Passport and restore authentication state, if any, from the session.
 require('./init')//.init(app);
@@ -15,8 +17,9 @@ router.get('/home',
 	function(req, res) {
 		var user = req.session.user;
 		var message = req.message;
+debug("req.session.user = " + user);
 		if(user) {
-debug('username = ' + user.name);
+debug('In auth/home: username = ' + user.name);
 			res.render('auth/main', { title: user.name, user: user.name });
 		}
 		else
@@ -44,16 +47,12 @@ debug('isEmail: username = ' + username)
 		res.render('auth/home', { message: "Please enter a valid username to get started." });
 	});
 
-var Users = [];
-
-router.get('/signup', function(req, res){
-   res.render('auth/signup');
-});
+// var Users = [];
 
 router.post('/signup', function(req, res){
 	let username = req.body.username;
-debug('signup: username = ' + username)
-debug("Users length = " + Users.length)
+  let type = '';
+debug('signup: username = ' + username);
   if(!username) {
 //      res.status("400");
 //      res.send("Invalid details!");
@@ -61,8 +60,20 @@ debug("Users length = " + Users.length)
 		return;
    }
 
-	 else {
-		 // TODO: Verify against database
+	if(validator.isMobilePhone(username, "en-US")) {
+    type = 'phone';
+  }
+
+  else if(validator.isEmail(username)) {
+    type = 'email';
+  }
+
+  else {
+debug('validation failed: ' + username)
+	   res.render('auth/home', { message: "Please enter a valid username to get started."});
+     return;
+  }
+/*
       Users.filter(function(user){
 debug('signup: Users = ' + user.name)
          if(user.name.toUpperCase() === username.toUpperCase()){
@@ -71,25 +82,24 @@ debug('signup: Users = ' + user.name)
 						return;
          }
       });
-		}
+*/
+  if(type === 'email')
+    username = username.toLowerCase();
 
-		if(validator.isMobilePhone(username, "en-US")) {
-debug('isMobilePhone: username = ' + username)
-			res.render('auth/credential', { user: username, type: 'phone', message: '' });
-			return;
-		}
+  db.users.queryUser(username, function(err, body) {
+   if(body) {
+       res.render('auth/signup', { message: "User Already Exists! Login or choose a different username" });
+       return;
+   }
 
-		else if(validator.isEmail(username)) {
-debug('isEmail: username = ' + username)
-			res.render('auth/credential', { user: username, type: 'email', message: '' });
-			return;
-		}
-
-		res.render('auth/home', { message: "Please enter a valid username to get started."});
+   else {
+     res.render('auth/credential', { user: username, type: 'email', message: '' });
+   }
+  });
 });
 
 router.get('/credential', function(req, res) {
-	res.render('signup');
+	res.render('auth/home', { message: '' } );
 });
 
 router.post('/credential', function(req, res) {
@@ -97,6 +107,8 @@ router.post('/credential', function(req, res) {
 	var pass = req.body.password;
 	var type = req.body.type;
 	var remember = req.body.remember;
+  if(type === 'email')
+    user = user.toLowerCase();
 debug('creadential: user = ' + user)
 debug('creadential: pass = ' + pass)
 debug('creadential: type = ' + type)
@@ -110,16 +122,15 @@ debug('creadential: remember = ' + remember)
 
 //	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
 //		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
-		var newUser = { id: null, name: user, type: type, pass: pass, remember: remember };
-		Users.push(newUser);
+    let hash = bcrypt.hashSync(pass, 10);
+		var newUser = { name: user, type: type, pass: hash, remember: remember };
+//		Users.push(newUser);
 		req.session.user = newUser;
 
-		const db = require('../../models/users');
-		var id;
-		db.users.addNewUser(newUser, function(err, id) {
+		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {
-				newUser.id = id;
-				res.render('auth/profile', { user: newUser });
+				newUser.id = body._id;
+				res.render('auth/profile', { user: body });
 			}
 		});
 //	}
@@ -154,9 +165,9 @@ router.post('/login', function(req, res, next) {
 			return res.render('auth/pass', { username: '', message: info.message });
 		}
     req.logIn(user, function(err) {
-debug("!!login")
       if (err) { return next(err); }
       req.session.user = user;
+debug("in auth/login: req.session.user = " + user.name);
       return res.redirect('profile');
     });
   })(req, res, next);
@@ -174,7 +185,7 @@ router.get('/logout',
 router.get('/profile',
 	require('connect-ensure-login').ensureLoggedIn(),
 	function(req, res){
-		res.render('auth/profile', { user: req.user });
+		res.render('auth/profile', { user: req.session.user });
 	});
 
 function checkSignIn(req, res){
