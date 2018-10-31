@@ -43,9 +43,9 @@ debug("addNewUser");
 debug("user.name = " + user.name);
 debug("user.pass = " + user.pass);
 //	var newUser = { id: len+1, name: user, type: type, pass: pass, remember: remember };
-	var newUser = { name: user.name, pass: user.pass, remember: user.remember, type: user.type, key: 'users' };
+//	var newUser = { name: user.name, pass: user.pass, remember: user.remember, type: user.type, key: 'users' };
 //	records.push(newUser);
-	users.insert(newUser, null, function(err, body) {
+	users.insert(user, null, function(err, body) {
 		if(err) {
 			console.err(err);
 			return callback(err, null);
@@ -58,7 +58,7 @@ debug("user.pass = " + user.pass);
 exports.queryUser = function(username, callback) {
 debug("queryUser: " + username);
 //	user.search('users', 'user_name', { type: 'email' }).then((body) => {
-	users.view('auth', 'username', {'key': username.toLowerCase(),  'include_docs': true }, function(err, body) {
+	users.view('auth', 'by_username', {'key': username.toLowerCase(),  'include_docs': true }, function(err, body) {
 		if(err) {
 			console.error(err);
 			return callback(err, null);
@@ -89,7 +89,19 @@ debug(body)
 	});
 }
 
+exports.loadSingedInUsers=  function(callback) {
+	users.view('auth', 'by_ip', function(err, body) {
+		if(err) {
+			console.error(err);
+			return callback(err, null);
+		}
+debug(body);
+		if(body.rows.length == 0)
+			return callback(null, null);
+		else
+			return callback(null, body.rows);
+	});
+}
 exports.updateUser = function(user, callback) {
 debug("updateUser");
-
 }

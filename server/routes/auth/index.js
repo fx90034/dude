@@ -11,19 +11,41 @@ require('./init')//.init(app);
 router.use(passport.initialize());
 router.use(passport.session());
 
-router.use('/users', require('./users'));
+// router.use('/users', require('./users'));
 
-router.get('/home',
+var signedInUsernames = new Map();
+db.users.loadSingedInUsers(function(err, signedInUsers) {
+	if(!err && signedInUsers && signedInUsers.length != 0) {
+		signedInUsers.forEach(function(user) {
+			signedInUsernames.set(user.key, user.value);
+		});
+	}
+});
+
+router.get('/start',
 	function(req, res) {
-		var user = req.session.user;
-		var message = req.message;
-debug("req.session.user = " + user);
+//		signedInIps.filter(function(ip) {
+debug("req.ip = " + req.ip)
+		let user = signedInUsernames.get(req.ip);
+		 if(user) {
+			 req.session.user = user;
+				res.render('apps/main', { user: user });
+				return;
+		 }
+		 else {
+			 user = req.session.user;
+		 }
+/*
+debug(req.cookies.rememberme)
+		if(req.cookies.rememberme == 1)
+			req.session.user = req.cookies.name;
+*/
 		if(user) {
-debug('In auth/home: username = ' + user.name);
-			res.render('apps/main', { title: user.name, user: user.name });
+debug('In auth/home: username = ' + user);
+			res.render('apps/main', { title: user, user: user });
+			return;
 		}
-		else
-			res.render('auth/home', { message: message });
+		res.render('auth/home', { message: req.message });
 	});
 
 router.post('/pass',
@@ -46,8 +68,6 @@ debug('isEmail: username = ' + username)
 
 		res.render('auth/home', { message: "Please enter a valid username to get started." });
 	});
-
-// var Users = [];
 
 router.post('/signup', function(req, res){
 	let username = req.body.username;
@@ -73,16 +93,7 @@ debug('validation failed: ' + username)
 	   res.render('auth/home', { message: "Please enter a valid username to get started."});
      return;
   }
-/*
-      Users.filter(function(user){
-debug('signup: Users = ' + user.name)
-         if(user.name.toUpperCase() === username.toUpperCase()){
-            res.render('auth/signup', {
-               message: "User Already Exists! Login or choose a different username" });
-						return;
-         }
-      });
-*/
+
   db.users.queryUser(username, function(err, body) {
    if(body) {
        res.render('auth/signup', { message: "User Already Exists! Login or choose a different username" });
@@ -104,8 +115,11 @@ router.post('/credential', function(req, res) {
 	var pass = req.body.password;
 	var type = req.body.type;
 	var remember = req.body.remember;
+	var today = new Date(Date.now());
   if(type === 'email')
     user = user.toLowerCase();
+	if(remember === 'on')
+		ip = req.ip;
 debug('creadential: user = ' + user)
 debug('creadential: pass = ' + pass)
 debug('creadential: type = ' + type)
@@ -120,14 +134,26 @@ debug('creadential: remember = ' + remember)
 //	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
 //		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
     let hash = bcrypt.hashSync(pass, 10);
-		var newUser = { name: user, type: type, pass: hash, remember: remember };
-//		Users.push(newUser);
-		req.session.user = newUser;
+		var newUser = { name: user, type: type, pass: hash, ip: ip,
+										created_date: today, last_signed_in_date: today };
 
 		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {
+/*
+				if(remember === 'on') {
+debug("remember = " + remember)
+					var farFuture = new Date(new Date().getTime() + (1000*60*60*24*365*10)); // ~10y
+					res.cookie('name', user, { expires: farFuture, httpOnly: true });
+					res.cookie('rememberme', '1', { expires: farFuture, httpOnly: true });
+				}
+*/
 				newUser._id = body.id;
+				req.session.user = user;
 				res.render('apps/main', { user: newUser });
+			}
+
+			else {
+				res.render('auth/pass', { username: '', message:  err.message });
 			}
 		});
 //	}
@@ -173,7 +199,6 @@ debug("in auth/login: req.session.user = " + user.name);
 
 router.get('/logout',
 	function(req, res){
-debug('in logout: ' + req.session.user._id)
     req.session.destroy(function(){
       console.log("user logged out.")
    });

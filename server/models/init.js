@@ -8,19 +8,25 @@ try {
       var users = nano.use('users');
       users.insert({
          "views": {
-            "username": {
+            "by_username": {
                "map": function (doc) {
-                  emit(doc.name, doc.pass);
+                  emit(doc.name, doc.last_signed_in_date);
+               }
+            },
+            "by_ip": {
+               "map": function (doc) {
+                  emit(doc.ip, doc.name);
                }
             }
          }
       }, '_design/auth', function (error, response) {
-         console.log("View 'auth/username' is created.");
+        console.log("View 'by_username' is created.");
+        console.log("View 'by_ip' is created.");
+        console.log("Design document 'auth' is created in database 'users'.");
+        console.log("Database 'users' is initialized.");
       });
     });
   });
 } catch(err) {
   console.log(err);
 }
-
-console.log("Database 'users' is initialized.");
