@@ -20,7 +20,7 @@ router.get('/home',
 debug("req.session.user = " + user);
 		if(user) {
 debug('In auth/home: username = ' + user.name);
-			res.render('auth/main', { title: user.name, user: user.name });
+			res.render('apps/main', { title: user.name, user: user.name });
 		}
 		else
 			res.render('auth/home', { message: message });
@@ -127,7 +127,7 @@ debug('creadential: remember = ' + remember)
 		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {
 				newUser._id = body.id;
-				res.render('auth/profile', { user: newUser });
+				res.render('apps/main', { user: newUser });
 			}
 		});
 //	}
@@ -166,7 +166,7 @@ router.post('/login', function(req, res, next) {
       req.session.user = user;
 debug(user)
 debug("in auth/login: req.session.user = " + user.name);
-      return res.render('auth/profile', { user: user });
+      return res.render('apps/main', { user: user });
     });
   })(req, res, next);
 });

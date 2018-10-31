@@ -63,7 +63,7 @@ app.use('/auth', auth);
 // Define routes.
 app.get('/',
 	function(req, res) {
-		res.render('auth/index', { title: req.user, body: req.user });
+		res.render('index', { title: req.user, body: req.user });
 	});
 
 app.get('*', function(req, res){
