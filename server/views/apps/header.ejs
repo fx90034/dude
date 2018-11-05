@@ -1,18 +1,21 @@
 <div class="d-flex justify-content-center">
-<nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #fff;">
-  <a class="navbar-brand">
-    <img src="images/logo.jpg" width="50" height="50" alt="">
-    <span style="font-size:28px; valiagn="bottom"><b> &nbsp; SmartHub &nbsp; </b></span>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav" style="background-color: #fff;">
+  <a class="navbar-brand" style="float: left">
+    <img src="images/logo.jpg" width="40" height="40" alt="">
+    <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmartHub &nbsp; </b></span>
   </a>
+  <button class="navbar-toggler" type="button" style="border-color: rgb(255,255,255);" onclick="show_menu();">
+  <!--
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
-           style="border-color: rgb(255,255,255);">
+          id="nav-toggle" style="border-color: rgb(255,255,255);">
+  -->
   <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse" id="navbarNav">
+  <div class="collapse navbar-collapse topnav" style="float: right">
     <ul class="navbar-nav" style="font-size:16px;">
       <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link active" href="#">Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Profile</a>
@@ -21,6 +24,8 @@
         <a class="nav-link" href="#">Messages</a>
       </li>
       <li class="nav-item">
+        <a class="nav-link" href="#">Settings</a>
+<!-- dropdown
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
@@ -28,6 +33,7 @@
             <a class="dropdown-item" href="#">Another action</a>
             <a class="dropdown-item" href="#">Something else here</a>
           </div>
+-->
       </li>
       <li class="nav-item">
         <a class="nav-link disabled" href="#">About</a>
@@ -38,4 +44,31 @@
     </ul>
   </div>
 </nav>
+</div>
+
+<div style="display:none; position: relative;" id="menu">
+  <div class="" style="margin:0px; padding:20px; border-bottom:2px solid; border-color:lightgrey">
+    <span class="font-weight-bold" style="font-size:20px;"><%=user.name.split('@')[0] %></span>
+    <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
+  </div>
+  <ul class="navbar-nav" style="font-size:16px;margin:10px; padding:10px; ">
+    <li class="nav-item active">
+      <a class="nav-link font-weight-bold active" href="#">Home</a>
+    </li>
+    <li class="nav-item font-weight-bold">
+      <a class="nav-link font-weight-bold" href="#">Profile1</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bold" href="#">Messages</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bold" href="#">Settings</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link font-weight-bold disabled" href="#">About</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" href="/auth/logout">Signout</a>
+    </li>
+  </ul>
 </div>
