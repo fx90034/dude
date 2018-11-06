@@ -1,3 +1,49 @@
+<%
+var username = '';
+console.log("!!!user.name=" + user.name)
+if(user.name)
+  username = user.name.split('@')[0];
+%>
+<script type="text/javascript">
+var current = 'Home';
+function toggle_active(current) {
+  if(current == 'Home') {
+    document.getElementById("home").classList.add("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Profile') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.add("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Messages') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.add("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Settings') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'About') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.add("active");
+  }
+}
+</script>
 <div class="d-flex justify-content-center">
 <nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav" style="background-color: #fff;">
   <a class="navbar-brand" style="float: left">
@@ -15,16 +61,16 @@
   <div class="collapse navbar-collapse topnav" style="float: right">
     <ul class="navbar-nav" style="font-size:16px;">
       <li class="nav-item active">
-        <a class="nav-link active" href="#">Home</a>
+        <a class="nav-link active" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Profile</a>
+        <a class="nav-link" id="profile" onclick='javascript:toggle_active("Profile");'>Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Messages</a>
+        <a class="nav-link" id="messages" onclick='javascript:toggle_active("Messages");'>Messages</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="#">Settings</a>
+        <a class="nav-link" id="settings" onclick='javascript:toggle_active("Settings");'>Settings</a>
 <!-- dropdown
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -36,7 +82,7 @@
 -->
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" href="#">About</a>
+        <a class="nav-link disabled" onclick='javascript:toggle_active("About");'>About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/logout">Signout</a>
@@ -46,26 +92,36 @@
 </nav>
 </div>
 
-<div style="display:none; position: relative;" id="menu">
+<div style="display:none; position: relative; width:100%; margin:0px; padding:0px;" id="menu">
   <div class="" style="margin:0px; padding:20px; border-bottom:2px solid; border-color:lightgrey">
-    <span class="font-weight-bold" style="font-size:20px;"><%=user.name.split('@')[0] %></span>
+    <span class="font-weight-bold" style="font-size:20px;"><%=username %></span>
     <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
   </div>
-  <ul class="navbar-nav" style="font-size:16px;margin:10px; padding:10px; ">
-    <li class="nav-item active">
-      <a class="nav-link font-weight-bold active" href="#">Home</a>
+  <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a class="font-weight-bold active"href="#">
+      <span style="color:black;">Home</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
-    <li class="nav-item font-weight-bold">
-      <a class="nav-link font-weight-bold" href="#">Profile1</a>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a class="font-weight-bold" href="#">
+      <span style="color:black;">Profile1</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link font-weight-bold" href="#">Messages</a>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a class="font-weight-bold" href="#">
+      <span style="color:black;">Messages</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link font-weight-bold" href="#">Settings</a>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a class="font-weight-bold disabled" href="#">
+      <span style="color:black;">Settings</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link font-weight-bold disabled" href="#">About</a>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a class="font-weight-bold disabled" href="#">
+      <span style="color:black;">About</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="/auth/logout">Signout</a>

@@ -26,14 +26,18 @@ router.get('/start',
 	function(req, res) {
 //		signedInIps.filter(function(ip) {
 debug("req.ip = " + req.ip)
-		let user = signedInUsernames.get(req.ip);
-		 if(user) {
-			 req.session.user = user;
-				res.render('apps/main', { user: user });
-				return;
-		 }
-		 else {
-			 user = req.session.user;
+		let username = signedInUsernames.get(req.ip);
+		let user = req.session.user;
+		 if(username) {
+			 if(user == null) {
+				 user = { name: username };
+				 req.session.user = user;
+			 }
+			 else {
+			  user.name = username;
+			}
+			res.render('apps/main', { user: user });
+			return;
 		 }
 /*
 debug(req.cookies.rememberme)
