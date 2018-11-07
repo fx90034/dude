@@ -43,10 +43,13 @@ function toggle_active(current) {
     document.getElementById("about").classList.add("active");
   }
 }
+function signout() {
+  window.location.href = "auth/logout";
+}
 </script>
-<div class="d-flex justify-content-center">
-<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav" style="background-color: #fff;">
-  <a class="navbar-brand" style="float: left">
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav">
+  <a class="navbar-brand">
     <img src="images/logo.jpg" width="40" height="40" alt="">
     <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmartHub &nbsp; </b></span>
   </a>
@@ -60,7 +63,7 @@ function toggle_active(current) {
   </button>
   <div class="collapse navbar-collapse topnav" style="float: right">
     <ul class="navbar-nav" style="font-size:16px;">
-      <li class="nav-item active">
+      <li class="nav-item">
         <a class="nav-link active" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
       </li>
       <li class="nav-item">
@@ -90,41 +93,46 @@ function toggle_active(current) {
     </ul>
   </div>
 </nav>
-</div>
+
 
 <div style="display:none; position: relative; width:100%; margin:0px; padding:0px;" id="menu">
-  <div class="" style="margin:0px; padding:20px; border-bottom:2px solid; border-color:lightgrey">
+  <div style="margin:0px; padding-bottom:20px; border-bottom:2px solid; border-color:lightgrey">
     <span class="font-weight-bold" style="font-size:20px;"><%=username %></span>
     <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
   </div>
+  <div style="margin-bottom:100px">
   <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a class="font-weight-bold active"href="#">
+      <a href="#">
       <span style="color:black;">Home</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a class="font-weight-bold" href="#">
+      <a href="#">
       <span style="color:black;">Profile1</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a class="font-weight-bold" href="#">
+      <a href="#">
       <span style="color:black;">Messages</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a class="font-weight-bold disabled" href="#">
+      <a href="#">
       <span style="color:black;">Settings</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a class="font-weight-bold disabled" href="#">
+      <a href="#">
       <span style="color:black;">About</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="/auth/logout">Signout</a>
-    </li>
   </ul>
+  </div>
+  <div class="d-flex justify-content-center">
+      <button class="btn btn-outline-dark btn-lg font-weight-bold"
+                  style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
+                  tabindex="-1" role="button" onclick="signout();">Sign Out</button>
+      <a class="nav-link" href="/auth/feedback">Feedback</a>
+  </div>
 </div>

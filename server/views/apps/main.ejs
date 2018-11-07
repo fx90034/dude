@@ -29,6 +29,23 @@ function close_menu() {
     menu_display = "none";
   }
 }
+var current = 'Home';
+function toggle_active(current) {
+  if(current == 'Home') {
+    document.getElementById("home").classList.add("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Profile') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.add("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+}
 </script>
 <head>
     <% include ../head.ejs%>
@@ -36,7 +53,7 @@ function close_menu() {
 <body>
 <% include header.ejs%>
 
-<div class="container" id="container" style="z-index:0">
+<div class="container" id="container" style="background-color: #ddd;z-index:0">
   <ul class="list-group list-group-flush">
     <li class="list-group-item ">
       <button type="button" class="list-group-item list-group-item-action active">
@@ -59,8 +76,6 @@ function close_menu() {
   </ul>
 </div><!-- /.container -->
 
-<% include ../footer.ejs%>
-
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
 <script src="/lib/bootstrap/js/popper.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
@@ -71,6 +86,8 @@ document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
   this.classList.toggle( "active" );
 });
 </script> -->
-
 </body>
+<footer>
+  <% include ../footer.ejs%>
+</footer>
 </html>

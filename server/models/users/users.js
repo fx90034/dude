@@ -45,22 +45,24 @@ debug("user.pass = " + user.pass);
 //	var newUser = { id: len+1, name: user, type: type, pass: pass, remember: remember };
 //	var newUser = { name: user.name, pass: user.pass, remember: user.remember, type: user.type, key: 'users' };
 //	records.push(newUser);
-	if(this.queryUser(user.name, function(err, body) {
+	this.queryUser(user.name, function(err, body) {
 debug("!!!body=" + body)
 		if(body != null) {
 			console.log("user: " + user.name + " has already signed up.");
-			return;
+			return callback(null,body);;
 		}
-	}))
+		else {
 debug("@!!")
-	users.insert(user, null, function(err, body) {
-		if(err) {
-			console.err(err);
-			return callback(err, null);
-		}
-		console.log(body);
-		callback(null,body);
-	});
+		users.insert(user, null, function(err, body) {
+			if(err) {
+				console.err(err);
+				return callback(err, null);
+			}
+			console.log(body);
+			callback(null,body);
+		});
+	}
+	})
 }
 
 exports.queryUser = function(username, callback) {
