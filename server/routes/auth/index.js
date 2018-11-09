@@ -206,11 +206,10 @@ debug("in auth/login: req.session.user = " + user.name);
 router.get('/logout',
 	function(req, res){
 		req.logout();
-		res.render('auth/../index', { message: '' });
+		res.render('auth/../index');
 		req.session.destroy(function(){
 			console.log("user logged out.")
 	 });
-	 req.session.reset();
 });
 
 router.get('/profile',

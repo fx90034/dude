@@ -1,14 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
+<% include ../session.ejs%>
 <head>
     <% include ../head.ejs %>
 </head>
 <% console.log("In pass.ejs.");
    var msg = "Please enter a valid credential to login.";
-   if(message)
-    msg = message;
+   var autofocus = '';
+   if(message) {
+     msg = message;
+   }
+   else {
+      autofocus = 'autofocus';
+    }
+    console.log("message = " + message);
     console.log("Username = " + username);
+    console.log('autofocus = ' + autofocus);
  %>
 <body>
   <div id="holder">
@@ -28,7 +35,7 @@
       <div class="row" style="margin-top: 10px;font-size:small;">
           <label for="basic-url">Password</label>
           <input type="password" class="form-control" style="border-bottom:1px solid "
-                 name="password" value="" autofocus autocomplete="off">
+                 name="password" value="" <%=autofocus %> autocomplete="off">
       </div>
       <div class="row" style="margin-top: 10px;font-size:small; font-color: red">
           <label id="note" for="basic-url"></label>

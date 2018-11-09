@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <%  include ../head.ejs %>
-    <%  if(message == null || message == 'undefined')
-          message = '';
-console.log("In signup: " + message);
-    %>
-    <title>Sign Up</title>
-</head>
-
 <script type="text/javascript">
  function enable() {
    document.getElementById("next").disabled = false;
@@ -28,7 +18,15 @@ console.log("In signup: " + message);
    submit();
  }
 </script>
-
+<% include ../session.ejs%>
+<head>
+    <%  include ../head.ejs %>
+    <%  if(message == null || message == 'undefined')
+          message = '';
+console.log("In signup: " + message);
+    %>
+    <title>Sign Up</title>
+</head>
 <body>
   <div id="holder">
     <header>

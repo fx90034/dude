@@ -1,15 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <%  include ../head.ejs %>
-    <title>Home</title>
-    <% var msg = "SmeatHome: Bring you a sweat home.";
-       if(message)
-        msg = message;
-    %>
-</head>
-
 <script type="text/javascript">
   function enable() {
    document.getElementById("next").disabled = false;
@@ -28,7 +18,15 @@
      submit();
  }
 </script>
-
+<% include ../session.ejs%>
+<head>
+    <%  include ../head.ejs %>
+    <title>Home</title>
+    <% var msg = "SmeatHome: Bring you a sweat home.";
+       if(message)
+        msg = message;
+    %>
+</head>
 <body>
   <div id="holder">
     <header>

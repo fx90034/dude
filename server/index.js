@@ -10,7 +10,7 @@ const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
 const cors = require('cors');
-const favicon = require('serve-favicon');
+// const favicon = require('serve-favicon');
 const engine = require('ejs-locals');
 const errorHandler = require('errorhandler');
 const debug = require('debug')('http');
@@ -123,8 +123,9 @@ app.use('/auth', auth);
 // Check session expires
 app.use(function(req, res, next) {
 debug("req.url = " + req.url)
-debug("session = " +req.session.cookie.expires)
 	if(req.url != '/' && req.user != 'undefined') {
+// debug("req.user = " + req.user.name)
+debug("session = " +req.session.cookie.expires)
 		next();
 	}
 	else {

@@ -1,0 +1,26 @@
+<script type="text/javascript">
+var checking = false;
+var err = '';
+var time = new Date(Date.now());
+function checkSessionTimeout() {
+  let now = new Date(Date.now());
+ console.log("now = " + now)
+  console.log("time = " + time)
+  console.log("now - time = " + (now-time))
+  if(now - time >= 60*1000) {
+ alert('expired!')
+    window.location.href = '/';
+    return;
+  }
+  checking = false;
+}
+ console.log("11111" + time)
+window.setTimeout('checkSessionTimeout()', 100*1000);
+checking = true;
+document.addEventListener("click", function() {
+  time = new Date(Date.now());
+ console.log("22222" + time)
+  if(!checking)
+    window.setTimeout('checkSessionTimeout()', 60*1000);
+});
+</script>
