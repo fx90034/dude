@@ -24,7 +24,7 @@ const isProduction = process.env.NODE_ENV === 'production';
 
 // Create a new Express application.
 var app = express();
-var MemoryStore = require('memorystore')(session)
+// var MemoryStore = require('memorystore')(session)
 
 // Use application-level middleware for common functionality, including
 // logging, parsing, and session handling.
@@ -39,7 +39,7 @@ app.use(cookieParser());
 // It's important that app.use(app.router) is below in your configuration function.
 app.use(session({
 	secret: 'temp secret',
-	store: new MemoryStore({ checkPeriod: 60000 }),
+//	store: new MemoryStore({ checkPeriod: 60000 }),
 //	store   : new storage({ client : conn, cleanup: false }),
 //	maxAge: 60000,
 // duration: 60000, // 30 * 60 * 1000,
