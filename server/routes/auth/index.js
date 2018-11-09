@@ -7,9 +7,9 @@ const db = require('../../models/users');
 const bcrypt = require('bcrypt');
 
 // Initialize Passport and restore authentication state, if any, from the session.
-require('./init')//.init(app);
-router.use(passport.initialize());
-router.use(passport.session());
+// require('./init')//.init(app);
+// router.use(passport.initialize());
+// router.use(passport.session());
 
 // router.use('/users', require('./users'));
 
@@ -124,6 +124,8 @@ router.post('/credential', function(req, res) {
     user = user.toLowerCase();
 	if(remember === 'on')
 		ip = req.ip;
+	else
+		ip = '';
 debug('creadential: user = ' + user)
 debug('creadential: pass = ' + pass)
 debug('creadential: type = ' + type)
@@ -203,12 +205,13 @@ debug("in auth/login: req.session.user = " + user.name);
 
 router.get('/logout',
 	function(req, res){
-    req.session.destroy(function(){
-      console.log("user logged out.")
-   });
 		req.logout();
-		res.render('auth/home', { message: '' });
-	});
+		res.render('auth/../index', { message: '' });
+		req.session.destroy(function(){
+			console.log("user logged out.")
+	 });
+	 req.session.reset();
+});
 
 router.get('/profile',
 //	require('connect-ensure-login').ensureLoggedIn(),
