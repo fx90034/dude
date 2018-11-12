@@ -55,6 +55,8 @@ debug('In auth/home: username = ' + user);
 
 	router.get('/home',
 		function(req, res) {
+console.log("@@@@user " + req.session.user.name + " logged out.");
+			req.logout();
 			res.render('auth/home', { message: req.message });
 		}
 	);
@@ -180,7 +182,7 @@ debug("remember = " + remember)
 
 router.get('/login',
 	function(req, res, next){
-		res.render('auth/login');
+		res.render('auth/../index');
 	});
 /*
 app.post('/login',
@@ -215,11 +217,12 @@ debug("in auth/login: req.session.user = " + user.name);
 
 router.get('/logout',
 	function(req, res){
+console.log("user " + req.session.user.name + " logged out.");
 		req.logout();
 		res.render('auth/../index');
-		req.session.destroy(function(){
-			console.log("user logged out.")
-	 });
+/*		req.session.destroy(function(){
+			console.log("user " + session.user.name + " logged out.");
+	 }); */
 });
 
 router.get('/profile',
