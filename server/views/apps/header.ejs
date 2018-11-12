@@ -12,6 +12,7 @@ function toggle_active(current) {
     document.getElementById("profile").classList.remove("active");
     document.getElementById("messages").classList.remove("active");
     document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
   }
   else if(current == 'Profile') {
@@ -19,6 +20,7 @@ function toggle_active(current) {
     document.getElementById("profile").classList.add("active");
     document.getElementById("messages").classList.remove("active");
     document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
   }
   else if(current == 'Messages') {
@@ -26,6 +28,7 @@ function toggle_active(current) {
     document.getElementById("profile").classList.remove("active");
     document.getElementById("messages").classList.add("active");
     document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
   }
   else if(current == 'Settings') {
@@ -33,13 +36,24 @@ function toggle_active(current) {
     document.getElementById("profile").classList.remove("active");
     document.getElementById("messages").classList.remove("active");
     document.getElementById("settings").classList.add("active");
+    document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Switch') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+    window.location.href = 'auth/home';
   }
   else if(current == 'About') {
     document.getElementById("home").classList.remove("active");
     document.getElementById("profile").classList.remove("active");
     document.getElementById("messages").classList.remove("active");
     document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.add("active");
   }
 }
@@ -85,7 +99,10 @@ function signout() {
 -->
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" onclick='javascript:toggle_active("About");'>About</a>
+        <a class="nav-link" id="switch" onclick='javascript:toggle_active("Switch");'>Switch User</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" id="about" onclick='javascript:toggle_active("About");'>About</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="/auth/logout">Signout</a>
@@ -120,6 +137,11 @@ function signout() {
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="#">
       <span style="color:black;">Settings</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="auth/home">
+      <span style="color:black;">Switch User</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">

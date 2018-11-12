@@ -25,8 +25,9 @@ db.users.loadSingedInUsers(function(err, signedInUsers) {
 router.get('/start',
 	function(req, res) {
 //		signedInIps.filter(function(ip) {
-debug("req.ip = " + req.ip)
 		let username = signedInUsernames.get(req.ip);
+debug("req.ip = " + req.ip)
+debug("username = " + username)
 		let user = req.session.user;
 		 if(username) {
 			 if(user == null) {
@@ -51,6 +52,12 @@ debug('In auth/home: username = ' + user);
 		}
 		res.render('auth/home', { message: req.message });
 	});
+
+	router.get('/home',
+		function(req, res) {
+			res.render('auth/home', { message: req.message });
+		}
+	);
 
 router.post('/pass',
 	function(req, res) {
@@ -140,8 +147,9 @@ debug('creadential: remember = ' + remember)
 //	if(validator.matches(pass, "/^[a-zA-Z0-9]{3,30}$/")) {
 //		"/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/", "i")) {
     let hash = bcrypt.hashSync(pass, 10);
-		var newUser = { name: user, type: type, pass: hash, ip: ip,
-										created_date: today, last_signed_in_date: today };
+		var newUser = { name: user, type: type, pass: hash, created_date: today, last_signed_in_date: today };
+		if(ip)
+			newUser = { name: user, type: type, pass: hash, created_date: today, last_signed_in_date: today, ip: ip};
 
 		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {
@@ -155,6 +163,8 @@ debug("remember = " + remember)
 */
 				newUser._id = body.id;
 				req.session.user = user;
+				if(ip)
+					signedInUsernames.set(ip, user);
 				res.render('apps/main', { user: newUser });
 			}
 
