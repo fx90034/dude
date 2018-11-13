@@ -1,0 +1,94 @@
+<script type="text/javascript">
+var current = 'Home';
+function toggle_active(current) {
+  if(current == 'Home') {
+    document.getElementById("home").classList.add("active");
+    document.getElementById("sign_up").classList.remove("active");
+    document.getElementById("log_in").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Sign Up') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("sign_up").classList.add("active");
+    document.getElementById("log_in").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'Log In') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("sign_up").classList.remove("active");
+    document.getElementById("log_in").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+  }
+  else if(current == 'About') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("sign_up").classList.remove("active");
+    document.getElementById("log_in").classList.remove("active");
+    document.getElementById("about").classList.add("active");
+  }
+}
+</script>
+
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav" style="border-width: thin;">
+  <a href="/" class="navbar-brand">
+    <img src="images/logo.jpg" width="40" height="40" alt="">
+    <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmeatHome &nbsp; </b></span>
+  </a>
+  <button class="navbar-toggler" type="button" style="border-color: rgb(255,255,255);float: right;margin-right:20px" onclick="show_menu();">
+  <!--
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+          id="nav-toggle" style="border-color: rgb(255,255,255);">
+  -->
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse topnav">
+    <ul class="navbar-nav" style="font-size:16px;float: right">
+      <li class="nav-item">
+        <a class="nav-link active" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="sign_up" onclick='javascript:toggle_active("Sign Up");'>Sign Up</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" id="log_in" onclick='javascript:toggle_active("Log In");'>Log In</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" id="about" onclick='javascript:toggle_active("About");'>About</a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<div style="display:none; position: relative; width:100%; margin:0px; padding:0px;" id="menu">
+  <div style="margin:0px; padding-bottom:20px; border-bottom:2px solid; border-color:lightgrey">
+    <span class="font-weight-bold" style="font-size:20px;">&nbsp;</span>
+    <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
+  </div>
+  <div style="margin-bottom:100px">
+  <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="#">
+      <span style="color:black;">Home</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="#">
+      <span style="color:black;">Sign Up</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="#">
+      <span style="color:black;">Log in</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="#">
+      <span style="color:black;">About</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+  </ul>
+  </div>
+  <div class="d-flex justify-content-center">
+      <a class="nav-link" href="/auth/feedback">Feedback</a>
+  </div>
+</div>
