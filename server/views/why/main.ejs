@@ -1,5 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
+<head>
+<link href="/css/radio.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
 var menu_display = "none";
 function show_menu() {
@@ -48,33 +50,35 @@ function toggle_active(current) {
 }
 </script>
 <% include ../session.ejs%>
-<head>
-    <% include ../head.ejs%>
+<% include ../head.ejs%>
+<link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'
+integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
+crossorigin='anonymous'>
 </head>
 <body>
 <% include header.ejs%>
-
-<div id="container" style="background-color: #ddd;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item ">
-      <button type="button" class="list-group-item list-group-item-action active">
-        Rooms
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <button type="button" class="list-group-item list-group-item-action">
-        Scenes
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <button type="button" class="list-group-item list-group-item-action">
-        Devices
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-  </ul>
+<div id="container" style="background-color: #fff;margin:10px;padding-top:30px;">
+  <div class="text-center" style="font-size:16px;padding-bottom:30px;">
+    <div class="p-1">
+      <p><strong>What are you concerned most for upgrading to a smart home:</strong></p>
+    </div>
+  </div>
+  <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
+    <div class="quiz" id="quiz" data-toggle="buttons">
+       <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
+         <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
+         <input type="hidden" name="q_answer" value="1">Overall cost is high</label>
+       <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
+         <i class='fas fa-angle-right' style='font-size:36px'></i></span>
+         <input type="hidden" name="q_answer" value="2">Devices are not compatible</label>
+       <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
+         <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+         <input type="hidden" name="q_answer" value="3">Not easy to set up</label>
+       <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
+         <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+         <input type="hidden" name="q_answer" value="4">No privacy</label>
+    </div>
+  </div>
 </div>
 
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>

@@ -8,12 +8,7 @@ if(user.name)
 var current = 'Home';
 function toggle_active(current) {
   if(current == 'Home') {
-    document.getElementById("home").classList.add("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
+    window.location.href = '/';
   }
   else if(current == 'Profile') {
     document.getElementById("home").classList.remove("active");
@@ -40,12 +35,6 @@ function toggle_active(current) {
     document.getElementById("about").classList.remove("active");
   }
   else if(current == 'Switch') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.add("active");
-    document.getElementById("about").classList.remove("active");
     window.location.href = 'auth/home';
   }
   else if(current == 'About') {
@@ -67,7 +56,7 @@ function signout() {
     <img src="images/logo.jpg" width="40" height="40" alt="">
     <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmeatHome &nbsp; </b></span>
   </a>
-  <button class="navbar-toggler" type="button" style="border-color: rgb(255,255,255);float: right;margin-right:0px" onclick="show_menu();">
+  <button class="navbar-toggler flow-right" type="button" style="border-color: rgb(255,255,255);" onclick="show_menu();">
   <!--
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
@@ -75,10 +64,10 @@ function signout() {
   -->
   <span class="navbar-toggler-icon"></span>
   </button>
-  <div class="collapse navbar-collapse topnav" style="float: right">
-    <ul class="navbar-nav" style="font-size:16px;">
+  <div class="collapse navbar-collapse topnav">
+    <ul class="navbar-nav" style="font-size:12px;">
       <li class="nav-item">
-        <a class="nav-link active" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
+        <a class="nav-link" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" id="profile" onclick='javascript:toggle_active("Profile");'>Profile</a>
@@ -120,32 +109,32 @@ function signout() {
   <div style="margin-bottom:100px">
   <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="#">
+      <a href="/" style="display: block;">
       <span style="color:black;">Home</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="#">
+      <a href="#" style="display: block;">
       <span style="color:black;">Profile1</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="#">
+      <a href="#" style="display: block;">
       <span style="color:black;">Messages</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="#">
+      <a href="#" style="display: block;">
       <span style="color:black;">Settings</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="auth/home">
+      <a href="auth/home" style="display: block;">
       <span style="color:black;">Switch User</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
-      <a href="#">
+      <a href="#" style="display: block;">
       <span style="color:black;">About</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>

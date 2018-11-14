@@ -55,6 +55,7 @@ debug('In auth/home: username = ' + user);
 
 	router.get('/home',
 		function(req, res) {
+			if(req.session.user)
 console.log("@@@@user " + req.session.user.name + " logged out.");
 			req.logout();
 			res.render('auth/home', { message: req.message });
