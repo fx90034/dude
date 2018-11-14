@@ -117,8 +117,8 @@ app.use(express.static('../public'));
 // Configure our app
 const router = require('./routes');
 app.use(router);
-// const auth = require('./routes/auth');
-// app.use('/auth', auth);
+const auth = require('./routes/auth');
+app.use('/auth', auth);
 const why = require('./routes/why');
 app.use('/why', why);
 

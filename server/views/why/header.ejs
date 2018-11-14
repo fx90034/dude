@@ -1,16 +1,35 @@
 <script type="text/javascript">
 var current = 'Home';
-function redirect(current) {
+function toggle_active(current, redirect) {
   if(current == 'Home') {
-    window.location.href = '/';
+    document.getElementById("home").classList.add("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = '/';
   }
   else if(current == 'Sign Up') {
-    window.location.href = 'auth/home';
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.add("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = 'auth/home';
   }
   else if(current == 'Log In') {
-    window.location.href = 'auth/home';
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = 'auth/home';
   }
   else if(current == 'About') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.add("active");
   }
 }
 </script>
@@ -30,13 +49,17 @@ function redirect(current) {
   <div id="bar" class="collapse navbar-collapse topnav" style="float: right;">
     <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link" onclick='javascript:redirect("Home");'>Home</a></li>
+          <a class="nav-link" id='home' onclick='javascript:toggle_active("Home", true);'
+             onmouseover='javascript:toggle_active("Home", false);'>Home</a></li>
         <li class="nav-item">
-          <a class="nav-link" onclick='javascript:redirect("Sign Up");'>Sign Up</a></li>
+          <a class="nav-link" id='signup' onclick='javascript:toggle_active("Sign Up", true);'
+             onmouseover='javascript:toggle_active("Sign Up", false);'>Sign Up</a></li>
         <li class="nav-item">
-          <a class="nav-link" onclick='javascript:redirect("Log In");'>Log In</a></li>
+          <a class="nav-link" id='login' onclick='javascript:toggle_active("Log In", true);'
+             onmouseover='javascript:toggle_active("Log In", false);'>Log In</a></li>
         <li class="nav-item">
-          <a class="nav-link disabled" onclick='javascript:redirect("About");'>About</a></li>
+          <a class="nav-link disabled" id='about' onclick='javascript:toggle_active("About", true);'
+             onmouseover='javascript:toggle_active("About", false);'>About</a></li>
     </ul>
   </div>
 </nav>

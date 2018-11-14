@@ -6,9 +6,17 @@ if(user.name)
 %>
 <script type="text/javascript">
 var current = 'Home';
-function toggle_active(current) {
+function toggle_active(current, redirect) {
   if(current == 'Home') {
-    window.location.href = '/';
+    document.getElementById("home").classList.add("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+    document.getElementById("signout").classList.remove("active");
+    if(redirect)
+      window.location.href = '/';
   }
   else if(current == 'Profile') {
     document.getElementById("home").classList.remove("active");
@@ -17,6 +25,7 @@ function toggle_active(current) {
     document.getElementById("settings").classList.remove("active");
     document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
+    document.getElementById("signout").classList.remove("active");
   }
   else if(current == 'Messages') {
     document.getElementById("home").classList.remove("active");
@@ -33,9 +42,18 @@ function toggle_active(current) {
     document.getElementById("settings").classList.add("active");
     document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.remove("active");
+    document.getElementById("signout").classList.remove("active");
   }
   else if(current == 'Switch') {
-    window.location.href = 'auth/home';
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("profile").classList.remove("active");
+    document.getElementById("messages").classList.remove("active");
+    document.getElementById("settings").classList.remove("active");
+    document.getElementById("switch").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+    document.getElementById("signout").classList.remove("active");
+    if(redirect)
+      window.location.href = 'auth/home';
   }
   else if(current == 'About') {
     document.getElementById("home").classList.remove("active");
@@ -44,10 +62,19 @@ function toggle_active(current) {
     document.getElementById("settings").classList.remove("active");
     document.getElementById("switch").classList.remove("active");
     document.getElementById("about").classList.add("active");
+    document.getElementById("signout").classList.remove("active");
   }
-}
-function signout() {
-  window.location.href = "auth/logout";
+  else if(current == 'Signout') {
+  document.getElementById("home").classList.remove("active");
+  document.getElementById("profile").classList.remove("active");
+  document.getElementById("messages").classList.remove("active");
+  document.getElementById("settings").classList.remove("active");
+  document.getElementById("switch").classList.remove("active");
+  document.getElementById("about").classList.remove("active");
+  document.getElementById("signout").classList.add("active");
+  if(redirect)
+    window.location.href = "auth/logout";
+  }
 }
 </script>
 
@@ -56,7 +83,8 @@ function signout() {
     <img src="images/logo.jpg" width="40" height="40" alt="">
     <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmeatHome &nbsp; </b></span>
   </a>
-  <button class="navbar-toggler flow-right" type="button" style="border-color: rgb(255,255,255);" onclick="show_menu();">
+  <button class="navbar-toggler flow-right" type="button" style="border-color: rgb(255,255,255);"
+          onclick="show_menu();">
   <!--
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
           aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
@@ -67,16 +95,20 @@ function signout() {
   <div class="collapse navbar-collapse topnav">
     <ul class="navbar-nav" style="font-size:12px;">
       <li class="nav-item">
-        <a class="nav-link" id="home" onclick='javascript:toggle_active("Home");'>Home</a>
+        <a class="nav-link" id="home" onclick='javascript:toggle_active("Home", true);'
+           onmouseover='javascript:toggle_active("Home", false)'>Home</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="profile" onclick='javascript:toggle_active("Profile");'>Profile</a>
+        <a class="nav-link" id="profile" onclick='javascript:toggle_active("Profile", true);'
+           onmouseover='javascript:toggle_active("Profile", false)');'>Profile</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="messages" onclick='javascript:toggle_active("Messages");'>Messages</a>
+        <a class="nav-link" id="messages" onclick='javascript:toggle_active("Messages", true);'
+           onmouseover='javascript:toggle_active("Messages", false)');'>Messages</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="settings" onclick='javascript:toggle_active("Settings");'>Settings</a>
+        <a class="nav-link" id="settings" onclick='javascript:toggle_active("Settings", true);'
+           onmouseover='javascript:toggle_active("Settings", false)');'>Settings</a>
 <!-- dropdown
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
@@ -88,13 +120,16 @@ function signout() {
 -->
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="switch" onclick='javascript:toggle_active("Switch");'>Switch User</a>
+        <a class="nav-link" id="switch" onclick='javascript:toggle_active("Switch");', true);'
+           onmouseover='javascript:toggle_active("Switch", false)'>Switch User</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link disabled" id="about" onclick='javascript:toggle_active("About");'>About</a>
+        <a class="nav-link disabled" id="about" onclick='javascript:toggle_active("About", true);'
+           onmouseover='javascript:toggle_active("About", false)');'>About</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="/auth/logout">Signout</a>
+        <a class="nav-link" id="signout" onclick='javascript:toggle_active("Signout", true);'
+           onmouseover='javascript:toggle_active("Signout", false)');'>Signout</a>
       </li>
     </ul>
   </div>
