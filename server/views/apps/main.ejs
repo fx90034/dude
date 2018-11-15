@@ -29,23 +29,6 @@ function close_menu() {
     menu_display = "none";
   }
 }
-var current = 'Home';
-function toggle_active(current) {
-  if(current == 'Home') {
-    document.getElementById("home").classList.add("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-  }
-  else if(current == 'Profile') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.add("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-  }
-}
 </script>
 <% include ../session.ejs%>
 <head>

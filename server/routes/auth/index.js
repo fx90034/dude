@@ -152,7 +152,7 @@ debug('creadential: remember = ' + remember)
     let hash = bcrypt.hashSync(pass, 10);
 		var newUser = { name: user, type: type, pass: hash, created_date: today, last_signed_in_date: today };
 		if(ip)
-			newUser = { name: user, type: type, pass: hash, created_date: today, last_signed_in_date: today, ip: ip};
+			newUser = { name: user, type: type, pass: hash, ip: ip, created_date: today, last_signed_in_date: today};
 
 		db.users.addNewUser(newUser, function(err, body) {
 			if(!err) {

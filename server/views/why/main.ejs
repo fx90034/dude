@@ -31,22 +31,8 @@ function close_menu() {
     menu_display = "none";
   }
 }
-var current = 'Home';
-function toggle_active(current) {
-  if(current == 'Home') {
-    document.getElementById("home").classList.add("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-  }
-  else if(current == 'Profile') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.add("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-  }
+function save_concern(name, value) {
+  window.location.href = 'why/concern?value=' + value;
 }
 </script>
 <% include ../session.ejs%>
@@ -63,22 +49,26 @@ crossorigin='anonymous'>
       <p><strong>What are you concerned most for upgrading to a smart home?</strong></p>
     </div>
   </div>
-  <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
-    <div class="quiz" id="quiz" data-toggle="buttons">
-       <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
-         <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
-         <input type="hidden" name="q_answer" value="1">Overall cost is too high</label>
-       <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
-         <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-         <input type="hidden" name="q_answer" value="2">Devices are not compatible</label>
-       <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
-         <i class='fas' style='font-size:36px'>&#xf105;</i></span>
-         <input type="hidden" name="q_answer" value="3">Not easy to set up</label>
-       <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
-         <i class='fas' style='font-size:36px'>&#xf105;</i></span>
-         <input type="hidden" name="q_answer" value="4">No privacy</label>
+    <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
+      <div class="quiz" id="quiz" data-toggle="buttons">
+         <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
+           <input type="hidden"><a onclick="javascript:save_concern('concern', 'Overall cost is too high');">
+           Overall cost is too high</a></label>
+         <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
+           <input type="hidden"><a onclick="javascript:save_concern('concern', 'Devices are not compatible');">
+           Devices are not compatible</a></label>
+         <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+           <input type="hidden"><a onclick="javascript:save_concern('concern', 'Not easy to set up');">
+           Not easy to set up</a></label>
+         <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+           <input type="hidden"><a onclick="javascript:save_concern('concern', 'No privacy');">
+           No privacy</a></label>
+      </div>
     </div>
-  </div>
 </div>
 
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
