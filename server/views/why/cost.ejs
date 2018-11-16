@@ -1,10 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <% var msg = "";
+     if(concern)
+      msg = concern;
+  %>
 <link href="/css/radio.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-function save_concern(name, value) {
-  window.location.href = 'why/concern?concern=' + value;
+function save_cost(name, value) {
+  window.location.href = 'why/cost?cost=' + value + '&concern=' + "<%=msg %>";
 }
 </script>
 <% include ../session.ejs%>
@@ -18,27 +22,27 @@ crossorigin='anonymous'>
 <div id="container" style="background-color: #fff;margin:10px;padding-top:40px;">
   <div class="text-center" style="font-size:16px;padding-bottom:30px;">
     <div class="p-1">
-      <p><strong>What are you concerned most for upgrading to a smart home?</strong></p>
+      <p><strong>What are you happy with the following Smart Home solutions?</strong></p>
     </div>
   </div>
     <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
       <div class="quiz" id="quiz" data-toggle="buttons">
-        <a onclick="javascript:save_concern('concern', 'Overall cost is too high');">
-         <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
-           <input type="hidden">Overall cost is too high</label></a>
-        <a onclick="javascript:save_concern('concern', 'Devices are not compatible');">
-         <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-           <input type="hidden">Devices are not compatible</label></a>
-        <a onclick="javascript:save_concern('concern', 'Not easy to set up');">
-         <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas' style='font-size:36px'>&#xf105;</i></span>
-           <input type="hidden">Not easy to set up</label></a>
-        <a onclick="javascript:save_concern('concern', 'No privacy');">
+        <a onclick="javascript:save_cost('cost', 'Wired network connectivity');">
          <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
            <i class='fas' style='font-size:36px'>&#xf105;</i></span>
-           <input type="hidden">No privacy</label></a>
+           <input type="hidden">Wired network connectivity</label></a>
+         <a onclick="javascript:save_cost('cost', 'Custom designed smart home');">
+          <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
+            <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+            <input type="hidden">Custom designed smart home</label></a>
+        <a onclick="javascript:save_cost('cost', 'Standalone smart devices and sensors');">
+         <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
+           <input type="hidden">Standalone smart devices and sensors</label></a>
+        <a onclick="javascript:save_cost('cost', 'Dedicated smart hub or bridge');">
+         <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
+           <input type="hidden">Dedicated smart hub or bridge</label></a>=
       </div>
     </div>
 </div>

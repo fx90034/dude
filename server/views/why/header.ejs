@@ -1,4 +1,32 @@
 <script type="text/javascript">
+var menu_display = "none";
+function show_menu() {
+  if(menu_display == "none") {
+    document.getElementById("menu").style.display = 'inline';
+    document.getElementById("navbarNav").style.display = 'none';
+    document.getElementById("container").style.display = 'none';
+    document.getElementById("footer").style.display = 'none';
+    menu_display = "visible";
+  }
+  else {
+    document.getElementById("menu").style.display = 'none';
+    document.getElementById("navbarNav").style.display = 'inline';
+    document.getElementById("container").style.display = 'inline';
+    document.getElementById("footer").style.display = 'inline';
+    menu_display = "none";
+  }
+// alert(menu_display)
+}
+function close_menu() {
+// alert(menu_display)
+  if(menu_display == "visible") {
+    document.getElementById("menu").style.display = 'none';
+    document.getElementById("navbarNav").style.display = 'inline';
+    document.getElementById("container").style.display = 'inline';
+    document.getElementById("footer").style.display = 'inline';
+    menu_display = "none";
+  }
+}
 var current = 'Home';
 function toggle_active(current, redirect) {
   if(current == 'Home') {

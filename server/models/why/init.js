@@ -15,12 +15,12 @@ try {
             },
             "by_ip": {
                "map": function (doc) {
-                  emit(doc.ip, doc.concern);
+                  emit([doc.ip, doc.user], doc._id);
                }
             }
          },
          "updates": {
-           "last_update_date" : function(doc, req) {
+           "update" : function(doc, req) {
                var request_body = JSON.parse(req.body);
                var field = request_body.field;
                var value = request_body.value;

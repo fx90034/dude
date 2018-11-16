@@ -1,34 +1,30 @@
-var why = require('nano')('http://localhost:8825/why');
+
+const db = require('./index');
 const debug = require('debug')('http');
 
 exports.addConcern = function(concern, ip, user, callback) {
 debug("addConcern!!");
   var today = new Date(Date.now());
-  var record = { concern: concern, created_date: today, last_update_date: today };
-  if(ip)
-    record = { concern: concern, ip: ip, created_date: today, last_update_date: today };
-  else if(user)
-    record = { concern: concern, ip: ip, user: user, created_date: today, last_update_date: today };
+  var record = {concern: concern, ip: ip, user: user, last_update_date: today };
 debug("record = " + JSON.stringify(record));
-	this.queryConcern(concern, ip, user, function(err, body) {
+	this.queryByConcern(concern, ip, user, function(err, body) {
 		if(body != null && body.rows.length == 1 && body.rows[0].key[1]) {
-debug("!!!body.rows[0].key = " + body.rows[0].key[0])
-			console.warn("concern: " + concern + " has existed.");
+debug("!!!body.rows[0].ip = " + body.rows[0].key[1])
+			console.warn("concern: '" + concern + "' is existed.");
       let docId = body.rows[0].id;
 debug("doc id = " + docId)
-      why.atomic("answer", "last_update_date", docId,
-        {field: "last_update_date", value: today}, function(err, body) {
-    			if(err) {
-    				console.error(err);
-    				return callback(err, null);
-    			}
-    			console.log(body);
-    			callback(null, body);
-        });
+      db.update(record, docId, function(err, body) {
+        if(err) {
+  				console.error(err);
+  				return callback(err, null);
+  			}
+  			console.log(body);
+  			callback(null, body);
+      });
 		}
 		else {
 debug("@Insert concern!!")
-  		why.insert(record, null, function(err, body) {
+  		db.insert(record, null, function(err, body) {
   			if(err) {
   				console.error(err);
   				return callback(err, null);
@@ -37,14 +33,13 @@ debug("@Insert concern!!")
   			callback(null, body);
   		});
   	}
-  }); // queryConcern()
+  }); // queryByConcern()
 }
 
-exports.queryConcern = function(concern, ip, user, callback) {
-debug("queryConcern: " + concern);
-  let params = { "concern": concern,
-    "startkey": [concern], "endkey": [concern, ip, {}]};
-	why.view('answer', 'by_concern', params, function(err, body) {
+exports.queryByConcern = function(concern, ip, user, callback) {
+debug("queryByConcern: " + concern);
+  let params = { "concern": concern, "startkey": [concern], "endkey": [concern, ip, user]};
+	db.why.view('answer', 'by_concern', params, function(err, body) {
 //  why.view('answer', 'by_concern', {[concern, ip, user]},  function(err, body) {
 		if(err) {
 			console.error(err);
