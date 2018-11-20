@@ -4,6 +4,9 @@
 // ref: https://medium.freecodecamp.org/learn-how-to-handle-authentication-with-node-using-passport-js-4a56ed18e81e
 // refL https://www.tutorialspoint.com/expressjs/expressjs_quick_guide.htm
 
+const env = process.env.NODE_ENV || 'dev'
+const config = require('./config.' + env);
+
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
@@ -209,7 +212,7 @@ app.use(function(err, req, res, next) {
 })
 
 // app.listen(8080, () => console.log('Server running on http://localhost:8080/'));
-var server = app.listen(7398, function() {
+var server = app.listen(config.web.port, function() {
   var port = server.address().port;
 
   if(!isProduction) {

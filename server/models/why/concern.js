@@ -24,7 +24,7 @@ debug("doc id = " + docId)
 		}
 		else {
 debug("@Insert concern!!")
-  		db.insert(record, null, function(err, body) {
+  		db.why.insert(record, null, function(err, body) {
   			if(err) {
   				console.error(err);
   				return callback(err, null);
