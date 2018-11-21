@@ -1,8 +1,8 @@
 // models/users/init.js
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('../../config.' + env);
-var nano = require('nano')('http://localhost:config.db.port');
+const config = require('../../conf/config.' + env);
+var nano = require('nano')('http://localhost:' + config.db.port);
 console.log("Start to initialize database 'users'...")
 try {
   nano.db.destroy('users', function() {

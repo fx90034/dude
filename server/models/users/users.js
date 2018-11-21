@@ -1,10 +1,10 @@
 // server/db/users.js
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('../../config.' + env);
-// var nano = require('nano')('http://localhost:config.db.port');
+const config = require('../../conf/config.' + env);
+// var nano = require('nano')('http://localhost:' + config.db.port);
 // var users = nano.use('users');
-const users = require('nano')('http://localhost:config.db.port/users');
+const users = require('nano')('http://localhost:' + config.db.port + '/users');
 const debug = require('debug')('http');
 
 var records = [

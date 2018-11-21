@@ -1,8 +1,8 @@
 // models/why/init.js
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('../../config.' + env);
-const nano = require('nano')('http://localhost:config.db.port');
+const config = require('../../conf/config.' + env);
+const nano = require('nano')('http://localhost:' + config.db.port);
 console.log("Start to initialize database 'why'...")
 try {
   nano.db.destroy('why', function() {

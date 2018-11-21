@@ -5,7 +5,7 @@
 // refL https://www.tutorialspoint.com/expressjs/expressjs_quick_guide.htm
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('./config.' + env);
+const config = require('./conf/config.' + env);
 
 const express = require('express');
 const path = require('path');

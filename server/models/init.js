@@ -1,8 +1,8 @@
 // server/models/init.js
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('../config.' + env);
-const nano = require('nano')('http://localhost:config.db.port');
+const config = require('../conf/conf/config.' + env);
+const nano = require('nano')('http://localhost:' + config.db.port);
 
 require('./users/init.js');
 require('./why/init.js');

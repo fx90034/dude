@@ -1,0 +1,28 @@
+{
+  "concern": {
+    "Overall cost is too high": [
+      "Wired network connectivity",
+      "Custom designed smart home",
+      "Standalone smart devices and sensors",
+      "Dedicated smart hub or bridge"
+    ],
+    "Devices are not compatible": [
+      "Wired network connectivity",
+      "Custom designed smart home",
+      "Standalone smart devices and sensors",
+      "Dedicated smart hub or bridge"
+    ],
+    "Not easy to set up": [
+      "Wired network connectivity",
+      "Custom designed smart home",
+      "Standalone smart devices and sensors",
+      "Dedicated smart hub or bridge"
+    ],
+    "No privacy": [
+      "Wired network connectivity",
+      "Custom designed smart home",
+      "Standalone smart devices and sensors",
+      "Dedicated smart hub or bridge"
+    ]
+  }
+}

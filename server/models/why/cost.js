@@ -13,7 +13,7 @@ debug("!!!body.rows[0].ip = " + body.rows[0].key[2])
 			console.warn("cost: " + cost + " existed.");
       let docId = body.rows[0].id;
 debug("doc id = " + docId)
-      db.why.update(record, docId, function(err, res) {
+      db.update(record, docId, function(err, res) {
         if(err) {
   				console.error(err);
   				return callback(err, null);

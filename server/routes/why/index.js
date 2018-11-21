@@ -2,9 +2,16 @@ const express = require('express');
 const router = express.Router();
 const debug = require('debug')('http');
 const db = require('../../models/why');
+const util = require('./util');
 
 router.get('/main', function(req, res) {
-  res.render('why/main');
+  util.getConcerns(function(err, data) {
+    if(err) {
+      console.error(err);
+      return data;
+    }
+    res.render('why/main', { concerns: data });
+  });
 });
 
 router.get('/concern', function(req, res) {

@@ -1,9 +1,9 @@
 // ./index.js
 
 const env = process.env.NODE_ENV || 'dev'
-const config = require('../../config.' + env);
-exports.why = require('nano')('http://localhost:config.db.port/why');
-const db = require('nano')('http://localhost:config.db.port/why');
+const config = require('../../conf/config.' + env);
+exports.why = require('nano')('http://localhost:' + config.db.port + '/why');
+const db = require('nano')('http://localhost:' + config.db.port + '/why');
 const debug = require('debug')('http');
 
 exports.concern = require('./concern');
