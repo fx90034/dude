@@ -8,9 +8,10 @@ exports.readJSON = function(filePath, callback) {
     var parsedJson;
     if (err)
        return callback(err, null);
-debug("data = " + data)
+// debug("data = " + data)
     try {
       parsedJson = JSON.parse(data);
+debug("question = " + parsedJson.question)
     } catch (exception) {
       return callback(exception, null);
     }

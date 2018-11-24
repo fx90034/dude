@@ -5,13 +5,24 @@ const db = require('../../models/why');
 const util = require('./util');
 
 router.get('/main', function(req, res) {
-  util.getConcerns(function(err, data) {
+  var question = '';
+  var answers = [];
+  var level0;
+  util.getData(0, 0, 0, function(err, data) {
     if(err) {
       console.error(err);
-      return data;
+      throw err;
+//      return res.render('error', { error: err });
     }
-    res.render('why/main', { concerns: data });
+    else {
+      question = data.question;
+      answers = data.answer;
+debug("question = " + question)
+debug("answers = " + answers)
+debug("answer = " + data.answer[0])
+    }
   });
+  res.render('why/main', { question: question, answers: answers });
 });
 
 router.get('/concern', function(req, res) {
@@ -29,16 +40,16 @@ debug('concern = ' + concern)
       res.render('why/concern', { message: 'Please try again.'});
     }
     switch(concern) {
-      case 'Overall cost is too high':
+      case 'Overall cost':
           res.render('why/cost', { concern: concern });
           break;
-      case 'Devices are not compatible':
+      case 'Devices compatibility':
           res.render('why/compatible', { concern: concern });
           break;
-      case 'Not easy to set up':
+      case 'Ease of use':
           res.render('why/setup', { concern: concern });
           break;
-      case 'No privacy':
+      case 'Privacy':
           res.render('why/privacy', { concern: concern });
           break;
       default:
