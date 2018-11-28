@@ -1,5 +1,5 @@
 {
-  "question": "Which one can you compromise when you upgrade to Smart Home?",
+  "question": "What are you concerned most when you upgrade to Smart Home?",
   "answer": {
     "Overall cost": {
       "question": "What type of the solution do you like most?",
@@ -33,7 +33,7 @@
           }
         },
         "None": {
-          "question": "What is your minumum budget for upgrading to a smart home?",
+          "question": "What is your budget for upgrading to a smart home?",
           "answer": {
             "$1000": "<link>",
             "$2000": "<link>",
@@ -168,7 +168,7 @@
         }
       }
     },
-    "None": {
+    "All": {
       "question": "What kind of SmeatHome do you want to have?",
       "answer": {
         "$1000: Automatically turn on/off lights/blinds/windows/curtains": {

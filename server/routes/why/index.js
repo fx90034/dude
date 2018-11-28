@@ -1,13 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const debug = require('debug')('http');
+const debug = require('debug')('why');
 const db = require('../../models/why');
 const util = require('./util');
 
-router.get('/main', function(req, res) {
+router.get('/level1', function(req, res) {
   var question = '';
   var answers = [];
-  var level0;
   util.getData(0, 0, 0, function(err, data) {
     if(err) {
       console.error(err);
@@ -16,79 +15,73 @@ router.get('/main', function(req, res) {
     }
     else {
       question = data.question;
-      answers = data.answer;
+      answers = data.answers;
 debug("question = " + question)
 debug("answers = " + answers)
-debug("answer = " + data.answer[0])
+debug("answer = " + data.answers[0])
     }
-  });
-  res.render('why/main', { question: question, answers: answers });
-});
-
-router.get('/concern', function(req, res) {
-  let user = null;
-  let concern = req.query.concern;
-  if(req.session.user)
-    user = req.session.user.name;
-debug("why/concern!!")
-debug('user = ' + user)
-debug('ip = ' + req.ip)
-debug('concern = ' + concern)
-  db.concern.addConcern(concern, req.ip, user, function(err, body) {
-    if(err) {
-      console.error(err);
-      res.render('why/concern', { message: 'Please try again.'});
-    }
-    switch(concern) {
-      case 'Overall cost':
-          res.render('why/cost', { concern: concern });
-          break;
-      case 'Devices compatibility':
-          res.render('why/compatible', { concern: concern });
-          break;
-      case 'Ease of use':
-          res.render('why/setup', { concern: concern });
-          break;
-      case 'Privacy':
-          res.render('why/privacy', { concern: concern });
-          break;
-      default:
-          break;
-    }
+    res.render('why/level1', { question: question, answers: answers });
   });
 });
 
-router.get('/cost', function(req, res) {
+router.get('/level2', function(req, res) {
   let user = null;
-  let cost = req.query.cost;
-  let concern = req.query.concern;
+  let j = req.query.j;
+  let level1 = req.query.level1;
   if(req.session.user)
     user = req.session.user.name;
-debug("why/cost!!")
+debug("why/level2!!")
 debug('user = ' + user)
 debug('ip = ' + req.ip)
-debug('cost = ' + cost)
-debug('concern = ' + concern)
-  db.cost.addCost(concern, cost, req.ip, user, function(err, body) {
+debug('j = ' + j)
+debug('level1 = ' + level1)
+  db.level1.addLevel1(level1, req.ip, user, function(err, body) {
     if(err) {
       console.error(err);
-      res.render('why/cost?concern='+concern, { message: 'Please try again.'});
+      res.send('Please try again.');
+//      res.render('/error', { message: 'Please try again.'});
     }
-    switch(cost) {
-      case 'Wired network connectivity':
-          res.render('why/wired?concern=' + concern + '&cost=' + cost);
-          break;
-      case 'Custom designed smart home':
-          res.render('why/custom?concern=' + concern + '&cost=' + cost);
-          break;
-      case 'Standalone smart devices and sensors':
-          res.render('why/setup?standalone=' + concern + '&cost=' + cost);
-          break;
-      case 'Dedicated smart hub or bridge':
-          res.render('why/dedicated?concern=' + concern + '&cost=' + cost);
-          break;
-      default:
-          break;
+    else {
+      var answers = [];
+      util.getData(0, j, 0, function(err, data) {
+        if(err) {
+          console.error(err);
+          throw err;
+    //      return res.render('error', { error: err });
+        }
+        else {
+          question = data.question;
+          answers = data.answers;
+    debug("question = " + question)
+    debug("answers = " + answers)
+    debug("answer = " + data.answers[0][j])
+        }
+        res.render('why/level2', { j: j, level1: level1, answers: answers });
+      });
+    }
+  });
+});
+
+router.get('/level2', function(req, res) {
+  let user = null;
+  let j = req.query.j;
+  let k = req.query.k;
+  let level1 = req.query.level1;
+  let level2 = req.query.level2;
+  if(req.session.user)
+    user = req.session.user.name;
+debug("why/level2!!")
+debug('user = ' + user)
+debug('ip = ' + req.ip)
+debug('level1 = ' + level1)
+debug('level2 = ' + level2)
+  db.level2.addLevel2(level1, level2, req.ip, user, function(err, body) {
+    if(err) {
+      console.error(err);
+      res.render(error, { message: 'Please try again.'});
+    }
+    else {
+      res.render('why/level3', { j: j, k: k, question: level2 });
     }
   });
 });

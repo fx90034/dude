@@ -3,8 +3,8 @@
 <head>
 <link href="/css/radio.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-function save_concern(name, value) {
-  window.location.href = 'why/concern?concern=' + value;
+function save_level2(j, k, value) {
+  window.location.href = 'why/level2?level2=' + value + '&level1=' + "<%=level1 %>" + '&j=' + j + '&k=' + k;
 }
 </script>
 <% include ../session.ejs%>
@@ -18,31 +18,27 @@ crossorigin='anonymous'>
 <div id="container" style="background-color: #fff;margin:10px;padding-top:40px;">
   <div class="text-center" style="font-size:16px;padding-bottom:30px;">
     <div class="p-1">
-      <p><strong><%=question %></strong></p>
+      <p><strong><%=level1 %></strong></p>
     </div>
   </div>
     <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
       <div class="quiz" id="quiz" data-toggle="buttons">
-        <a onclick="javascript:save_concern('concern', '<%= answers[0] %>');">
+        <a onclick="javascript:save_level2(<%=j %>, 1, 'Wired network connectivity');">
+         <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+           <input type="hidden">Wired network connectivity</label></a>
+         <a onclick="javascript:save_level2(<%=j %>, 2, 'Custom designed smart home');">
+          <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
+            <i class='fas' style='font-size:36px'>&#xf105;</i></span>
+            <input type="hidden">Custom designed smart home</label></a>
+        <a onclick="javascript:save_level2(<%=j %>, 3, 'Standalone smart devices and sensors');">
          <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
            <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[0] %></label></a>
-        <a onclick="javascript:save_concern('concern', '<%= answers[1] %>');">
+           <input type="hidden">Standalone smart devices and sensors</label></a>
+        <a onclick="javascript:save_level2(<%=j %>, 4, 'Dedicated smart hub or bridge');">
          <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
            <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[1] %></label></a>
-        <a onclick="javascript:save_concern('concern', '<%= answers[2] %>');">
-         <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[2] %></label></a>
-        <a onclick="javascript:save_concern('concern', '<%= answers[3] %>');">
-         <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[3] %></label></a>
-       <a onclick="javascript:save_concern('concern', '<%= answers[4] %>');">
-        <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
-          <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-          <input type="hidden"><%= answers[4] %></label></a>
+           <input type="hidden">Dedicated smart hub or bridge</label></a>
       </div>
     </div>
 </div>

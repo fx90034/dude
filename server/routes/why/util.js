@@ -1,7 +1,7 @@
 // ./routes/why/util.js
 
 const util = require('../util');
-const debug = require('debug')('http');
+const debug = require('debug')('why_util');
 const file = './conf/why.json';
 
 var why = null;
@@ -18,14 +18,14 @@ debug("Loading ...")
       }
 debug("@@@@@@@@@@Loaded.")
 debug("questions[0][0][0] = " + questions[0][0][0])
-      var data = { question: questions[i][j][k], answer: answers[i][j] };
+      var data = { question: questions[i][j][k], answers: answers[i][j][k] };
 debug("data = " + JSON.stringify(data))
       return callback(null, data);
     });
   }
   else {
-    var data = { question: questions[i][j][k], answer: answers[i][j] };
-debug("data = " + data)
+    var data = { question: questions[i][j][k], answers: answers[i][j][k] };
+debug("data = " + JSON.stringify(data))
     return callback(null, data);
   }
 }
@@ -54,33 +54,41 @@ function load(callback) {
       var level0 = data;
       var level1;
       var level2;
-      answers[0][0] = [];
+//      answers[0][0][0] = [];
       questions[0][0].push(level0.question);
-// debug("level0.question = " + questions[0][0][0])
+ debug("level0.question = " + questions[0][0][0])
       var level1 = level0.answer;
       var answer1 = Object.keys(level1);
-// debug("answer1 = " + answer1)
+// debug("level1 = " + JSON.stringify(level1))
+ debug("answer1 = " + answer1)
       for(var i=0; i<answer1.length; i++) {
-        answers[0][0].push(answer1[i]);
-// debug("answers[0][0][i] = " + answers[0][0][i])
+        answers[0][0][0].push(answer1[i]);
+ debug("answers[0][0][0] = " + answers[0][0][0])
 }
 // debug("answers[0][0][0] = " + answers[0][0][0])
       for(var j=1; j<answer1.length; j++) {
-        var levelj = level1[answer1[j]];
-// debug("level1 = " + JSON.stringify(levelj))
+        var levelj = level1[answer1[j-1]];
+debug('j = ' + j)
+ debug("levelj = " + JSON.stringify(levelj))
         questions[0][j] = [];
         questions[0][j].push(levelj.question);
-// debug("questions[0][j][0] = " + questions[0][j][0])
+ debug("questions[0][j] = " + questions[0][j])
         level2 = levelj.answer;
         var answer2 = Object.keys(level2);
-// debug("answer2 = " + answer2)
+debug("answer2 = " + answer2)
+        answers[0][j] = [];
+        answers[0][j][0] = [];
+        for(var k=0; k<answer2.length; k++) {
+          answers[0][j][0].push(answer2[k]);
+        }
+ debug("answers[0][j][0] = " + answers[0][j][0])
         for(var k=1; k<answer2.length; k++) {
           var levelk = level2[answer2[k]];
-// debug("level2 = " + JSON.stringify(levelk))
+debug('k = ' + k)
+ debug("level2 = " + JSON.stringify(levelk))
           questions[0][j][k] = [];
           questions[0][j][k].push(levelk.question);
           for(var answer in levelk.answer) {
-            answers[0][j] = [];
             answers[0][j][k] = [];
             answers[0][j][k].push(answer);
           }

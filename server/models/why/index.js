@@ -6,8 +6,8 @@ exports.why = require('nano')('http://localhost:' + config.db.port + '/why');
 const db = require('nano')('http://localhost:' + config.db.port + '/why');
 const debug = require('debug')('http');
 
-exports.concern = require('./concern');
-exports.cost = require('./cost');
+exports.level1 = require('./level1');
+exports.level2 = require('./level2');
 
 
 exports.queryByIP = function(ip, user, callback) {
