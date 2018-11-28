@@ -1,0 +1,578 @@
+1 HTTP server
+
+const express = require('express')
+const app = express() //router
+const port = 3000
+
+app.get('/', (request, response) => {
+  response.send('Hello from Express!')
+})
+
+app.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+
+  console.log(`server is listening on ${port}`)
+})
+
+2 HTTPS server
+
+var fs = require('fs'),
+	express = require('express'),
+	https = require('https');
+	
+var https_options = {
+   key: fs.readFileSync(__dirname + '/private.key', 'utf8'),
+  cert: fs.readFileSync(__dirname + '/public.cert', 'utf8')
+
+}
+var PORT = 8000,
+	HOST = 'localhost'
+	
+app = express()
+
+app.configure(function(){
+    app.use(app.router)
+})
+
+server = https.createServer(https_options, app).listen(PORT, HOST)
+console.log('HTTPS Server listening on %s:%s', HOST, PORT)
+
+// routes
+app.get('/hey', function(req, res) {
+    res.send('HEY!')
+})
+app.post('/ho', function(req, res) {
+    res.send('HO!')
+})
+
+3 HTTPS client
+
+var PORT = 8000
+var HOST = 'localhost'
+var tls = require('tls')
+var fs = require('fs')
+
+var options = { ca: [ fs.readFileSync('./cert.pem') ] }
+
+var client = tls.connect(PORT, HOST, options, function() {
+    if (client.authorized) {
+        console.log('CONNECTED AND AUTHORIZED\n')
+        
+        client.on('close', function() {
+            console.log('SOCKET CLOSED\n')
+            process.exit();
+        })
+        
+        process.stdin.pipe(client);
+        process.stdin.resume()
+        
+        // Time to make some request to the server
+        // We will write straight to the socket, but recommended way is to use a client library like 'request' or 'superagent'
+        client.write('GET /hey HTTP/1.1\r\n')
+        client.write('\r\n')
+        
+        client.write('POST /ho HTTP/1.1\r\n')
+        client.write('\r\n')
+
+    }
+    else {
+        console.log('AUTH FAILED\n')
+        process.exit();
+    }
+});
+client.setEncoding('utf8')
+client.on('data', function(data) {
+    console.log('-------------')
+    console.log(data)
+})
+
+4 Middleware and Route
+
+const express = require('express')
+const app = express()
+
+// Middleware
+app.use((request, response, next) => {
+// Append extra data to the request object
+  request.chance = Math.random()
+  next()
+})
+
+// Middleware
+app.use((err, request, response, next) => {
+// Error handling: The error handler function should be the last function added with app.use.
+  if(err) {
+	  console.log(err)
+	  response.status(500).send('Something broke!')
+  }
+  
+  console.log(request.headers)
+  next()
+})
+
+// Route handler
+app.get('/', (request, response) => {
+  response.json({
+    chance: request.chance
+  })
+})
+
+app.listen(3000)
+
+// Error handling
+const express = require('express')
+const app = express()
+
+app.get('/', (request, response) => {
+  throw new Error('oops')
+})
+
+app.use((err, request, response, next) => {
+  // log the error, for now just console.log
+  console.log(err)
+  response.status(500).send('Something broke!')
+})
+
+	4.1 Configurable middleware
+// File: my-middleware.js
+module.exports = function(options) {
+  return function(req, res, next) {
+    // Implement the middleware function based on the options object
+    next()
+  }
+}
+// or
+var mw = function(options) {
+  return function(req, res, next) {
+    // Implement the middleware function based on the options object
+    next()
+  }
+};
+module.exports = mw;
+// The middleware can now be used as shown below
+var mw = require('./my-middleware.js')
+
+app.use(mw({ option1: '1', option2: '2' }))
+
+5 Register user
+
+		5.3.1 Store user in memory
+const users = []
+
+app.post('/users', function (req, res) {
+    // retrieve user posted data from the body
+    const user = req.body
+    users.push({
+      name: user.name,
+      age: user.age
+    })
+    res.send('successfully registered')
+})	
+		5.3.2 Store user in a file
+
+const fs = require('fs')
+
+app.post('/users', function (req, res) {
+    const user = req.body
+    //  there is no easy way to access them in parallel (system-wide locks will prevent you from writing
+    fs.appendFile('users.txt', JSON.stringify({ name: user.name, age: user.age }), (err) => {
+    	if (err) throw err;
+        res.send('successfully registered')
+    })
+})
+
+6  Use express with bootstrap
+
+	6.1 Installation
+$ npm i express cookie-parser csurf bootstrap --save
+
+	6.2 Use in server.js
+app.use(express.static(__dirname + '/node_modules/bootstrap/dist'));
+
+	6.3 Use in HTML page
+	
+		6.3.1 Local installation
+<script language="javascript" src="js/bootstrap.min.js"></script>
+<link rel="stylesheet" href="css/bootstrap.min.css"/>
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+		6.3.2 BootstrapCDN to deliver cached version of Bootstrap’s compiled CSS and JS
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+//If you’re using our compiled JavaScript, don’t forget to include CDN versions of jQuery and Popper.js before it.
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+
+// https://www.w3schools.com/icons/google_icons_intro.asp
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<i class="material-icons">cloud</i>
+<i class="material-icons" style="font-size:48px;">cloud</i>
+<i class="material-icons" style="font-size:60px;color:red;">cloud</i>
+
+	6.4 Use cookieparser
+var express = require('express');
+var routes = require('./routes/index');
+var cookieParser = require('cookie-parser');
+ 
+var app = express();
+ 
+app.set('views', __dirname + '/views');
+app.set('view engine', 'ejs');
+ 
+app.use(cookieParser());
+app.use(express.static(__dirname + '/public'));
+ 
+app.use('/', routes);
+ 
+app.use(function(req, res, next) {
+	var err = new Error('Not Found');
+	err.status = 404;
+	next(err);
+});
+ 
+app.use(function(err, req, res, next) {
+		res.status(err.status || 500);
+		res.render('error', {
+		message: err.message,
+		error: err
+	});
+});
+ 
+app.listen(8000);
+
+	6.5 Validating Form Input
+$ npm install express-validator --save
+
+const { body, validationResult } = require('express-validator/check');
+
+password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
+
+https://stackoverflow.com/questions/34760548/how-to-validate-password-using-express-validator-npm
+body('field_name').matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i").withMessage('Password should be combination of one uppercase , one lower case, one special char, one digit and min 8 , max 20 char long'),
+req.check("password", "...").matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/, "i");
+
+
+7  Use express with Materialize
+
+	7.1 app.js
+const express = require('express')
+const path = require('path')
+const favicon = require('serve-favicon')
+const logger = require('morgan')
+const cookieParser = require('cookie-parser')
+const bodyParser = require('body-parser')
+
+let app = express(),
+  homeController = require('./controllers/home'),
+  i18n = require('./i18n/western-europe.json');
+
+// view engine setup
+app.set('views', path.join(__dirname, 'views'))
+app.set('view engine', 'hbs')
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(cookieParser())
+app.use(require('node-sass-middleware')({
+  src: path.join(__dirname, 'public'),
+  dest: path.join(__dirname, 'public'),
+  indentedSyntax: true,
+  sourceMap: true
+}))
+app.use(express.static(path.join(__dirname, 'public')))
+app.use('/', homeController)
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {
+  var err = new Error(i18n['English']['404'])
+  err.status = 404
+  next(err)
+})
+
+// error handlers
+
+// development error handler
+// will print stacktrace
+if (app.get('env') === 'development') {
+  app.use(function(err, req, res, next) {
+    res.status(err.status || 500);
+    res.render('error', {
+      message: err.message,
+      error: err
+    })
+  })
+}
+
+// production error handler
+// no stacktraces leaked to user
+app.use(function(err, req, res, next) {
+  res.status(err.status || 500)
+  res.render('error', {
+    message: err.message,
+    error: {}
+  })
+})
+
+
+module.exports = app
+
+
+8 Session store
+
+The session store instance, defaults to a new MemoryStore instance.
+
+	8.1 A simple example using express-session to store page views for a user.
+
+var express = require('express')
+var parseurl = require('parseurl')
+var session = require('express-session')
+
+var app = express()
+
+app.use(session({
+  secret: 'keyboard cat',
+  resave: false,
+  saveUninitialized: true
+}))
+
+app.use(function (req, res, next) {
+  if (!req.session.views) {
+    req.session.views = {}
+  }
+
+  // get the url pathname
+  var pathname = parseurl(req).pathname
+
+  // count the views
+  req.session.views[pathname] = (req.session.views[pathname] || 0) + 1
+
+  next()
+})
+
+app.get('/foo', function (req, res, next) {
+  res.send('you viewed this page ' + req.session.views['/foo'] + ' times')
+})
+
+	8.2 Use the session middleware
+	
+To store or access session data, simply use the request property req.session, which is (generally) serialized as JSON by the store, so nested objects are typically fine. For example below is a user-specific view counter:
+
+app.use(session({ secret: 'keyboard cat', cookie: { maxAge: 60000 }}))
+
+// Access the session as req.session
+app.get('/', function(req, res, next) {
+  if (req.session.views) {
+    req.session.views++
+    res.setHeader('Content-Type', 'text/html')
+    res.write('<p>views: ' + req.session.views + '</p>')
+    res.write('<p>expires in: ' + (req.session.cookie.maxAge / 1000) + 's</p>')
+    res.end()
+  } else {
+    req.session.views = 1
+    res.end('welcome to the session demo. refresh!')
+  }
+})
+
+	8.3 Express session expiration using MemoryStore
+	
+// https://github.com/kuchumovn/session/blob/master/session/memory.js
+
+// 1 . Download the memory.js file from the link above and add it to your project
+// 2 . Modify the file in the beginning - replace this:
+
+var Store = require('./store')
+
+var Store = require('express-session').Store
+
+var BetterMemoryStore = require(__dirname + '/memory')
+var store = new BetterMemoryStore({ expires: 60 * 60 * 1000, debug: true })
+require('express-session')({ ..., store: store, ... })
+
+	8.4 connect-timeout
+
+// https://expressjs.com/en/resources/middleware/timeout.html
+
+// $ npm install connect-timeout
+
+var bodyParser = require('body-parser')
+var cookieParser = require('cookie-parser')
+var express = require('express')
+var timeout = require('connect-timeout')
+
+// example of using this top-level; note the use of haltOnTimedout
+// after every middleware; it will stop the request flow on a timeout
+var app = express()
+app.use(timeout('5s'))
+app.use(bodyParser())
+app.use(haltOnTimedout)
+app.use(cookieParser())
+app.use(haltOnTimedout)
+
+// Add your routes here, etc.
+
+function haltOnTimedout (req, res, next) {
+  if (!req.timedout) next()
+}
+
+app.listen(3000)
+
+
+10 Miscellaneous
+
+	10.1  To get a URL parameter's value, use req.params
+app.get('/p/:tagId', function(req, res) {
+  res.send("tagId is set to " + req.params.tagId);
+});
+
+// GET /p/5
+// tagId is set to 5
+
+	10.2  To get a query parameter ?tagId=5, then use req.query
+app.get('/p', function(req, res) {
+  res.send("tagId is set to " + req.query.tagId);
+});
+or
+req.param.tagid
+
+// GET /p?tagId=5
+// tagId is set to 5
+
+	10.3  JSON parser
+	
+		10.3.1	Read JSON from file
+function readJSON(filePath, callback) {
+  fs.readFile(filePath, function(err, data) {
+    var parsedJson;
+    if (err) {
+       return callback(err);
+    }
+    try {
+      parsedJson = JSON.parse(data);
+    } catch (exception) {
+      return callback(exception);
+    }
+    return callback(null, parsedJson);
+  });
+}
+		
+		10.3.2  Read JSON into Buffer
+var Buffer = require('buffer').Buffer;
+
+var buf = Buffer.from(JSON.stringify(obj));
+
+		10.3.3  Convert Array to Buffer
+var arr = [0x74, 0x32, 0x91];
+ 
+const buf = Buffer.from(arr);
+ 
+for(const byt of buf.values()){
+    console.log(byt);
+}
+
+		10.3.4  Parse JSON array into map
+var data = [
+        {
+            "Key": "2222-2222-2222",
+            "Email": "a@test.com"
+        },
+        {
+            "Key": "1111-1111-1111",
+            "Email": "test@test.com"
+        }
+    ],
+    lookup = {};
+
+// generate the lookup table for reuse
+data.forEach(function (el, i, arr) {
+    lookup[el.Key] = el.Email;
+});
+
+// should return 'test@test.com'
+console.log(lookup['1111-1111-1111']); 
+
+// sort by Key
+var keys = data.sort(function (a, b) {
+    var c = a.Key,
+        d = b.Key;
+    return c > d ? 1 :
+           d < c ? -1 :
+           0;       
+});
+console.log(keys[0].Key); // should return '1111-1111-1111'
+
+// sort by Email
+var emails = data.sort(function (a, b) {
+    var c = a.Email,
+        d = b.Email;
+    return c > d ? 1 :
+           d < c ? -1 :
+           0;       
+});
+console.log(emails[0].Key); // should return '2222-2222-2222'
+
+		10.3.5  Parse JSON to get keys
+var jsonObj = {"person":"me","age":"30"};
+Object.keys(jsonObj);  // returns ["person", "age"]
+
+		10.3.6  In a for-in loop, use the bracket notation to access the property values
+myObj = { "name":"John", "age":30, "car":null };
+for (x in myObj) {
+    document.getElementById("demo").innerHTML += myObj[x];
+}
+
+		10.3.7  Loop over an Array
+fruits.forEach(function(item, index, array) {
+  console.log(item, index);
+});
+// Apple 0
+// Banana 1
+
+// Add to the end of an Array
+var newLength = fruits.push('Orange');
+// ["Apple", "Banana", "Orange"]
+
+// Remove from the end of an Array
+var last = fruits.pop(); // remove Orange (from the end)
+// ["Apple", "Banana"];
+
+// Remove from the front of an Array
+var first = fruits.shift(); // remove Apple from the front
+// ["Banana"];
+
+// Add to the front of an Array
+var newLength = fruits.unshift('Strawberry') // add to the front
+// ["Strawberry", "Banana"];
+
+// Find the index of an item in the Array
+fruits.push('Mango');
+// ["Strawberry", "Banana", "Mango"]
+var pos = fruits.indexOf('Banana');
+// 1
+
+// Remove an item by index position
+var removedItem = fruits.splice(pos, 1); // this is how to remove an item                                        
+// ["Strawberry", "Mango"]
+
+//Remove items from an index position
+var vegetables = ['Cabbage', 'Turnip', 'Radish', 'Carrot'];
+console.log(vegetables); 
+// ["Cabbage", "Turnip", "Radish", "Carrot"]
+var pos = 1, n = 2;
+var removedItems = vegetables.splice(pos, n); 
+// this is how to remove items, n defines the number of items to be removed,
+// from that position(pos) onward to the end of array.
+console.log(vegetables); 
+// ["Cabbage", "Carrot"] (the original array is changed)
+console.log(removedItems); 
+// ["Turnip", "Radish"]
+
+// Copy an Array
+var shallowCopy = fruits.slice(); // this is how to make a copy
+// ["Strawberry", "Mango"]

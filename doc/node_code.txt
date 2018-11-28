@@ -1,0 +1,2201 @@
+1 Calc [79]
+
+// app/index.js
+const calc = require('./calc')
+const numbersToAdd = [3, 4, 10, 2]
+const result = calc.sum(numbersToAdd)
+console.log('The result is ' + result)
+
+// app/calc.js
+function sum(arr) {
+	return arr.reduce(function(a, b) {
+		return a + b
+	}, 0)
+}
+module.exports.sum = sum
+
+2 Readline [79]
+
+const readline = require('readline');
+
+const rl = readline.createInterface({
+  input: process.stdin,
+  output: process.stdout
+})
+
+rl.on('line', (input) => {
+  console.log(`Received: ${input}`);
+})
+
+rl.question('What do you think of Node.js? ', (answer) => {
+  // TODO: Log the answer in a database
+  console.log(`Thank you for your valuable feedback: ${answer}`)
+
+//  rl.close()
+})
+
+3 File Reading [83]
+	3.1 Sychronous
+		3.1.1 Java:
+try(FileInputStream inputStream = new FileInputStream("foo.txt")) {
+    Session IOUtils;
+    String fileContent = IOUtils.toString(inputStream);
+}
+
+		3.1.12 Node.js:
+const fs = require('fs')
+let content
+try {
+  content = fs.readFileSync('file.md', 'utf-8')
+} catch (ex) {
+  console.log(ex)
+}
+console.log(content)
+
+	3.2 Asynchronous
+const fs = require('fs')
+fs.readFile('file.md', 'utf-8', function (err, content) {
+  if (err) {
+    return console.log(err)
+  }
+
+  console.log(content)
+})
+
+4 forEach() [83]
+	4.1 Sychronous
+[1,2,3,4].forEach(function(i) {
+	console.log('procesing sync ...')
+	delay()
+})
+
+	4.2 Asynchronous
+funtion asyncForEach(array, cb) {
+	array.forEach(function(i) {
+		setTimeout(cb, 0);
+	}
+}
+
+asyncForEach([1,2,3,4], function(i) {
+	console.log("porcessing async ...')
+	delay()
+})
+	
+5 setTimeout()
+
+setTimeout(function() { 
+	console.log('Hi')
+}, 5000)
+		
+6 Node.js HTTP server
+
+	6.1 HTTP server
+
+// content of index.js
+const http = require('http')
+const port = 3000
+
+const requestHandler = (request, response) => {
+  console.log(request.url)
+  response.end('Hello Node.js Server!')
+}
+
+const server = http.createServer(requestHandler)
+
+server.listen(port, (err) => {
+  if (err) {
+    return console.log('something bad happened', err)
+  }
+
+  console.log(`server is listening on ${port}`)
+})
+
+// If the port is already taken
+server.on('error', (e) => {
+  if (e.code == 'EADDRINUSE') {
+    console.log('Address in use');
+  }
+})
+
+	6.2 Using the Node.js Request Module
+	
+		6.2.1 Sending a GET request
+		
+const request = require('request-promise')
+
+const options = {
+  method: 'GET',
+  uri: 'https://risingstack.com',
+  // If you are calling a JSON API, you may want the request-promise to parse the response automatically.
+  json: true
+}
+
+request(options)
+  .then(function (response) {
+    // Request was successful, use the response object at will
+  })
+  .catch(function (err) {
+    // Something bad happened, handle the error
+  })
+  
+		6.2.2 POST requests
+		
+const options = {
+  method: 'POST',
+  uri: 'https://risingstack.com/login',
+  body: {
+    foo: 'bar'
+  },
+  json: true 
+    // JSON stringifies the body automatically
+}
+
+request(options)
+  .then(function (response) {
+    // Handle the response
+  })
+  .catch(function (err) {
+    // Deal with the error
+  })		
+  
+		6.2.3 To add query string parameters
+
+const options = {
+  method: 'GET',
+  uri: 'https://risingstack.com',
+  qs: {
+    limit: 10,
+    skip: 20,
+    sort: 'asc'
+  }
+}
+
+		6.2.4 Define headers
+		
+const options = {
+  method: 'GET',
+  uri: 'https://risingstack.com',
+  headers: {
+    'User-Agent': 'Request-Promise',
+    'Authorization': 'Basic QWxhZGRpbjpPcGVuU2VzYW1l'
+  }
+}
+
+7 Security [115]
+
+	7.1  Set up the obligatory HTTP headers
+// Content-Security-Policy: default-src 'self' *.mydomain.com
+var express = require('express')
+var helmet = require('helmet')
+var app = express()
+app.use(helmet())
+
+	7.2  Do proper session management
+	
+var cookieSession = require('cookie-session')
+var express = require('express')
+ 
+var app = express()
+ 
+app.use(cookieSession({
+  name: 'session',
+  keys: [
+    process.env.COOKIE_KEY1,
+    process.env.COOKIE_KEY2
+  ]
+}))
+ 
+app.use(function (req, res, next) {
+  var n = req.session.views || 0
+  req.session.views = n++
+  res.end(n + ' views')
+})
+ 
+app.listen(3000)
+
+	7.3  Always use strict mode
+// Undeletable properties
+'use strict'  
+delete Object.prototype // TypeError
+
+//Object literals must be unique
+var obj = {  
+    a: 1, 
+    a: 2 
+} // syntax error
+
+	7.4  Don't use eval with user input
+	
+setInterval(String, 2)
+setTimeout(String, 2)
+new Function(String)
+
+	7.5  Always escape user data [123]
+// Sanitizers
+// remove characters that appear in the blacklist. 
+// The characters are used in a RegExp and so you will need to escape some chars, e.g. blacklist(input, '\\[\\]').
+blacklist(input, chars)
+// replace <, >, &, ', " and / with HTML entities.
+escape(input)
+// replaces HTML encoded entities with <, >, &, ', " and /.
+unescape(input)
+// trim characters (whitespace by default) from both sides of the input.
+trim(input [, chars])
+	
+	7.6  Validate an entity using JSON-Schema
+{
+    "$schema": "http://json-schema.org/draft-06/schema#",
+    "title": "Product",
+    "description": "A product from Acme's catalog",
+    "type": "object",
+    "properties": {
+        "name": {
+            "description": "Name of the product",
+            "type": "string"
+        },
+        "price": {
+            "type": "number",
+            "exclusiveMinimum": 0
+        }
+    },
+    "required": ["id", "name", "price"]
+}
+
+const JSONValidator = require("jsonschema").Validator;
+
+class Product {
+ 
+  validate() {
+	var v = new JSONValidator();
+	return v.validate(this, schema);
+  }
+  static get schema() {
+	//define JSON-Schema, see example above
+  }
+}
+
+	7.7  Usage of middleware validator
+// The validator is a generic middleware that gets the entity it should validate and takes care to return
+// HTTP status 400 (Bad Request) should the body payload validation fail
+router.post("/" , **validator(Product.validate)**, async (req, res, next) => {
+	// route handling code goes here
+})
+// instead of the regex pattern, use validator
+var validator = require('validator');
+// ES6
+import validator from 'validator';
+import isEmail from 'validator/lib/isEmail';
+
+console.log(validator.isEmail('liran.tal@gmail.com'));
+// Client-side usage
+<script type="text/javascript" src="validator.min.js"></script>
+<script type="text/javascript">
+  validator.isEmail('foo@bar.com'); //=> true
+</script>
+	
+	7.8	 CSRF Token should be present in all pages that create or update data
+var cookieParser = require('cookie-parser');
+var csrf = require('csurf')
+var bodyParser = require('body-parser')
+var express = require('express')
+ 
+// setup route middlewares
+var csrfProtection = csrf({ cookie: true });
+var parseForm = bodyParser.urlencoded({ extended: false });
+ 
+// create express app
+var app = express()
+ 
+// we need this because "cookie" is true in csrfProtection
+app.use(cookieParser())
+ 
+app.get('/form', csrfProtection, function(req, res) {
+  // pass the csrfToken to the view
+  res.render('send', { csrfToken: req.csrfToken() });
+})
+ 
+app.post('/process', parseForm, csrfProtection, function(req, res) {
+  res.send('data is being processed');
+})
+
+// While on the view layer you have to use the CSRF token like this:
+<form action="/process" method="POST">
+  <input type="hidden" name="_csrf" value="{{csrfToken}}">
+   Favorite color: <input type="text" name="favoriteColor">
+  <button type="submit">Submit</button>
+</form>
+
+	7.9  Provide log off or exit functionality which expires session
+// use a user authentication system such as PassportJS
+app.get('/logout', function(req, res){ 
+  req.logout(); //provided by passport
+  res.redirect('/'); 
+})
+
+	7.10 Setting secure cookie settings
+// using the express session middleware
+app.use(session({ 
+ secret: 'youruniquesecret', // secret string used in the signing of the session ID that is stored in the cookie
+ name: 'youruniquename', // set a unique name to remove the default connect.sid
+ cookie: {
+   httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
+   secure: true, // only send cookie over https
+   maxAge: 60000*60*24 // set cookie expiry length in ms
+ }
+}))
+
+	7.11 AUTOCOMPLETE=off attribute for sensitive HTML form input fields
+<input type="email" name="email" autocomplete="off"/>
+
+	7.12 Set your X-Frame-Options set to DENY, SAMEORIGIN, or ALLOW-FROM
+var express = require('express')
+var helmet = require('helmet')
+var app = express()
+ 
+app.use(helmet({
+  frameguard: {action: 'deny'}
+}))
+
+	7.13 Protect from Brute Force and DDOS Attacks
+var RateLimit = require('express-rate-limit');
+ 
+// only if you're behind a reverse proxy (Heroku, Bluemix, AWS if you use an ELB, custom Nginx setup, etc) 
+app.enable('trust proxy');
+
+var limiter = new RateLimit({
+  windowMs: 15*60*1000, // 15 minutes 
+  max: 100, // limit each IP to 100 requests per windowMs 
+  delayMs: 0 // disable delaying - full speed until the max limit is reached 
+});
+ 
+//  apply to all requests 
+app.use(limiter)
+// only apply to requests that begin with /user/
+app.use('/user/', apiLimiter)
+
+	7.14 Allow redirects only to whitelisted or hardcoded URLs
+
+	7.15 Validating user input
+const Joi = require('joi');
+
+const schema = Joi.object().keys({
+	username: Joi.string().alphanum().min(3).max(30).required(),
+	password: Joi.string().regex(/^[a-zA-Z0-9]{3,30}$/),
+	access_token: [Joi.string(), Joi.number()],
+	birthyear: Joi.number().integer().min(1900).max(2013),
+	email: Joi.string().email()
+}).with('username', 'birthyear').without('password', 'access_token')
+
+// Return result
+const result = Joi.validate({ 
+	username: 'abc', 
+	birthyear: 1994 
+}, schema)
+// result.error === null -> valid
+
+	7.16 Securing your Regular Expressions
+var safe = require('safe-regex');
+var regex = process.argv.slice(2).join(' ');
+console.log(safe(regex));
+
+8  File [21][31][83]
+
+	8.1  Upload [31]
+	
+// Pay extra attention when creating files, like handling uploaded files. These files can easily eat up all your disk space.
+// To deal with this, you should use Streams.
+
+		8.1.1 Create an Upload Form
+		
+http.createServer(function (req, res) {
+  res.writeHead(200, {'Content-Type': 'text/html'});
+  res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+  res.write('<input type="file" name="filetoupload"><br>');
+  res.write('<input type="submit">');
+  res.write('</form>');
+  return res.end();
+}).listen(8080);
+
+		8.1.2 Parse an Upload File
+		
+var http = require('http');
+var formidable = require('formidable');
+
+http.createServer(function (req, res) {
+  if (req.url == '/fileupload' && req.method.toLowerCase() == 'post'){
+    var form = new formidable.IncomingForm();
+    form.parse(req, function (err, fields, files) {
+      res.write('File uploaded');
+      res.end(util.inspect({fields: fields, files: files}));
+    });
+  
+    return;
+  }
+
+  res.writeHead(200, {'Content-Type': 'text/html'});
+
+  res.write('<form action="fileupload" method="post" enctype="multipart/form-data">');
+  res.write('<input type="file" name="filetoupload"><br>');
+  res.write('<input type="submit">');
+  res.write('</form>');
+  
+  res.end();
+
+}).listen(8080);
+
+		8.1.3 Save the File
+
+// To move the file to the folder of your choice, use the File System module, and rename the file:
+form.parse(req, function (err, fields, files) {
+  var oldpath = files.filetoupload.path;
+  var newpath = 'C:/Users/Your Name/' + files.filetoupload.name;
+  fs.rename(oldpath, newpath, function (err) {
+	if (err) throw err;
+	res.write('File uploaded and moved!');
+	res.end();
+  });
+
+	8.2  Read 
+	
+	var http = require('http');
+	var fs = require('fs');
+	
+	http.createServer(function (req, res) {
+	  fs.readFile(__dirname + 'demofile1.html', function(err, data) {
+	    res.writeHead(200, {'Content-Type': 'text/html'});
+		res.write(data);
+	    res.end();
+	  });
+	}).listen(8080);
+	////////////////////////////////////
+	const fs = require('fs')
+	fs.readFile('file.md', 'utf-8', function (err, content) {
+	  if (err) {
+		return console.log(err)
+	  }
+	  console.log(content)
+	})
+
+	8.3  Create
+
+// If the file does not exist, the file will be created.
+fs.appendFile('mynewfile1.txt', 'Hello content!', function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
+// Takes a "flag" as the second argument, if the flag is "w" for "writing", the specified file is opened for writing. 
+// If the file does not exist, an empty file is created.
+
+fs.open('mynewfile2.txt', 'w', function (err, file) {
+  if (err) throw err;
+  console.log('Saved!');
+});
+// Replaces the specified file and content if it exists. If the file does not exist, a new file, 
+// containing the specified content, will be created.
+fs.writeFile('mynewfile3.txt', 'Hello content!', function (err) {
+  if (err) throw err;
+  console.log('Saved!');
+});
+
+	8.4  Delete 
+
+fs.unlink('mynewfile2.txt', function (err) {
+  if (err) throw err;
+  console.log('File deleted!');
+});
+
+	8.5  Rename
+
+fs.rename('mynewfile1.txt', 'myrenamedfile.txt', function (err) {
+  if (err) throw err;
+  console.log('File Renamed!');
+});
+
+	8.5  Download using createWriteStream
+	
+		8.5.1 Use GET
+
+// Dependencies
+var fs = require('fs');
+var url = require('url');
+var http = require('http');
+var exec = require('child_process').exec;
+var spawn = require('child_process').spawn;
+
+// App variables
+var file_url = 'http://upload.wikimedia.org/wikipedia/commons/4/4f/Big%26Small_edit_1.jpg';
+var DOWNLOAD_DIR = './downloads/';
+
+// We will be downloading the files to a directory, so make sure it's there
+// This step is not required if you have manually created the directory
+var mkdir = 'mkdir -p ' + DOWNLOAD_DIR;
+var child = exec(mkdir, function(err, stdout, stderr) {
+    if (err) throw err;
+    else download_file_httpget(file_url);
+});
+
+// Function to download file using HTTP.get
+var download_file_httpget = function(file_url) {
+var options = {
+    host: url.parse(file_url).host,
+    port: 80,
+    path: url.parse(file_url).pathname
+};
+
+var file_name = url.parse(file_url).pathname.split('/').pop();
+var file = fs.createWriteStream(DOWNLOAD_DIR + file_name);
+
+http.get(options, function(res) {
+    res.on('data', function(data) {
+            file.write(data);
+        }).on('end', function() {
+            file.end();
+            console.log(file_name + ' downloaded to ' + DOWNLOAD_DIR);
+        });
+    });
+};
+		
+		8.5.2 Use curl
+
+// Function to download file using curl
+var download_file_curl = function(file_url) {
+
+    // extract the file name
+    var file_name = url.parse(file_url).pathname.split('/').pop();
+    // create an instance of writable stream
+    var file = fs.createWriteStream(DOWNLOAD_DIR + file_name);
+    // execute curl using child_process' spawn function
+    var curl = spawn('curl', [file_url]);
+    // add a 'data' event listener for the spawn instance
+    curl.stdout.on('data', function(data) { file.write(data); });
+    // add an 'end' event listener to close the writeable stream
+    curl.stdout.on('end', function(data) {
+        file.end();
+        console.log(file_name + ' downloaded to ' + DOWNLOAD_DIR);
+    });
+    // when the spawn child process exits, check if there were any errors and close the writeable stream
+    curl.on('exit', function(code) {
+        if (code != 0) {
+            console.log('Failed: ' + code);
+        }
+    });
+};
+	
+		8.5.3 Use wget
+// Function to download file using wget
+var download_file_wget = function(file_url) {
+
+    // extract the file name
+    var file_name = url.parse(file_url).pathname.split('/').pop();
+    // compose the wget command
+    var wget = 'wget -P ' + DOWNLOAD_DIR + ' ' + file_url;
+    // excute wget using child_process' exec function
+
+    var child = exec(wget, function(err, stdout, stderr) {
+        if (err) throw err;
+        else console.log(file_name + ' downloaded to ' + DOWNLOAD_DIR);
+    });
+};
+
+9  Scheduler [105][07]
+
+	9.1  Running job every 10 minutes
+	
+var cron = require('cron');
+var cronJob = cron.job("0 */10 * * * *", function(){
+    // perform operation e.g. GET request http.get() etc.
+    console.info('cron job completed');
+}); 
+cronJob.start();
+or
+var cronJob = require('cron').CronJob;
+var myJob = new cronJob('00 30 11 * * 1-5', function(){...});
+myJob.start();
+
+	9.2  Delete the error log files at intervals
+
+$ npm install node-cron
+
+cron.schedule("* * * * *", function() {
+      console.log("running a task every minute");
+});
+
+// To delete the log file from the server on the 21st of every month
+
+cron.schedule("* * 21 * *", function() {
+  console.log("---------------------");
+  console.log("Running Cron Job");
+  fs.unlink("./error.log", err => {
+	if (err) throw err;
+	console.log("Error file succesfully deleted");
+  });
+});
+
+	9.3  Back Up Database
+
+$ npm install shelljs
+
+cron.schedule("59 23 * * *", function() {
+  console.log("---------------------");
+  console.log("Running Cron Job");
+  if (shell.exec("sqlite3 database.sqlite  .dump > data_dump.sql").code !== 0) {
+	shell.exit(1);
+  }
+  else{
+	shell.echo("Database backup complete");
+  }
+});
+
+	9.4  Sending emails every n-time interval
+
+// create mail transporter
+    let transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: "COMPANYEMAIL@gmail.com",
+        pass: "userpass"
+      }
+    });
+
+// sending emails at periodic intervals
+
+    cron.schedule("* * * * Wednesday", function(){
+      console.log("---------------------");
+      console.log("Running Cron Job");
+      let mailOptions = {
+        from: "COMPANYEMAIL@gmail.com",
+        to: "sampleuser@gmail.com",
+        subject: `Not a GDPR update ;)`,
+        text: `Hi there, this email was automatically sent by us`
+      };
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          throw error;
+        } else {
+          console.log("Email successfully sent!");
+        }
+      });
+    });
+    
+    9.5  Start and stop the cron job
+
+var job = require('cron').CronJob;
+
+new job('* * * * *', function(){
+  console.log('running a task every minute');
+});
+
+var cronJob = require('cron').CronJob;
+var job = new cronJob({
+   cronTime: '* * * * * *',
+    onTick: function() {
+     // call some function.
+     // create child process
+     // Do whatever you want to do!
+  },
+   start: false,
+   timeZone: 'Asia/Kolkata'
+ });
+
+job.start();
+
+if(job.isRunning()) {
+ job.stop();
+}
+
+10 ES6
+
+	10.1  Default Parameters in ES6
+var link = function(height = 50, color = 'red', url = 'http://azat.co') {
+  ...
+}
+
+	10.2  Template Literals in ES6
+// a new syntax ${NAME} inside of the back-ticked string
+var name = `Your name is ${first} ${last}.`
+var url = `http://localhost:3000/api/messages/${id}`
+
+	10.3  Multi-line Strings in ES6
+// simply utilize the backticks
+var roadPoem = `Then took the other, as just as fair,
+    And having perhaps the better claim
+    Because it was grassy and wanted wear,
+    Though as for that the passing there
+    Had worn them really about the same,`
+
+var fourAgreements = `You have the right to be you.
+    You can only be you when you do your best.`
+    
+	10.4  Destructuring Assignment in ES6
+	
+		10.4.1 ES5
+var data = $('body').data(), // data has properties house and mouse
+  house = data.house,
+  mouse = data.mouse
+======================
+var jsonMiddleware = require('body-parser').json
+
+var body = req.body, // body has username and password
+  username = body.username,
+  password = body.password  
+
+		10.4.1 ES6
+var {house, mouse} = $('body').data() // we'll get house and mouse variables
+var {json: jsonMiddleware} = require('body-parser')
+var {username, password} = req.body
+===============================
+var [col1, col2]  = $('.column'),
+    [line1, line2, line3, , line5] = file.split('\n')
+
+	10.5  Enhanced Object Literals in ES6
+	
+		10.5.1 ES5
+var serviceBase = {port: 3000, url: 'azat.co'},
+    getAccounts = function(){return [1,2,3]}
+
+var accountServiceES5 = {
+  port: serviceBase.port,
+  url: serviceBase.url,
+  getAccounts: getAccounts,
+  toString: function() {
+    return JSON.stringify(this.valueOf())
+  },
+  getUrl: function() {return "http://" + this.url + ':' + this.port},
+  valueOf_1_2_3: getAccounts()
+}
+===============================
+var accountServiceES5ObjectCreate = Object.create(serviceBase)
+var accountServiceES5ObjectCreate = {
+  getAccounts: getAccounts,
+  toString: function() {
+    return JSON.stringify(this.valueOf())
+  },
+  getUrl: function() {return "http://" + this.url + ':' + this.port},
+  valueOf_1_2_3: getAccounts()
+}
+
+		10.5.2 ES6
+var serviceBase = {port: 3000, url: 'azat.co'},
+    getAccounts = function(){return [1,2,3]}
+var accountService = {
+    __proto__: serviceBase,
+    getAccounts,
+// we can invoke super and have dynamic keys (valueOf_1_2_3)
+    toString() {
+     return JSON.stringify((super.valueOf()))
+    },
+    getUrl() {return "http://" + this.url + ':' + this.port},
+    [ 'valueOf_' + getAccounts().join('_') ]: getAccounts()
+};
+console.log(accountService)
+
+	10.6  Arrow Functions in ES6.
+
+		10.6.1 ES65
+var _this = this
+$('.btn').click(function(event){
+  _this.sendData()
+})
+
+// use call to pass the context to the logUpperCase() function in ES5
+var logUpperCase = function() {
+  var _this = this
+
+  this.string = this.string.toUpperCase()
+  return function () {
+    return console.log(_this.string)
+  }
+}
+
+logUpperCase.call({ string: 'es6 rocks' })()
+=============================
+var ids = ['5632953c4e345e145fdf2df8','563295464e345e145fdf2df9']
+var messages = ids.map(function (value) {
+  return "ID is " + value // explicit return
+})
+
+		10.6.2 ES6
+// ES6 code without _this = this
+$('.btn').click((event) =>{
+  this.sendData()
+})
+=============================
+var logUpperCase = function() {
+  this.string = this.string.toUpperCase()
+  return () => console.log(this.string)
+}
+
+logUpperCase.call({ string: 'es6 rocks' })()
+=============================
+// you can mix and match old function with => in ES6 as you see fit. 
+// And when an arrow function is used with one line statement, it becomes an expression, 
+// i.e,. it will implicitly return the result of that single statement. 
+// If you have more than one line, then you’ll need to use return explicitly.
+var ids = ['5632953c4e345e145fdf2df8','563295464e345e145fdf2df9']
+// The parenthesis () are optional for single params in an arrow function signature.
+// You need them when you use more than one param.
+var messages = ids.map(value => `ID is ${value}`) // implicit return
+
+	10.7  Promises in ES6
+	10.8  Block-Scoped Constructs Let and Const
+
+function calculateTotalAmount (vip) {
+  var amount = 0 // probably should also be let, but you can mix var and let
+  if (vip) {
+    let amount = 1 // first amount is still 0
+  } 
+  { // more crazy blocks!
+    let amount = 100 // first amount is still 0
+    {
+      let amount = 1000 // first amount is still 0
+      }
+  }  
+  return amount
+}
+
+console.log(calculateTotalAmount(true))
+===============================
+// When it comes to const, things are easier; it’s just an immutable, and it’s also block-scoped like let. 
+// Just to demonstrate, here are a bunch of constants and they all are okay because they belong to different blocks
+function calculateTotalAmount (vip) {
+  const amount = 0  
+  if (vip) {
+    const amount = 1 
+  } 
+  { // more crazy blocks!
+    const amount = 100 
+    {
+      const amount = 1000
+      }
+  }  
+  return amount
+}
+
+console.log(calculateTotalAmount(true))
+
+	10.9  Classes in ES6
+	
+class baseModel {
+  constructor(options = {}, data = []) { // class constructor
+    this.name = 'Base'
+    this.url = 'http://azat.co/api'
+    this.data = data
+    this.options = options
+  }
+
+    getName() { // class method
+      console.log(`Class name: ${this.name}`)
+    }
+}
+// you can’t assign properties this.NAME the same way as methods, i.e., 
+// you can’t say name at the same indentation level as a method. 
+// To set the value of a property, simply assign a value in the constructor.
+class AccountModel extends baseModel {
+  constructor(options, data) {
+     super({private: true}, ['32113123123', '524214691']) //call the parent method with super
+      this.name = 'Account Model'
+      this.url +='/accounts/'
+   }
+   
+  get accountsData() { //calculated attribute getter
+    // ... make XHR
+    return this.data
+  }
+}
+
+let accounts = new AccountModel(5)
+accounts.getName()
+console.log('Data is %s', accounts.accountsData)
+
+	10.10 Modules in ES6
+	
+		10.10.1 ES5
+module.exports = {
+  port: 3000,
+  getAccounts: function() {
+    ...
+  }
+}
+==========================
+var service = require('module.js')
+console.log(service.port) // 3000
+
+		10.10.2 ES6
+
+// this is our library in the ES6 module.js file:
+export var port = 3000
+export function getAccounts(url) {
+  ...
+}
+=================
+import {port, getAccounts} from 'module'
+console.log(port) // 3000
+// Or we can import everything as a variable service in main.js:
+import * as service from 'module'
+console.log(service.port) // 3000
+==================
+exports.<function_name> = function(...){...}
+
+11 Logger
+
+const levels = { 
+  error: 0, 
+  warn: 1, 
+  info: 2, 
+  verbose: 3, 
+  debug: 4, 
+  silly: 5 
+};
+
+	11.1 winston
+	
+		11.1.1 Creating your own Logger
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console(),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+})
+
+		11.1.2 Logging
+// Any logger instance
+logger.log({
+  level: 'info',
+  message: 'Hello distributed log files!'
+})
+logger.log('silly', "127.0.0.1 - there's no place like home")
+logger.log('debug', "127.0.0.1 - there's no place like home")
+logger.log('verbose', "127.0.0.1 - there's no place like home")
+logger.log('info', "127.0.0.1 - there's no place like home")
+logger.log('warn', "127.0.0.1 - there's no place like home")
+logger.log('error', "127.0.0.1 - there's no place like home")
+logger.info("127.0.0.1 - there's no place like home")
+logger.warn("127.0.0.1 - there's no place like home")
+logger.error("127.0.0.1 - there's no place like home")
+// Default logger
+const winston = require('winston')
+
+winston.log('info', "127.0.0.1 - there's no place like home")
+winston.info("127.0.0.1 - there's no place like home")
+
+winston.level = 'debug'
+winston.log('debug', 'Now my debug messages are written to console!')
+
+// By default, no transports are set on the default logger
+const files = new winston.transports.File({ filename: 'combined.log' })
+const console = new winston.transports.Console()
+ 
+winston.add(console)
+winston.add(files)
+winston.remove(console)
+
+// Or do it with one call to configure
+winston.configure({
+  transports: [
+    new winston.transports.File({ filename: 'somefile.log' })
+  ]
+})
+	
+		11.1.3 Add or remove transports from the logger
+const files = new winston.transports.File({ filename: 'combined.log' })
+const console = new winston.transports.Console()
+
+logger
+  .clear()          // Remove all transports
+  .add(console)     // Add console transport
+  .add(files)       // Add file transport
+  .remove(console); // Remove console transport
+  
+		11.1.4 Wholesale reconfigure a winston.Logger instance using the configure method
+const logger = winston.createLogger({
+  level: 'info',
+  transports: [
+	new winston.transports.Console(),
+	new winston.transports.File({ filename: 'combined.log' })
+  ]
+})
+
+const DailyRotateFile = require('winston-daily-rotate-file')
+logger.configure({
+  level: 'verbose',
+  transports: [
+	new DailyRotateFile(opts)
+  ]
+})
+
+		11.1.5 Format
+const { createLogger, format, transports } = require('winston')
+const { combine, timestamp, label, [printf] | [prettyPrint] } = format
+ 
+const myFormat = printf(info => {
+  return `${info.timestamp} [${info.label}] ${info.level}: ${info.message}`
+})
+
+// Ignore log messages if they have { private: true }
+const ignorePrivate = format((info, opts) => {
+  if (info.private) { return false; }
+  return info;
+})
+ 
+const logger = createLogger({
+  format: combine(
+    label({ label: 'right meow!' }),
+    ignorePrivate(),
+    timestamp(),
+    format.json(),
+    myFormat | prettyPrint() | format.splat(), format.simple()
+  ),
+  transports: [new transports.Console()]
+})
+
+logger.log({
+  level: 'info',
+  message: 'What time is the testing at?'
+})
+
+// String interpolation must use format.splat()
+logger.log('info', 'test message %d', 123)
+
+// Outputs: {"level":"error","message":"Public error to share"}
+logger.log({
+  level: 'error',
+  message: 'Public error to share'
+})
+ 
+// Messages with { private: true } will not be written when logged.
+logger.log({
+  private: true,
+  level: 'error',
+  message: 'This is super secret - hide it.'
+})
+
+// Use of format.combine will respect any falsey values return 
+// and stop evaluation of later formats in the series.
+const { format } = require('winston');
+const { combine, timestamp, label } = format
+ 
+const willNeverThrow = format.combine(
+  format(info => { return false })(), // Ignores everything
+  format(info => { throw new Error('Never reached') })()
+)
+
+		11.1.6 Create custom formats
+const { format } = require('winston');
+ 
+const volume = format((info, opts) => {
+  if (opts.yell) {
+    info.message = info.message.toUpperCase();
+  } else if (opts.whisper) {
+    info.message = info.message.toLowerCase();
+  }
+ 
+  return info;
+});
+ 
+// `volume` is now a function that returns instances of the format.
+const scream = volume({ yell: true });
+console.dir(scream.transform({
+  level: 'info',
+  message: `sorry for making you YELL in your head!`
+}, scream.options));
+// {
+//   level: 'info'
+//   message: 'SORRY FOR MAKING YOU YELL IN YOUR HEAD!'
+// }
+ 
+// `volume` can be used multiple times to create different formats.
+const whisper = volume({ whisper: true });
+console.dir(whisper.transform({
+  level: 'info',
+  message: `WHY ARE THEY MAKING US YELL SO MUCH!`
+}, whisper.options));
+// {
+//   level: 'info'
+//   message: 'why are they making us yell so much!'
+// }
+
+		11.1.7 Use the syslog levels
+const logger = winston.createLogger({
+  levels: winston.config.syslog.levels,
+  transports: [
+    new winston.transports.Console({ level: 'error' }),
+    new winston.transports.File({
+      filename: 'combined.log',
+      level: 'info'
+    })
+  ]
+})
+
+		11.1.8 Change transport level
+const transports = {
+  console: new winston.transports.Console({ level: 'warn' }),
+  file: new winston.transports.File({ filename: 'combined.log', level: 'error' })
+}
+ 
+const logger = winston.createLogger({
+  transports: [
+    transports.console,
+    transports.file
+  ]
+})
+
+logger.info('Will not be logged in either transport!')
+transports.console.level = 'info'
+transports.file.level = 'info'
+logger.info('Will be logged in both transports!')
+
+		11.1.9 Use Custom Logging Levels
+const myCustomLevels = {
+  levels: {
+    foo: 0,
+    bar: 1,
+    baz: 2,
+    foobar: 3
+  },
+  colors: {
+    foo: 'blue',
+    bar: 'green',
+    baz: 'yellow',
+    foobar: 'red'
+  }
+};
+ 
+const customLevelLogger = winston.createLogger({ 
+  levels: myCustomLevels.levels 
+});
+ 
+customLevelLogger.foobar('some foobar level-ed message')
+
+// Colorizing Standard logging levels
+winston.addColors(myCustomLevels.colors)
+// The colorize formatter must come before any formatters adding text you wish to color.
+winston.format.combine(
+  winston.format.colorize(),
+  winston.format.json()
+)
+
+		11.1.10 Add Custom Transports
+const Transport = require('winston-transport')
+const util = require('util')
+ 
+//
+// Inherit from `winston-transport` so you can take advantage
+// of the base functionality and `.exceptions.handle()`.
+//
+module.exports = class YourCustomTransport extends Transport {
+  constructor(opts) {
+    super(opts)
+    //
+    // Consume any custom options here. e.g.:
+    // - Connection information for databases
+    // - Authentication information for APIs (e.g. loggly, papertrail, 
+    //   logentries, etc.).
+    //
+  }
+ 
+  log(info, callback) {
+    setImmediate(() => {
+      this.emit('logged', info);
+    })
+ 
+    // Perform the writing to the remote service
+    callback()
+  }
+}
+
+		11.1.11  Handle Uncaught Exceptions
+const { createLogger, transports } = require('winston');
+ 
+// Enable exception handling when you create your logger.
+const logger = createLogger({
+  transports: [
+    new transports.File({ filename: 'combined.log' }) 
+  ],
+  exceptionHandlers: [
+    new transports.File({ filename: 'exceptions.log' })
+  ]
+})
+ 
+// Or enable it later on by adding a transport or using `.exceptions.handle`
+const logger = createLogger({
+  transports: [
+    new transports.File({ filename: 'combined.log' }) 
+  ]
+})
+ 
+// Call exceptions.handle with a transport to handle exceptions
+logger.exceptions.handle(
+  new transports.File({ filename: 'exceptions.log' })
+)
+
+// Use default error handler
+winston.exceptions.handle(
+  new winston.transports.File({ filename: 'path/to/exceptions.log' })
+)
+
+		11.1.12 To Exit or Not to Exit
+const logger = winston.createLogger({ exitOnError: false });
+// or, like this:
+logger.exitOnError = false;
+
+// for custom logger instances
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.File({ filename: 'path/to/combined.log' })
+  ],
+  exceptionHandlers: [
+    new winston.transports.File({ filename: 'path/to/exceptions.log' })
+  ]
+})
+// or
+const logger = winston.createLogger({
+  transports: [
+    new winston.transports.Console({
+      handleExceptions: true
+    })
+  ],
+  exitOnError: false
+})
+// or exit on error condition
+function ignoreEpipe(err) {
+  return err.code !== 'EPIPE';
+}
+ 
+const logger = winston.createLogger({ exitOnError: ignoreEpipe });
+// or, like this:
+logger.exitOnError = ignoreEpipe
+
+
+		11.1.13 Profiling
+logger.profile('test', [{ level: 'debug' }])
+ 
+setTimeout(function () {
+  //
+  // Stop profile of 'test'. Logging will now take place:
+  //   '17 Jan 21:00:00 - info: test duration=1000ms'
+  //
+  logger.profile('test');
+}, 1000)
+
+ // Returns an object corresponding to a specific timing. When done
+ // is called the timer will finish and log the duration. e.g.:
+ const profiler = logger.startTimer();
+ setTimeout(function () {
+   profiler.done({ message: 'Logging message' })
+ }, 1000)
+
+		11.1.14 Awaiting logs to be written in winston
+const transport = new winston.transports.Console()
+const logger = winston.createLogger({
+  transports: [transport]
+});
+ 
+transport.on('finished', function (info) {
+  // All `info` log messages has now been logged
+});
+ 
+logger.info('CHILL WINSTON!', { seriously: true })
+logger.end()
+
+// Handle errors
+logger.on('error', function (err) { /* Do Something */ })
+// Or just suppress them.
+logger.emitErrs = false;
+
+		11.1.15 As a whole
+const logger = winston.createLogger({
+  level: 'info',
+  format: winston.format.json(),
+  transports: [
+    //
+    // - Write to all logs with level `info` and below to `combined.log` 
+    // - Write all logs error (and below) to `error.log`.
+    // - maxsize: Max size in bytes of the logfile, if the size is exceeded then a new file is created, 
+    //   a counter will become a suffix of the log file.
+    new winston.transports.File({ filename: 'error.log', level: 'error' }),
+    new winston.transports.File({ filename: 'combined.log' })
+  ]
+})
+// If we're not in production then log to the `console` with the format:
+// `${info.level}: ${info.message} JSON.stringify({ ...rest }) `
+if (process.env.NODE_ENV !== 'production') {
+  logger.add(new winston.transports.Console({
+    format: winston.format.simple()
+  }))
+}
+
+		11.1.16 Working with multiple Loggers in winston
+const winston = require('winston');
+ 
+// Configure the logger for `category1`
+winston.loggers.add('category1', {
+  console: {
+    level: 'silly',
+    label: 'category one'
+  },
+  file: {
+    filename: '/path/to/some/file'
+  }
+})
+
+// Configure the logger for `category2`
+winston.loggers.add('category2', {
+  couchdb: {
+    host: '127.0.0.1',
+    port: 5984
+  }
+})
+// Grab your preconfigured logger
+const category1 = winston.loggers.get('category1');
+category1.info('logging from your IoC container-based logger');
+
+12 Coding style [124]
+https://github.com/RisingStack/node-style-guide
+
+	12.1  Objects
+	
+		12.1.1 Use the literal syntax for object creation 
+// bad
+var item = new Object()
+
+// good
+var item = {}
+
+		12.1.2 Use readable synonyms in place of reserved words
+// bad
+var superman = {
+  class: 'alien'
+}
+
+// bad
+var superman = {
+  klass: 'alien'
+}
+
+// good
+var superman = {
+  type: 'alien'
+}
+
+	12.2  Arrays
+	
+		12.2.1 Use the literal syntax for object creation 
+// bad
+var items = new Array()
+
+// good
+var items = []
+
+		12.2.2 If you don't know array length use Array#push
+var someStack = []
+// bad
+someStack[someStack.length] = 'abracadabra'
+// good
+someStack.push('abracadabra')
+
+		12.2.3 When you need to copy an array use Array#slice
+var itemsCopy = []
+// bad
+var len = items.length
+var i;
+for (i = 0; i < len; i++) {
+  itemsCopy[i] = items[i]
+}
+// good
+itemsCopy = items.slice()
+
+		12.2.4 To convert an array-like object to an array, use Array#slice
+function trigger() {
+  var args = Array.prototype.slice.call(arguments)
+  ...
+}
+
+	12.3  Strings
+
+		12.3.1 Use single quotes '' for strings
+		
+		12.3.1 When programmatically building up a string, use Array#join instead of string concatenation
+function inbox(messages) {
+  items = []
+
+  for (i = 0; i < length; i++) {
+    items[i] = messages[i].message
+  }
+
+  return '<ul><li>' + items.join('</li><li>') + '</li></ul>'
+}
+
+	12.4  Functions
+	
+		12.4.1 Function expressions
+// anonymous function expression
+var anonymous = function() {
+  return true
+}
+// named function expression
+var named = function named() {
+  return true
+}
+// immediately-invoked function expression (IIFE)
+(function() {
+  console.log('Welcome to the Internet. Please follow me.')
+})()
+
+		12.4.2 Never declare a function in a non-function block (if, while, etc). 
+			   Assign the function to a variable instead.
+// bad
+if (currentUser) {
+  function test() {
+    console.log('Nope.')
+  }
+}
+// good
+var test;
+if (currentUser) {
+  test = function test() {
+    console.log('Yup.')
+  }
+}
+
+		12.4.3 Never name a parameter arguments, this will take precedence 
+			   over the arguments object that is given to every function scope.
+// bad
+function nope(name, options, arguments) {
+  // ...stuff...
+}
+// good
+function yup(name, options, args) {
+  // ...stuff...
+}
+
+		12.4.4 Use dot notation when accessing properties
+var luke = {
+  jedi: true,
+  age: 28
+}
+// bad
+var isJedi = luke['jedi']
+// good
+var isJedi = luke.jedi
+
+		12.4.5 Use subscript notation [] when accessing properties with a variable
+var luke = {
+  jedi: true,
+  age: 28
+}
+
+function getProp(prop) {
+  return luke[prop]
+}
+
+var isJedi = getProp('jedi')
+
+	12.5  Variables
+	
+		12.5.1 Always use var to declare variables. Not doing so will result in global variables. 
+		       We want to avoid polluting the global namespace
+// bad
+superPower = new SuperPower()
+// good
+var superPower = new SuperPower()
+
+		12.5.2 Declare each variable on a newline, with a var before each of them
+// bad
+ var items = getItems(),
+      goSportsTeam = true,
+      dragonball = 'z'
+// good
+ var items = getItems()
+ var goSportsTeam = true
+ var dragonball = 'z'
+
+		12.5.3 Declare unassigned variables last
+// bad
+var i;
+var items = getItems();
+var dragonball;
+var goSportsTeam = true;
+var len;
+// good
+var items = getItems();
+var goSportsTeam = true;
+var dragonball;
+var length;
+var i;
+
+		12.5.4 Avoid redundant variable names, use Object instead
+// bad
+var kaleidoscopeName = '..'
+var kaleidoscopeLens = []
+var kaleidoscopeColors = []
+// good
+var kaleidoscope = {
+  name: '..',
+  lens: [],
+  colors: []
+}
+
+		12.5.5 Assign variables at the top of their scope
+// bad
+function() {
+  var name = getName()
+
+  if (!arguments.length) {
+    return false
+  }
+
+  return true
+}
+// good
+function() {
+  if (!arguments.length) {
+    return false;
+  }
+
+  var name = getName()
+
+  return true
+}
+
+	12.6  Requires
+	
+			12.6.1 Organize your node requires in the following order:
+				   core modules
+				   npm modules
+				   others
+var http = require('http')
+var fs = require('fs')
+
+var async = require('async')
+var mongoose = require('mongoose')
+
+var Car = require('./models/Car')
+
+			12.6.2 Do not use the .js when requiring modules
+
+	12.7  Callbacks
+
+		12.7.1 Always check for errors in callbacks
+//bad
+database.get('pokemons', function(err, pokemons) {
+  console.log(pokemons)
+})
+//good
+database.get('drabonballs', function(err, drabonballs) {
+  if (err) {
+    // handle the error somehow, maybe return with a callback
+    return console.log(err)
+  }
+  console.log(drabonballs)
+})
+
+		12.7.2 Return on callbacks
+//bad
+database.get('drabonballs', function(err, drabonballs) {
+  if(err) {
+    // if not return here
+    console.log(err);
+    // callback(err);
+    // return callback(err);
+  }
+  // this line will be executed as well
+  console.log(drabonballs);
+  // callback(null, JSON.parse(data));
+});
+//good
+database.get('drabonballs', function(err, drabonballs) {
+  if (err) {
+    // handle the error somehow, maybe return with a callback
+    return console.log(err);
+  }
+  console.log(drabonballs);
+});
+
+		12.7.3 Use descriptive arguments in your callback when it is an "interface" for others. 
+			   It makes your code readable
+// bad
+function getAnimals(done) {
+  Animal.get(done)
+}
+// good
+function getAnimals(done) {
+  Animal.get(function(err, animals) {
+    if(err) {
+      return done(err)
+    }
+
+    return done(null, {
+      dogs: animals.dogs,
+      cats: animals.cats
+    })
+  })
+}
+
+		12.7.4 Modules should expose an error-first callback interface [125]
+https://blog.risingstack.com/node-js-best-practices/
+module.exports = function (dragonName, callback) {
+  // do some stuff here
+  var dragon = createDragon(dragonName);
+    
+  // note, that the first parameter is the error
+  // which is null here
+  // but if an error occurs, then a new Error
+  // should be passed here
+  return callback(null, dragon);
+}
+
+		12.7.5 Always return on callbacks
+function readJSON(filePath, callback) {
+  fs.readFile(filePath, function(err, data) {
+    if (err) {
+      return callback(err);
+    }
+    
+    return callback(null, JSON.parse(data));
+  });
+}
+
+	12.8  Try catch
+// only do this with synchronous codeblocks, but it won't work for callbacks!
+
+		12.8.1 Only throw in synchronous functions only
+//bad
+function readPackageJson (callback) {
+  fs.readFile('package.json', function(err, file) {
+    if (err) {
+      throw err
+    }
+    ...
+  });
+}
+//good
+function readPackageJson (callback) {
+  fs.readFile('package.json', function(err, file) {
+    if (err) {
+      return  callback(err)
+    }
+    ...
+  })
+}
+
+		12.8.2 Catch errors in sync calls
+//bad
+var data = JSON.parse(jsonAsAString)
+//good
+var data
+try {
+  data = JSON.parse(jsonAsAString)
+} catch (e) {
+  //handle error - hopefully not with a console.log ;)
+  console.log(e);
+  return callback(e);
+}
+
+function readJSON(filePath, callback) {
+  fs.readFile(filePath, function(err, data) {
+    var parsedJson;
+    
+    // Handle error
+    if (err) {
+       return callback(err);
+    }
+    
+    // Parse JSON
+    try {
+      parsedJson = JSON.parse(data);
+    } catch (exception) {
+      return callback(exception);
+    }
+    
+    // Everything is ok
+    return callback(null, parsedJson);
+  });
+}
+		
+	12.9  Hoisting
+	
+		12.9.1 Variable declarations get hoisted to the top of their scope, their assignment does not
+// we know this wouldn't work (assuming there is no notDefined global variable)
+function example() {
+  console.log(notDefined); // => throws a ReferenceError
+}
+// creating a variable declaration after you reference the variable will work due to
+// variable hoisting. Note: the assignment value of `true` is not hoisted.
+function example() {
+  console.log(declaredButNotAssigned); // => undefined
+  var declaredButNotAssigned = true;
+}
+// The interpreter is hoisting the variable declaration to the top of the scope
+function example() {
+  var declaredButNotAssigned;
+  console.log(declaredButNotAssigned); // => undefined
+  declaredButNotAssigned = true;
+}
+
+		12.9.2 Anonymous function expressions hoist their variable declaration, but not the function assignment.
+function example() {
+  console.log(anonymous); // => undefined
+
+  anonymous(); // => TypeError anonymous is not a function
+
+  var anonymous = function() {
+    console.log('anonymous function expression');
+  };
+}
+
+		12.9.3 Named function expressions hoist the variable declaration, 
+			   but neither the function declaration nor the function body
+function example() {
+  console.log(named) // => undefined
+
+  named() // => TypeError named is not a function
+
+  superPower() // => ReferenceError superPower is not defined
+
+  var named = function superPower() {
+    console.log('Flying')
+  }
+}
+
+// the same is true when the function name is the same as the variable name.
+function example() {
+  console.log(named) // => undefined
+
+  named() // => TypeError named is not a function
+
+  var named = function named() {
+    console.log('named')
+  }
+}
+
+		12.9.4 Function declarations hoist their name and the function body
+function example() {
+  superPower() // => Flying
+
+  function superPower() {
+    console.log('Flying')
+  }
+}
+
+	12.10 Conditional Expressions & Equality
+	
+		12.10.1 Use === and !== over == and !=
+		
+		12.10.2 Conditional expressions are evaluated using coercion with the ToBoolean method 
+				and always follow these simple rules
+				
+				- Objects evaluate to true
+				- Undefined evaluates to false
+				- Null evaluates to false
+				- Booleans evaluate to the value of the boolean
+				- Numbers evaluate to false if +0, -0, or NaN, otherwise true
+				- Strings evaluate to false if an empty string '', otherwise true
+
+if ([0]) {
+  // true
+  // An array is an object, objects evaluate to true
+}
+
+		12.10.2 Use shortcuts
+// bad
+if (name !== '') {
+  // ...stuff...
+}
+// good
+if (name) {
+  // ...stuff...
+}
+
+// bad
+if (collection.length > 0) {
+  // ...stuff...
+}
+// good
+if (collection.length) {
+  // ...stuff...
+}
+
+	12.11 Blocks
+	
+		12.11.1 Use braces with all multi-line blocks
+// good
+function() {
+  return false;
+}
+
+	12.12 Comments
+	
+		12.12.1 Use /** ... */ for multiline comments. 
+				Include a description, specify types and values for all parameters and return values
+// bad
+// make() returns a new element
+// based on the passed in tag name
+//
+// @param <String> tag
+// @return <Element> element
+function make(tag) {
+
+  // ...stuff...
+
+  return element
+}
+// good
+/**
+ * make() returns a new element
+ * based on the passed in tag name
+ *
+ * @param <String> tag
+ * @return <Element> element
+ */
+function make(tag) {
+
+  // ...stuff...
+
+  return element
+}
+
+		12.12.2 Use // FIXME: to annotate problems
+function Calculator() {
+
+  // FIXME: shouldn't use a global here
+  total = 0
+
+  return this
+}
+
+		12.12.3 Use // TODO: to annotate solutions to problems
+function Calculator() {
+
+  // TODO: total should be configurable by an options param
+  this.total = 0
+
+  return this
+}
+
+	12.13 Type Casting & Coercion
+	
+		12.13.1 Perform type coercion at the beginning of the statement
+//  => this.reviewScore = 9;
+// bad
+var totalScore = this.reviewScore + '';
+// good
+var totalScore = '' + this.reviewScore;
+// bad
+var totalScore = '' + this.reviewScore + ' total score';
+// good
+var totalScore = this.reviewScore + ' total score';
+  
+		12.13.2 Use `parseInt` for Numbers and always with a radix for type casting
+var inputValue = '4';
+=// bad
+var val = new Number(inputValue);
+// bad
+var val = +inputValue;
+// bad
+var val = inputValue >> 0;
+// bad
+var val = parseInt(inputValue);
+// good
+var val = Number(inputValue);
+// good
+var val = parseInt(inputValue, 10);
+// good
+/**
+ * parseInt was the reason my code was slow.
+ * Bitshifting the String to coerce it to a
+ * Number made it a lot faster.
+ */
+var val = inputValue >> 0;
+- **Note:** Be careful when using bitshift operations. Numbers are represented as [64-bit values]
+(http://es5.github.io/#x4.3.19), but Bitshift operations always return a 32-bit integer ([source]
+(http://es5.github.io/#x11.7)). Bitshift can lead to unexpected behavior for integer values larger than 32 bits. 
+[Discussion](https://github.com/airbnb/javascript/issues/109). Largest signed 32-bit Int is 2,147,483,647:
+2147483647 >> 0 //=> 2147483647
+2147483648 >> 0 //=> -2147483648
+2147483649 >> 0 //=> -2147483647		
+
+		12.13.3 Booleans
+  var age = 0;
+// bad
+var hasAge = new Boolean(age);
+// good
+var hasAge = Boolean(age);
+// good
+var hasAge = !!age;
+
+		12.13.4 Use camelCase when naming objects, functions, and instances
+var thisIsMyObject = {};
+function thisIsMyFunction() {}
+var user = new User({
+  name: 'Bob Parr'
+});
+
+		12.13.5 Use PascalCase when naming constructors or classes
+// bad
+function user(options) {
+  this.name = options.name;
+}
+var bad = new user({
+  name: 'nope'
+});
+// good
+function User(options) {
+  this.name = options.name;
+}
+var good = new User({
+  name: 'yup'
+});
+
+		12.13.6 Use a leading underscore `_` when naming private properties
+this._firstName = 'Panda';
+
+		12.13.7 When saving a reference to `this` use `_this`
+function() {
+  var _this = this;
+  return function() {
+   console.log(_this);
+  };
+}
+
+		12.13.8 Name your functions. This is helpful for stack traces
+// bad
+var log = function(msg) {
+  console.log(msg);
+};
+// good
+var log = function log(msg) {
+  console.log(msg);
+};
+  
+	12.14 Accessors
+
+		12.14.1 Accessor functions for properties are not required
+				If you do make accessor functions use getVal() and setVal('hello')
+dragon.getAge();
+dragon.setAge(25);
+
+		12.14.2 It's okay to create get() and set() functions, but be consistent
+  function Jedi(options) {
+    options || (options = {});
+    var lightsaber = options.lightsaber || 'blue';
+    this.set('lightsaber', lightsaber);
+  }
+
+  Jedi.prototype.set = function(key, val) {
+    this[key] = val;
+  };
+
+  Jedi.prototype.get = function(key) {
+    return this[key];
+  };
+  
+  	12.15 Constructors
+
+  		12.15.1 Assign methods to the prototype object, instead of overwriting the prototype with a new object. 
+  				Overwriting the prototype makes inheritance impossible: by resetting the prototype you'll overwrite the base!
+  function Jedi() {
+    console.log('new jedi');
+  }
+
+  // bad
+  Jedi.prototype = {
+    fight: function fight() {
+      console.log('fighting');
+    },
+
+    block: function block() {
+      console.log('blocking');
+    }
+  };
+
+  // good
+  Jedi.prototype.fight = function fight() {
+    console.log('fighting');
+  };
+
+  Jedi.prototype.block = function block() {
+    console.log('blocking');
+  }; 
+
+  		12.15.2 Methods can return `this` to help with method chaining
+// bad
+Jedi.prototype.jump = function() {
+  this.jumping = true;
+  return true;
+};
+
+Jedi.prototype.setHeight = function(height) {
+  this.height = height;
+};
+
+var luke = new Jedi();
+luke.jump(); // => true
+luke.setHeight(20) // => undefined
+
+// good
+Jedi.prototype.jump = function() {
+  this.jumping = true;
+  return this;
+};
+
+Jedi.prototype.setHeight = function(height) {
+  this.height = height;
+  return this;
+};
+
+var luke = new Jedi();
+
+luke.jump()
+.setHeight(20);
+
+  	12.16 Consistent Style [126]
+https://blog.risingstack.com/node-js-best-practices-part-2/
+
+  		12.16.1 JSCS is a code style checker for JavaScript
+$ npm install jscs --save-dev
+// enable it from the package.json file by adding a custom script
+scripts: {
+	"jscs": "jscs index.js"
+}
+  		12.16.2 Enforce JSHint / JSCS Rules
+// run pre-commit checks on the developers' computers
+$ npm install --save-dev pre-commit
+// configure it in your package.json file:
+scripts: {
+pre-commit": [
+	"jshint",
+	"jscs"
+],
+}
+
+  	12.17 Set NODE_ENV = production [134]
+//Using a command line, initializing node process and setting before environment variables
+Set NODE_ENV=development&& set otherVariable=someValue&& node
+ 
+//Reading the environment variable using code
+If(process.env.NODE_ENV === “production”)
+    useCaching = true;
+
+
+13  Use Node and jQuery with Materialize
+
+	7.1 Includes
+<!-- Compiled and minified CSS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+<!--Compiled and minifed jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<!-- Compiled and minified JavaScript -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+
+	7.2 Installation
+// To include jQuery in Node, first install with npm, which includes hammerjs and jquery
+$ npm i -S materialize-css
+// in app.js
+var materialize = require('materialize-css');
+// For jQuery to work in Node, a window with a document is required. Since no such window exists natively in Node, one can be mocked by tools such as jsdom. This can be useful for testing purposes.
+require("jsdom").env("", function(err, window) {
+      if (err) {
+          console.error(err);
+          return;
+      }
+      var $ = require("jquery")(window);
+  });
+  
+13  Use Node with webpack
+https://www.youtube.com/watch?v=TaWKUpahFZM
+	13.1 Installation
+$ npm i webpack --save-dev
+$ npm i webpack-dev-server --save-dev
+$ npm i css-loader --save-dev
+$ npm i style-loader --save-dev
+
+	13.2 package.json
+"scripts": {
+	"start": "webpack ./index.js bundle.js" } | "start": "webpack-dev-server ./index.js"}
+}
+
+	13.3 Includes
+// in index.js
+alert(require('bear.js'));
+// in bear.js
+module.exports = 'grwol!';
+
+	13.4 Run
+$ npm start
+$ open index.html
+
+
+14 Response
+
+	14.1  cookie
+// http://expressjs.com/de/api.html#res
+res.cookie('name', 'tobi', { domain: '.example.com', path: '/admin', secure: true });
+res.cookie('rememberme', '1', { expires: new Date(Date.now() + 900000), httpOnly: true });
+
+		14.1.1 Default encoding
+res.cookie('some_cross_domain_cookie', 'http://mysubdomain.example.com',{domain:'example.com'});
+// Result: 'some_cross_domain_cookie=http%3A%2F%2Fmysubdomain.example.com; Domain=example.com; Path=/'
+
+		14.1.2 Custom encoding
+res.cookie('some_cross_domain_cookie', 'http://mysubdomain.example.com',{domain:'example.com', encode: String});
+// Result: 'some_cross_domain_cookie=http://mysubdomain.example.com; Domain=example.com; Path=/;'
+
+		14.1.3 Clears the cookie specified by name.
+res.cookie('name', 'tobi', { path: '/admin' });
+res.clearCookie('name', { path: '/admin' });
+
+	14.2  methods
+	
+		14.2.1 res.status(code)
+res.status(403).end();
+res.status(400).send('Bad Request');
+res.status(404).sendFile('/absolute/path/to/404.png');
+
+res.statusCode = 500;
+ return res.json({
+  status: "error"
+ });
+ 
+return res.status(500).json({
+  status: "error"
+}); 
+
+		14.2.2 res.type(type)
+res.type('.html');              // => 'text/html'
+res.type('html');               // => 'text/html'
+res.type('json');               // => 'application/json'
+res.type('application/json');   // => 'application/json'
+res.type('png');                // => image/png:
+
+		14.2.3 res.vary)field)
+res.vary('User-Agent').render('docs');
+
+15 Test
+
+let chai = require('chai');
+let expect = chai.expect;
+let sinon = require('sinon');
+let sinonChai = require('sinon-chai');
+chai.use(sinonChai);
+
+let model = require('../tron_model.js'); // for stubbing only
+let api = require('../createUser.js');
+
+describe('API', function() {
+    describe('creating users', function() {
+        it('should return 201 on creating user', function () {
+            let mockModel = sinon.stub(new model.TronModel());
+            mockModel.addUser.onFirstCall().returns(new model.User('user','pass'));
+            let req = {body: {username: 'goatzilla', password: 'x'}};
+            let res = {
+              end: function(){}
+              status: function(s) {this.statusCode = s; return this;}
+            };
+            api.init(mockModel);
+            api.createUser(req, res);
+            expect(res.statusCode).to.equal(201);
+            expect(mockModel.addUser).to.have.callCount(1);
+        });
+    });
+});
+

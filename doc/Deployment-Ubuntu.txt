@@ -1,0 +1,484 @@
+1  Installation
+
+	1.1  Download and install Ubuntu
+	     https://www.ubuntu.com/download/desktop
+	     
+	1.2  Install Node.js 8.x LTS Carbon and npm to /usr/bin/nodejs -> /etc/alternatives/nodejs -> /usr/bin/node
+	     $ sudo apt-get install -y nodejs
+	     $ node -v
+	     $ node --version
+
+	1.3  Install Bootstrap 4.1.3
+		 http://getbootstrap.com/docs/4.1/getting-started/download/
+		 $ npm i bootstrap
+	
+	1.4  Install dependencies
+		 $ npm i basic-auth body-parser connect-ensure-login cookie-parser cors ejs ejs-locals errorhandler express express-session formidable morgan passport passport-local path serve-favicon
+	
+2  Installation for development environment
+
+	2.1  Install Git
+	     $ sudo apt-get update
+	     $ sudo apt-get upgrade
+	     $ sudo apt-get install git
+	     
+	2.2  Install Express
+		 // Install globally
+		 // Express is not supposed to be installed globally, so try to avoid doing that. 
+		 $ npm install express -g
+		 // Install Express in the <myapp> directory
+	     $ npm install express --save
+	     // Install Express temporaritly, not adding to the dependencies list
+	     $ npm install express --no-save     
+
+	2.3  Install database tools
+	
+		 2.3.1 Nano package
+	     $ npm install nano --save
+	     
+	2.4  Install debugging tools
+	
+	  	 2.4.1 ESLint
+	     // locally
+	     $ npm install --save-dev eslint
+	     // globally
+	     $ npm install -g eslint
+	     // Generate .eslintrc.json file which configures the security rule
+	     $ ./node_modules/.bin/eslint --init
+	     // Install eslint-plugin-security
+	     $ npm install --save-dev eslint-plugin-security
+	     Add the following to your .eslintrc file:
+	     "plugins": [
+		   "security"
+		 ],
+		 "extends": [
+		   "plugin:security/recommended"
+		 ]
+	     // Run the following command to do security check every time before poll request
+	     $ ./node_modules/.bin/eslint <js_file|dir> [--fix]
+
+	 	 2.4.2 nodemon
+		 $ npm install -g nodemon
+		 $ nodemon <js_file>
+	     
+		 2.4.3 Install retire.js to detect the use of module versions with known vulnerabilities
+	     $ npm install -g retire
+	
+		 2.4.4 Install Node Inspector Client to debug with server or apps
+		 $ npm install -g node-inspect
+		 $ node --inpect <server.js>
+		 // Add breakpoint in code
+		 debugger
+		 // Select the target server and step through the breakpoints in browser:
+		 chrome://inspect
+		 // Debug with apps on console and browser
+		 // Add breakpoint in code
+		 debugger
+		 // Step through the console with
+		 // c => continue with code execution
+		 // n => execute this line and go to next line
+		 // s => step into this function
+		 // o => finish function execution and step out
+		 // repl => allows code to be evaluated remotely
+		 $ node-inspect <app.js>
+		 // Debug with particular file using particular package
+		 $ set DEBUG=<package_name>
+		 $ node <js_file_name>
+		 
+	2.5  Logging tools
+	
+		 2.5.1 HTTP request logger middleware morgan [140]
+		 $ npm i morgan
+// express/connect
+// Simple app that will log all request in the Apache combined format to STDOUT
+var express = require('express')
+var morgan = require('morgan')
+
+var app = express()
+
+app.use(morgan('combined'))
+
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+
+// vanilla http server
+// Simple app that will log all request in the Apache combined format to STDOUT
+var finalhandler = require('finalhandler')
+var http = require('http')
+var morgan = require('morgan')
+
+// create "middleware"
+var logger = morgan('combined')
+
+http.createServer(function (req, res) {
+  var done = finalhandler(req, res)
+  logger(req, res, function (err) {
+    if (err) return done(err)
+
+    // respond to request
+    res.setHeader('content-type', 'text/plain')
+    res.end('hello, world!')
+  })
+})
+
+// write logs to a file
+// Simple app that will log all requests in the Apache combined format to the file access.log
+var express = require('express')
+var fs = require('fs')
+var morgan = require('morgan')
+var path = require('path')
+
+var app = express()
+
+// create a write stream (in append mode)
+var accessLogStream = fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+
+// Simple app that will log all requests in the Apache combined format to one log file per day 
+// in the log/ directory using the rotating-file-stream module.
+var express = require('express')
+var fs = require('fs')
+var morgan = require('morgan')
+var path = require('path')
+var rfs = require('rotating-file-stream')
+
+var app = express()
+var logDirectory = path.join(__dirname, 'log')
+
+// ensure log directory exists
+fs.existsSync(logDirectory) || fs.mkdirSync(logDirectory)
+
+// create a rotating write stream
+var accessLogStream = rfs('access.log', {
+  interval: '1d', // rotate daily
+  path: logDirectory
+})
+
+// setup the logger
+app.use(morgan('combined', { stream: accessLogStream }))
+
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+
+// split / dual logging
+// log all requests to a file using Apache format, but error responses are logged to the console
+var express = require('express')
+var fs = require('fs')
+var morgan = require('morgan')
+var path = require('path')
+
+var app = express()
+
+// log only 4xx and 5xx responses to console
+app.use(morgan('dev', {
+  skip: function (req, res) { return res.statusCode < 400 }
+}))
+
+// log all requests to access.log
+app.use(morgan('common', {
+  stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' })
+}))
+
+app.get('/', function (req, res) {
+  res.send('hello, world!')
+})
+
+		 2.5.2 winston
+		 $ npm i winston
+		 
+	2.7  Install node-cron
+		 $ npm install node-cron
+		 
+	2.8  Install shelljs that allows us to run shell scripts
+		 $ npm install shelljs
+		 
+	2.9  Install nodemailer to send emails
+		 $ npm install nodemailer
+		 
+	2.10 Install heapdump to find memory leak[103]
+		 $ npm install heapdump
+		 // Make sure you capture multiple of them with some time difference so you can compare them.
+		 var heapdump = require('heapdump')
+		 heapdump.writeSnapshot(function(err, filename) {
+		   console.log('dump written to', filename)
+		 })
+		 
+
+3  Installation for deveployment environment
+	
+	3.1  Install Node Security Platform (NSP)
+		 // Before pushing your changes to production, use the following command which
+		 // locks down dependency versions recursively and creates a npm-shrinkwrap.json file out of it. 
+		 $ npm shrinkwrap
+		 $ npm i nsp -g
+		 // From inside your project directory
+		 $ nsp check
+		 // either audit the shrinkwrap
+		 $ nsp audit-shrinkwrap
+		 // or the package.json
+		 $ nsp audit-package
+		 // Retire.js is to help you detect the use of module versions with known vulnerabilities
+		 // running it with the retire command will look for vulnerabilities in your node_modules directory. 
+		 // (Also note, that retire.js works not only with node modules, but with front end libraries as well.)
+		 $ npm i retire -g
+
+	3.2  Install dependencies
+	     $ npm install --prod
+	
+4 Use NVM
+
+	4.1  Install curl package
+	     $ sudo apt install curl
+
+	4.2  Install Node Version Manager (nvm) under ~/.nvm
+	     $ curl -o- https://raw.githubusercontent.com/creationix/nvm/v0.33.11/install.sh | bash
+	     Close the terminal and open a new one
+	     $ command -v nvm
+	     $ nvm --version
+
+	4.3  Install the latest release of Node.js under ~/.nvm
+	     $ nvm install node
+	     $ node -v
+	     or
+	     $ nvm use node <version>
+	     
+	4.4  Install a specific version of Node.js under ~/.nvm
+	     $ nvm install <version>
+	     $ nvm use node node
+	     
+	4.5  To use a mirror of the node binaries, set $NVM_NODEJS_ORG_MIRROR
+	     $ export NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist
+	     $ nvm install node
+	     or
+	     $ NVM_NODEJS_ORG_MIRROR=https://nodejs.org/dist nvm install 4.2
+	     
+	4.6  To use a mirror of the io.js binaries, set $NVM_IOJS_ORG_MIRROR
+	     $ export NVM_IOJS_ORG_MIRROR=https://iojs.org/dist
+	     $ nvm install iojs-v1.0.3
+	     or
+	     $ NVM_IOJS_ORG_MIRROR=https://iojs.org/dist nvm install iojs-v1.0.3
+	     
+	4.7  Check all the local versions
+	     $ nvm ls
+	
+	4.8  Check all the remote versions
+	     $ nvm ls-remote
+	
+	4.9  View Alias
+	     $ nvm alias
+
+	4.10 Set a default Node version
+	     // Creates a file ~/.nvm/alias/default
+	     $ nvm alias default node|<version>
+
+	4.11 Set my_alias
+	     // Creates a file ~/.nvm/alias/my_alias
+	     $ nvm alias my_alias node|<version>
+	
+	4.12 Use a version
+	     $ nvm use node <version>|default|my_alias
+	
+	4.13 Use system version
+	     $ nvm use system
+	     or
+	     $ nvm use system <version>
+
+	4.14 Run a version
+	     $ nvm run node --version <version>
+	     or
+	     $ nvm exec 4.2 node --version <version>
+
+	4.15 Get the path
+	     $ nvm which <version>
+	
+	4.16 Restore your PATH
+	     $ nvm deactivate
+	
+	4.17 Make nvm default to a version for all command
+	     $ echo "5.9" > .nvmrc
+	     // Default to the latest LTS version
+	     $ echo "lts/*" > .nvmrc
+	     # Default to the latest version
+	     $ echo "node" > .nvmrc
+	     Then when you run nvm
+	     $ nvm use|run|exec|which
+	
+	4.18 Use special alias for all command
+	     $ nvm install|use|run|exec|which <version>|node|default|my_alias
+	
+	4.19 Uninstall a specific version of Node.js
+	     $ nvm uninstall <version>|default|my_alias
+	
+	4.20 Remove NVM
+	     $ rm -rf "$NVM_DIR"
+	     
+5 Use NPM
+
+	5.1  Update NPM to a specific version
+		 // NPM is bundled with the Node.js binary, so you don't have to install it
+	     $ npm install npm@<version> -g
+	
+	5.2  Add Dependencies
+	     $ npm install <package_name> --save
+	
+	5.3  Add Scoped/Private Dependencies     
+	     $ npm install @myorg/mypackage --save
+	     // It will show up in your package.json in the following way:
+		 "dependencies": {
+		   "@myorg/mypackage": "^1.0.0"
+		 }
+	5.4  Add Development Dependencies
+	     $ npm install <package_name> --save-dev
+	
+	5.5  Start Node with the file specified in the package.json with the key "start"
+	     $ npm start
+	
+	5.6  Run a test with the file specified in the package.json with the key "test"
+	     $ npm test
+	
+	5.7  Run any script with the file specified in the package.json with the key "<your-custom-script>"
+	     $ npm run <your-custom-script>
+
+	5.8  Uninstall a module
+	     $ npm uninstall <package_name>
+	
+	5.9  Search a Module
+	     $ npm search <package_name>
+
+	5.10 List down all the locally installed modules
+	     $ npm ls
+	
+	5.11 Run NPM scripts
+	     $ npm start
+	     $ npm stop
+	     $ npm test
+	     $ npm run <your-custom-script>
+	     // In your package.json they can look something like this:
+		  "scripts": {
+		 	"start": "node index.js",
+		 	"test": "mocha test",
+		 	"<your-custom-script>": "echo npm"
+		   }
+
+	5.12 Create a package
+	     $ cd <repo_name>
+	     $ npm init
+	     $ npm i npm (to update)
+
+6  Use Git
+
+	6.1  Start a new repository and publish it to GitHub
+
+		6.1.1 Create a new directory, and initialize it with git-specific functions
+   	     	  $ git init <project_name>
+   	     	  $ cd my-repo
+   	     	  
+		6.1.2 Create and stage a new file
+   	     	  $ touch README.md
+   	     	  $ git add README.md
+   	     	  $ git config --global user.email fx90034@gmail.com
+   	     	  $ git commit -m "add README to initial commit"
+
+		6.1.3 Push changes to github
+   	     	  $ git remote add origin <url>
+   	     	  // URL: https://github.com/<username>/<project_name>.git
+   	     	  $ git push --set-upstream origin master
+
+	6.2  Contribute to an existing repository
+
+		6.2.1 Download a repository on GitHub.com to our machine
+   	     	  $ git clone <url>
+   	     	  $ cd <project_name>
+   	     	  
+		6.2.2 Create a new branch to store any new changes	  
+   	     	  $ git branch <my-branch>
+
+		6.2.3 Switch to the branch
+   	     	  $ git checkout <my-branch>
+   	     	  
+   	    6.2.4 Stage the changed files
+   	     	  $ git add file1.md file2.md
+   	     	  $ git commit -m "my snapshot"
+   	     	  
+		6.2.5 Push changes to the branch or the master
+   	     	  $ git push [--set-upstream origin my-branch]
+   	     	  $ git push [origin master]
+	     
+	6.3  Git commands 
+	     
+	     $ git status
+	     $ git rm -r folder-name
+	     $ git checkout -- <file> // to discard changes in working directory
+		 $ git diff
+		 $ git reset
+		 $ git reset --soft
+		 $ git reset --hard
+		 $ git merge --rebase (fast forward merge)
+		 $ git merge --no -ff (recursive merge)
+
+
+7 Docker Desktop [89][90]
+
+	7.1 Installation
+	
+		7.1.1 List Docker CLI commands
+		
+			  $ docker
+			  $ docker --help
+			  $ docker container --help
+
+		7.1.2 Display Docker version and info
+			  $ docker --version
+			  $ docker version
+			  $ docker info
+		7.1.3 Execute Docker image
+			  $ docker run hello-world
+			  
+		7.1.4 List Docker images
+			  $ docker image ls
+			  $ docker container ls --all
+			  $ docker container ls -aq
+			  
+		7.1.5 List Docker containers (running, all, aq in quiet mode)
+		
+			  $ docker container ls [--all]
+			  
+			  
+			  $ docker-compose --version
+			  $ docker-compose build
+			  $ docker-compose up -d
+		
+			  $ docker run hello-world
+			  $ docker image ls [--all]
+			  $ docker container ls [--all]
+		
+			  $ cat docker-compose.yml
+	7.2 Configure Docker to start on boot
+	
+	7.2 Deployment
+		$ kubectl apply -f kebe-deployment.yml
+		$ kubectl get pods
+		$ kubectl get svc
+		$ docker stack deploy -c docker-compose.yml words
+		
+	7.3 Building a Docker image as non-root
+		FROM node:latest
+		COPY package.json .
+		RUN npm install
+		COPY . .
+		EXPOSE 3000
+		USER node
+		CMD ["node", "server.js"]
+		
+	7.4 Uninstall Toolbox on Windows
+		$ docker-machine ls
+		$ docker-machine rm my-docker-machine
+		
