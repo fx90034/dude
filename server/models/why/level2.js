@@ -1,4 +1,4 @@
-const debug = require('debug')('http');
+const debug = require('debug')('db');
 const db = require('./index');
 const level1 = require('./level1');
 
@@ -68,7 +68,7 @@ debug("@Insert level2!!")
 exports.queryByLevel2 = function(level1, level2, ip, user, callback) {
 debug("queryByLevel2: " + level2);
   let params = { "level1": level1, "startkey": [level1], "endkey": [level1, level2, ip, user]};
-	db.why.view('answer', 'by_level1', params, function(err, body) {
+	db.why.view('answers', 'by_level2', params, function(err, body) {
 //  why.view('answer', 'by_level1', {[level1, ip, user]},  function(err, body) {
 		if(err) {
 			console.error(err);

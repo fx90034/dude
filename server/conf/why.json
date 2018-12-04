@@ -4,20 +4,6 @@
     "Overall cost": {
       "question": "What type of the solution do you like most?",
       "answer": {
-        "Wired network connectivity": {
-          "question": "Do you like to embed RS485 all around your house?",
-          "answer": {
-            "Yes": "<link>",
-            "No": "<link>"
-          }
-        },
-        "Custom designed smart home": {
-          "question": "Do you like to spend more than $100,000?",
-          "answer": {
-            "Yes": "<link>",
-            "No": "<link>"
-          }
-        },
         "Standalone smart devices and sensors": {
           "question": "Do you like to buy each of the devices with double price?",
           "answer": {
@@ -27,6 +13,20 @@
         },
         "Dedicated smart hub or bridge": {
           "question": "Do you like to speand $200 or more to add a smart hub?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Wired network connectivity": {
+          "question": "Do you like to embed RS485 all around your house?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Custom designed smart home": {
+          "question": "Do you like to spend more than $100,000?",
           "answer": {
             "Yes": "<link>",
             "No": "<link>"
@@ -110,7 +110,7 @@
           }
         },
         "Various connnectivities": {
-          "question": "which of the folloiwng ways do you prefer to connect your devices?",
+          "question": "which of the following ways do you prefer to connect your devices?",
           "answer": {
             "Bluetooth": "<link>",
             "Mesh network (ZigBee, Z-wave)": "<link>",
@@ -121,7 +121,7 @@
       }
     },
     "Security & privacy": {
-      "question": "Which of the following do you feel comfortable?",
+      "question": "Which of the following scenarios do you feel comfortable?",
       "answer": {
         "Connect to multiple platforms": {
           "question": "Do you like to expose your daily activities to many cloud servers?",

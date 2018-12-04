@@ -3,12 +3,23 @@
 <head>
 <link href="/css/radio.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-function save_level2(j, k, value) {
-  window.location.href = 'why/level3?level2=' + value + '&level1=' + "<%=level1 %>" + '&j=' + j + '&k=' + k;
+function save_level2(j, k, l, value) {
+  window.location.href = 'why/level3?level3=' + value +
+                         '&level1=' + "<%=level1 %>" + '&level2=' + "<%=level2 %>" +
+                         '&j=' + j + '&k=' + k + '&l=' + l;
 }
 </script>
 <% include ../session.ejs%>
 <% include ../head.ejs%>
+<% var keys = [];
+   var links = [];
+   for(var i=0; i<answers.length; i++) {
+     var str = answers[i].split(':');
+     keys.push(str[0]);
+     links.push(str[1]);
+   }
+   console.log("link = " + links)
+%>
 <link rel='stylesheet' href='https://use.fontawesome.com/releases/v5.5.0/css/all.css'
 integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU'
 crossorigin='anonymous'>
@@ -23,26 +34,24 @@ crossorigin='anonymous'>
   </div>
     <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
       <div class="quiz" id="quiz" data-toggle="buttons">
-         <a onclick="javascript:save_level2(<%=j %>, 1, 'Wired network connectivity');">
+         <a onclick="javascript:save_level2(<%=j %>, <%=j %>, 0, '<%= keys[0] %>');">
           <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
             <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-            <input type="hidden"><%= answers[0] %></label></a>
-         <a onclick="javascript:save_level2(<%=j %>, 1, 'Wired network connectivity');">
+            <input type="hidden"><%= keys[0] %></label></a>
+         <a onclick="javascript:save_level2(<%=j %>, <%=j %>, 1, '<%= keys[1] %>');">
           <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
             <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-            <input type="hidden"><%= answers[1] %></label></a>
-         <a onclick="javascript:save_level2(<%=j %>, 2, 'Custom designed smart home');">
-          <label class="element-animation3 btn btn-lg btn-primary btn-block"><span class="btn-label">
-            <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-            <input type="hidden"><%= answers[2] %></label></a>
-        <a onclick="javascript:save_level2(<%=j %>, 3, 'Standalone smart devices and sensors');">
-         <label class="element-animation1 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right align-middle' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[3] %></label></a>
-        <a onclick="javascript:save_level2(<%=j %>, 4, 'Dedicated smart hub or bridge');">
-         <label class="element-animation2 btn btn-lg btn-primary btn-block"><span class="btn-label">
-           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
-           <input type="hidden"><%= answers[4] %></label></a>
+            <input type="hidden"><%= keys[1] %></label></a>
+        <% if(keys.length > 2)
+         res.print("<a onclick=\"javascript:save_level2(" + j + ", " + k + ", 2, '" + keys[2] + "');\">" +
+         "<label class=\"element-animation3 btn btn-lg btn-primary btn-block\"><span class=\"btn-label\">" +
+         "<i class='fas fa-angle-right' style='font-size:36px'></i></span>" + keys[2] + "</label></a>");
+         %>
+         <% if(keys.length > 3)
+          res.print("<a onclick=\"javascript:save_level2(" + j + ", " + k + ", 3, '" + keys[3] + "');\">" +
+          "<label class=\"element-animation3 btn btn-lg btn-primary btn-block\"><span class=\"btn-label\">" +
+          "<i class='fas fa-angle-right' style='font-size:36px'></i></span>" + keys[3] + "</label></a>");
+          %>
       </div>
     </div>
 </div>

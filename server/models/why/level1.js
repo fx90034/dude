@@ -1,6 +1,6 @@
 
 const db = require('./index');
-const debug = require('debug')('http');
+const debug = require('debug')('db');
 
 exports.addLevel1 = function(level1, ip, user, callback) {
 debug("addLevel1!!");

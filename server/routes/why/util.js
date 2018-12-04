@@ -24,6 +24,9 @@ debug("data = " + JSON.stringify(data))
     });
   }
   else {
+debug("i=" + i)
+debug("j=" + j)
+debug("k=" + k)
     var data = { question: questions[i][j][k], answers: answers[i][j][k] };
 debug("data = " + JSON.stringify(data))
     return callback(null, data);
@@ -86,12 +89,23 @@ debug("answer2 = " + answer2)
           var levelk = level2[answer2[k]];
 debug('k = ' + k)
  debug("level2 = " + JSON.stringify(levelk))
-          questions[0][j][k] = [];
-          questions[0][j][k].push(levelk.question);
-          for(var answer in levelk.answer) {
+//          questions[0][j][k] = [];
+//          questions[0][j][k].push(levelk.question);
+            questions[0][j][k] = levelk.question;
             answers[0][j][k] = [];
-            answers[0][j][k].push(answer);
-          }
+debug("levelk.answer = " + JSON.stringify(levelk.answer))
+//           for(var answer in levelk.answer) {
+//             answers[0][j][k].push(answer);
+// debug("answers[0][j][k][0] = " + answers[0][j][k][0])
+//           }
+            var answer = Object.keys(levelk.answer);
+debug("levelk.answer.length = " + levelk.answer.length)
+            for(var l=0; l<answer.length; l++) {
+              var value = answer[l] + ": " + levelk.answer[answer[l]];
+              answers[0][j][k].push(value);
+debug('value = ' + value)
+debug("answers[0][j][k][0] = " + JSON.stringify(answers[0][j][k][0]))
+            }
         }
       }
     } catch(ex) {

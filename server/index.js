@@ -128,7 +128,10 @@ app.use('/why', why);
 // Check session expires
 app.use(function(req, res, next) {
 debug("req.url = " + req.url)
-	if(req.url != '/' && req.user != 'undefined') {
+debug("req.user = " + req.user)
+	if(req.url != '/' || req.url.indexOf('/why')!= -1)
+		next();
+	else if(req.user) {
 // debug("req.user = " + req.user.name)
 debug("session = " +req.session.cookie.expires)
 		next();

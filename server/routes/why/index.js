@@ -42,6 +42,7 @@ debug('level1 = ' + level1)
 //      res.render('/error', { message: 'Please try again.'});
     }
     else {
+      var question = '';
       var answers = [];
       util.getData(0, j, 0, function(err, data) {
         if(err) {
@@ -52,17 +53,16 @@ debug('level1 = ' + level1)
         else {
           question = data.question;
           answers = data.answers;
-    debug("question = " + question)
-    debug("answers = " + answers)
-    debug("answer = " + data.answers[0][j])
+debug("question = " + question)
+debug("answers = " + answers)
         }
-        res.render('why/level2', { j: j, level1: level1, answers: answers });
+        res.render('why/level2', { j: j, level1: level1, question: question, answers: answers });
       });
     }
   });
 });
 
-router.get('/level2', function(req, res) {
+router.get('/level3', function(req, res) {
   let user = null;
   let j = req.query.j;
   let k = req.query.k;
@@ -81,7 +81,22 @@ debug('level2 = ' + level2)
       res.render(error, { message: 'Please try again.'});
     }
     else {
-      res.render('why/level3', { j: j, k: k, question: level2 });
+      var answers = [];
+      util.getData(0, j, k, function(err, data) {
+        if(err) {
+          console.error(err);
+          throw err;
+    //      return res.render('error', { error: err });
+        }
+        else {
+          question = data.question;
+          answers = data.answers;
+debug("question = " + question)
+debug("answers = " + answers)
+debug("answer = " + data.answers[0][j][k])
+        }
+        res.render('why/level3', { j: j, k: k, level1: level1, level2: level2, question: question, answers: answers });
+      });
     }
   });
 });
