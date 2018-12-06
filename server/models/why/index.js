@@ -8,7 +8,8 @@ const debug = require('debug')('db');
 
 exports.level1 = require('./level1');
 exports.level2 = require('./level2');
-
+exports.level3 = require('./level3');
+exports.report = require('./report');
 
 exports.queryByIP = function(ip, user, callback) {
 debug("queryByIP: " + ip);

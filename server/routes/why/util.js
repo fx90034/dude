@@ -69,7 +69,7 @@ function load(callback) {
  debug("answers[0][0][0] = " + answers[0][0][0])
 }
 // debug("answers[0][0][0] = " + answers[0][0][0])
-      for(var j=1; j<answer1.length; j++) {
+      for(var j=1; j<=answer1.length; j++) {
         var levelj = level1[answer1[j-1]];
 debug('j = ' + j)
  debug("levelj = " + JSON.stringify(levelj))
@@ -99,7 +99,7 @@ debug("levelk.answer = " + JSON.stringify(levelk.answer))
 // debug("answers[0][j][k][0] = " + answers[0][j][k][0])
 //           }
             var answer = Object.keys(levelk.answer);
-debug("levelk.answer.length = " + levelk.answer.length)
+debug("answer.length = " + answer.length)
             for(var l=0; l<answer.length; l++) {
               var value = answer[l] + ": " + levelk.answer[answer[l]];
               answers[0][j][k].push(value);

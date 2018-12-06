@@ -11,24 +11,42 @@ try {
       why.insert({
          "views": {
             "by_level1": {
-               "map": function (doc) {
+               "map": function(doc) {
                   emit([doc.level1, doc.ip, doc.user], doc._id);
                }
             },
             "by_level2": {
-               "map": function (doc) {
+               "map": function(doc) {
                   emit([doc.level1, doc.level2, doc.ip, doc.user], doc._id);
                }
             },
             "by_level3": {
-               "map": function (doc) {
+               "map": function(doc) {
                   emit([doc.level1, doc.level2, doc.level3, doc.ip, doc.user], doc._id);
                }
             },
             "by_ip": {
-               "map": function (doc) {
+               "map": function(doc) {
                   emit([doc.ip, doc.user], doc._id);
                }
+            },
+            "count_level1": {
+              "map": function(doc) {
+                  emit([doc.level1, doc.ip, doc.user], 1);
+              },
+              "reduce": function(key, values) {
+                return sum(values);
+              }
+            },
+            "count_level2": {
+              "map": function(doc) {
+                emit([doc.level1, doc.leve2, doc.ip, doc.user], 1);
+              }
+            },
+            "count_level3": {
+              "map": function(doc) {
+                emit([doc.level, doc.leve2, doc.level3, doc.ip, doc.user], 1);
+              }
             }
 /*         },
          "updates": {
@@ -46,6 +64,9 @@ try {
         console.log("View 'by_level2' is created.");
         console.log("View 'by_level3' is created.");
         console.log("View 'by_ip' is created.");
+        console.log("View 'count_level1' is created.");
+        console.log("View 'count_level2' is created.");
+        console.log("View 'count_level3' is created.");
 //        console.log("Update 'last_update_date' is created.");
         console.log("Design document 'answers' is created in database 'why'.");
         console.log("Database 'why' is initialized.");

@@ -220,10 +220,14 @@ router.get('/logout',
 	function(req, res){
 console.log("user " + req.session.user.name + " logged out.");
 		req.logout();
-		res.render('auth/../index');
-/*		req.session.destroy(function(){
-			console.log("user " + session.user.name + " logged out.");
-	 }); */
+//		req.session.reset();
+		req.session.destroy(function(err) {
+			if(err) {
+				console.log(err);
+			} else {
+				res.render('auth/../index');
+			}
+	 });
 });
 
 router.get('/profile',

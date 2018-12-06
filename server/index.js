@@ -51,7 +51,7 @@ app.use(session({
 	cookie: {
 		httpOnly: true, // minimize risk of XSS attacks by restricting the client from reading the cookie
 		secure: false, // only send cookie over https
-		maxAge: 60000 // 60000*60*24 // set cookie expiry length in ms
+		maxAge: config.web.session_expired // set cookie expiry length in ms
 	},
 // Forces the session to be saved back to the session store,
 // even if the session was never modified during the request.
@@ -128,24 +128,24 @@ app.use('/why', why);
 // Check session expires
 app.use(function(req, res, next) {
 debug("req.url = " + req.url)
-debug("req.user = " + req.user)
-	if(req.url != '/' || req.url.indexOf('/why')!= -1)
+	if(req.url == '/' || req.url.indexOf('/favicon.ico') != -1 || req.url.indexOf('/why') != -1)
 		next();
-	else if(req.user) {
+	else {
 // debug("req.user = " + req.user.name)
 debug("session = " +req.session.cookie.expires)
-		next();
-	}
-	else {
-debug("Session expired.");
-		req.logout();
-		res.render('index', { title: req.user, body: req.user });
-		req.session.destroy(function(){
-			console.log("user logged out.")
-		});
+		if(req.user) {
+	debug("Session expired.");
+			req.logout();
+			res.render('index', { title: req.user, body: req.user });
+			req.session.destroy(function(){
+				console.log("user logged out.")
+			});
+			res.redirect('/');
 //		req.session.reset();
+		}
+		else
+			next();
 	}
-//		res.redirect('/');
 });
 
 // Define routes.

@@ -3,10 +3,13 @@
 <head>
 <link href="/css/radio.css" type="text/css" rel="stylesheet">
 <script type="text/javascript">
-function save_level2(j, k, l, value) {
-  window.location.href = 'why/level3?level3=' + value +
+function save_level3(j, k, l, link) {
+  window.location.href = 'why/level4?level3=' + link +
                          '&level1=' + "<%=level1 %>" + '&level2=' + "<%=level2 %>" +
                          '&j=' + j + '&k=' + k + '&l=' + l;
+}
+function startover() {
+  window.location.href = 'why/level1';
 }
 </script>
 <% include ../session.ejs%>
@@ -34,24 +37,34 @@ crossorigin='anonymous'>
   </div>
     <div class="modal-content mx-auto" style="max-width:400px;border: 0px;">
       <div class="quiz" id="quiz" data-toggle="buttons">
-         <a onclick="javascript:save_level2(<%=j %>, <%=j %>, 0, '<%= keys[0] %>');">
+         <a onclick="javascript:save_level3(<%=j %>, <%=k %>, 0, '<%= links[0] %>');">
           <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
             <i class='fas fa-angle-right' style='font-size:36px'></i></span>
             <input type="hidden"><%= keys[0] %></label></a>
-         <a onclick="javascript:save_level2(<%=j %>, <%=j %>, 1, '<%= keys[1] %>');">
+         <a onclick="javascript:save_level3(<%=j %>, <%=k %>, 1, '<%= links[1] %>');">
           <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
             <i class='fas fa-angle-right' style='font-size:36px'></i></span>
             <input type="hidden"><%= keys[1] %></label></a>
-        <% if(keys.length > 2)
-         res.print("<a onclick=\"javascript:save_level2(" + j + ", " + k + ", 2, '" + keys[2] + "');\">" +
-         "<label class=\"element-animation3 btn btn-lg btn-primary btn-block\"><span class=\"btn-label\">" +
-         "<i class='fas fa-angle-right' style='font-size:36px'></i></span>" + keys[2] + "</label></a>");
-         %>
-         <% if(keys.length > 3)
-          res.print("<a onclick=\"javascript:save_level2(" + j + ", " + k + ", 3, '" + keys[3] + "');\">" +
-          "<label class=\"element-animation3 btn btn-lg btn-primary btn-block\"><span class=\"btn-label\">" +
-          "<i class='fas fa-angle-right' style='font-size:36px'></i></span>" + keys[3] + "</label></a>");
-          %>
+        <% if(keys.length > 2) { %>
+        <a onclick="javascript:save_level3(<%=j %>, <%=k %>, 2, '<%= links[2] %>');">
+         <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
+           <i class='fas fa-angle-right' style='font-size:36px'></i></span>
+           <input type="hidden"><%= keys[2] %></label></a>
+         <% } %>
+         <% if(keys.length > 3) { %>
+         <a onclick="javascript:save_level3(<%=j %>, <%=k %>, 3, '<%= links[3] %>');">
+          <label class="element-animation4 btn btn-lg btn-primary btn-block"><span class="btn-label">
+            <i class='fas fa-angle-right' style='font-size:36px'></i></span>
+            <input type="hidden"><%= keys[3] %></label></a>
+         <% } %>
+      </div>
+      <div class="d-flex justify-content-center" style="font-size:16px;padding-top:20px;">
+          <button class="btn btn-outline-dark btn-lg font-weight-bold"
+                      style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
+                      tabindex="-1" role="button" onclick="javacript:history.go(-1);">Back</button>
+          <button class="btn btn-outline-dark btn-lg font-weight-bold"
+                      style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
+                      tabindex="-1" role="button" onclick="startover();">Start Over</button>
       </div>
     </div>
 </div>
@@ -68,6 +81,8 @@ document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
 </script> -->
 </body>
 <footer>
+<!--
   <% include ../footer.ejs%>
+-->
 </footer>
 </html>
