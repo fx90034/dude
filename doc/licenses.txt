@@ -1,0 +1,19 @@
+1  MIT
+
+	validator.js: https://github.com/chriso/validator.js
+	safe-regex.js: https://www.npmjs.com/package/safe-regex.
+	passport.js: https://www.npmjs.com/package/passport
+	morgan.js: https://github.com/expressjs/morgan
+	Bootstrap: https://getbootstrap.com/docs/3.3/getting-started/
+	Debug: https://www.npmjs.com/package/debug
+	couchdb-dump: https://github.com/danielebailo/couchdb-dump/blob/master/LICENSE
+	express-session.js: https://www.npmjs.com/package/express-session
+	connect-timeout: https://expressjs.com/en/resources/middleware/timeout.html
+	memorystore: https://www.npmjs.com/package/memorystore
+	
+2  Apache license, version 2.0
+
+	Nano.js: https://gist.github.com/fracek/2383856
+express.js
+passport.js
+express-session.js

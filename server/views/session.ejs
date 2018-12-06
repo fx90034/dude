@@ -1,0 +1,19 @@
+<script type="text/javascript">
+var time = new Date(Date.now());
+function checkSessionTimeout() {
+  let now = new Date(Date.now());
+  console.log("now = " + now)
+  console.log("time = " + time)
+  console.log("now - time = " + (now-time))
+  if(now - time >= 300*1000) {
+ // alert('expired!')
+    window.location.href = '/';
+    return;
+  }
+  window.setTimeout('checkSessionTimeout()', 300*1000);
+}
+window.setTimeout('checkSessionTimeout()', 400*1000);
+document.addEventListener("click", function() {
+  time = new Date(Date.now());
+});
+</script>

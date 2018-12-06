@@ -1,0 +1,128 @@
+<script type="text/javascript">
+var menu_display = "none";
+function show_menu() {
+  if(menu_display == "none") {
+    document.getElementById("menu").style.display = 'inline';
+    document.getElementById("navbarNav").style.display = 'none';
+    document.getElementById("container").style.display = 'none';
+    document.getElementById("footer").style.display = 'none';
+    menu_display = "visible";
+  }
+  else {
+    document.getElementById("menu").style.display = 'none';
+    document.getElementById("navbarNav").style.display = 'inline';
+    document.getElementById("container").style.display = 'inline';
+    document.getElementById("footer").style.display = 'inline';
+    menu_display = "none";
+  }
+// alert(menu_display)
+}
+function close_menu() {
+// alert(menu_display)
+  if(menu_display == "visible") {
+    document.getElementById("menu").style.display = 'none';
+    document.getElementById("navbarNav").style.display = 'inline';
+    document.getElementById("container").style.display = 'inline';
+    document.getElementById("footer").style.display = 'inline';
+    menu_display = "none";
+  }
+}
+var current = 'Home';
+function toggle_active(current, redirect) {
+  if(current == 'Home') {
+    document.getElementById("home").classList.add("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = '/';
+  }
+  else if(current == 'Sign Up') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.add("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = 'auth/home';
+  }
+  else if(current == 'Log In') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.add("active");
+    document.getElementById("about").classList.remove("active");
+    if(redirect)
+      window.location.href = 'auth/home';
+  }
+  else if(current == 'About') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("signup").classList.remove("active");
+    document.getElementById("login").classList.remove("active");
+    document.getElementById("about").classList.add("active");
+  }
+}
+</script>
+<nav class="navbar sticky-top navbar-expand-lg navbar-light" id="navbarNav"
+     style="background-color: rgb(255,255,255);">
+  <a href="/" class="navbar-brand" >
+    <img src="images/logo.jpg" width="40" height="40" alt="">
+    <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SmeatHome &nbsp; </b></span>
+  </a>
+  <button class="navbar-toggler flow-right" type="button" style="border-color: rgb(255,255,255);margin-right: 0px" onclick="show_menu();">
+  <!--
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+          aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation"
+          id="nav-toggle" style="border-color: rgb(255,255,255);">
+  -->
+  <span class="navbar-toggler-icon"></span>
+  </button>
+  <div id="bar" class="collapse navbar-collapse topnav" style="float: right;">
+    <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" id='home' onclick='javascript:toggle_active("Home", true);'
+             onmouseover='javascript:toggle_active("Home", false);'>Home</a></li>
+        <li class="nav-item">
+          <a class="nav-link" id='signup' onclick='javascript:toggle_active("Sign Up", true);'
+             onmouseover='javascript:toggle_active("Sign Up", false);'>Sign Up</a></li>
+        <li class="nav-item">
+          <a class="nav-link" id='login' onclick='javascript:toggle_active("Log In", true);'
+             onmouseover='javascript:toggle_active("Log In", false);'>Log In</a></li>
+        <li class="nav-item">
+          <a class="nav-link disabled" id='about' onclick='javascript:toggle_active("About", true);'
+             onmouseover='javascript:toggle_active("About", false);'>About</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div style="display:none; position: relative; width:100%; margin:0px; padding:0px;" id="menu">
+  <div style="margin:0px; padding-bottom:20px; border-bottom:2px solid; border-color:lightgrey">
+    <span class="font-weight-bold" style="font-size:20px;">&nbsp;</span>
+    <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
+  </div>
+  <div style="margin-bottom:100px">
+  <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="/" style="display: block;">
+      <span style="color:black;">Home</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="auth/home" style="display: block;">
+      <span style="color:black;">Sign Up</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="auth/home" style="display: block;">
+      <span style="color:black;">Log in</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+    <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
+      <a href="#" style="display: block;">
+      <span style="color:black;">About</span>
+      <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
+    </li>
+  </ul>
+  </div>
+  <div class="d-flex justify-content-center">
+      <a class="nav-link" href="/auth/feedback">Feedback</a>
+  </div>
+</div>

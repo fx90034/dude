@@ -1,0 +1,721 @@
+6 Using async package [85]
+
+	6.1  Collections
+	
+		6.1.1 async.each/eachSeries/eachLimit(arr, function(item, callback), [callback(err)])
+		
+// assuming openFiles is an array of file names and saveFile is a function
+// to save the modified contents of that file:
+
+async.each(openFiles, saveFile, function(err){
+    // if any of the saves produced an error, err would equal that error
+});
+
+// assuming openFiles is an array of file names
+
+async.each(openFiles, function(file, callback) {
+
+  // Perform operation on file here.
+  console.log('Processing file ' + file);
+
+  if( file.length > 32 ) {
+    console.log('This file name is too long');
+    callback('File name too long');
+  } else {
+    // Do work to process file here
+    console.log('File processed');
+    callback();
+  }
+}, function(err){
+    // if any of the file processing produced an error, err would equal that error
+    if( err ) {
+      // One of the iterations produced an error.
+      // All processing will now stop.
+      console.log('A file failed to process');
+    } else {
+      console.log('All files have been processed successfully');
+    }
+});
+
+		6.1.2 async.forEachOf/forEachOfSeries/forEachOfLimit(obj, function (item, key, callback), [function (err)])
+
+var obj = {dev: "/dev.json", test: "/test.json", prod: "/prod.json"}
+var configs = {}
+
+async.forEachOf(obj, function (value, key, function(results)) {
+  fs.readFile(__dirname + value, "utf8", function (err, data) {
+    if (err) return callback(err);
+    try {
+      configs[key] = JSON.parse(data);
+    } catch (e) {
+      return callback(e)
+    }
+    callback()
+  })
+}, function (err) {
+  if (err) console.error(err.message)
+  // configs is now a map of JSON data
+  doSomethingWith(configs)
+})
+
+		6.1.3 async.map/mapSeries/mapLimit(arr, iterator(item, callback), [function(err, results)])
+
+async.map(['file1','file2','file3'], fs.stat, function(err, results){
+    // results is now an array of stats for each file
+})
+
+var async = require("async");
+
+// ...or ES2017 async functions
+async.mapLimit(urls, 5, async function(url) {
+    const response = await fetch(url)
+    return response.body
+}, (err, results) => {
+    if (err) throw err
+    // results is now an array of the response bodies
+    console.log(results)
+})
+
+		6.1.4 async.filterfilterSeries/filterLimit(arr, iterator(item, callback), [function(results)])
+			  async.reject/rejectSeries/rejectLimit(arr, iterator(item, callback), [function(results)])
+
+async.filter(['file1','file2','file3'], fs.exists, function(results){
+    // results now equals an array of the existing files
+})
+
+		6.1.5 async.reduce/reduceRight(arr, memo, iterator(memo, item, callback), [function(err, result)])
+
+async.reduce([1,2,3], 0, function(memo, item, callback) {
+    // pointless async:
+    process.nextTick(function(){
+        callback(null, memo + item)
+    })
+}, function(err, result) {
+    // result is now equal to the last value of memo, which is 6
+})
+
+		6.1.6 async.detect/detectSeries/detectLimit(arr, iterator(item, callback), [function(result)])
+
+async.detect(['file1','file2','file3'], fs.exists, function(result) {
+    // result now equals the first file in the list that exists
+})
+
+		6.1.7 async.sortBy(arr, iterator(item, callback), [function(err, results)])
+
+aysnc.sortBy([file1, file2, file3], function(file, callback) {
+	    fs.stat(file, function(err, stats){
+	        callback(err, stats.mtime)
+    })
+}, function(err, results) {
+	// results is now the original array of files sorted by modified date
+})
+
+//ascending order
+async.sortBy([1,9,3,5], function(x, callback){
+    callback(null, x)
+}, function(err, results) {
+    //results callback
+})
+
+//descending order
+async.sortBy([1,9,3,5], function(x, callback){
+    callback(null, x*-1)    //<- x*-1 instead of x, turns the order around
+}, function(err, results) {
+    //results callback
+})
+
+		6.1.8 async.some/someLimit(arr, iterator(item, callback), [function(result)])
+			  async.every/everyLimit(arr, iterator(item, callback), [function(result)])
+
+async.some(['file1','file2','file3'], fs.exists, function(result) {
+    // if result is true then at least one of the files exists
+})
+
+async.every(['file1','file2','file3'], fs.exists, function(result) {
+    // if result is true then every file exists
+})
+
+		6.1.9 async. concat/concatSeries(arr, iterator(item, callback), [function(err, results)])
+
+async.concat(['dir1','dir2','dir3'], fs.readdir, function(err, results){
+    // results is now a list of filenames that exist in the 3 directories
+})
+
+	6.2 Control Flow
+	
+		6.2.1 async.series/parallel(tasks, [function(err, results)])
+
+async.series([
+    function(callback){
+        // do some stuff ...
+        callback(null, 'one')
+    },
+    function(callback){
+        // do some more stuff ...
+        callback(null, 'two')
+    }
+],
+// optional callback
+function(err, results) {
+    // results is now equal to ['one', 'two']
+})
+
+// an example using an object instead of an array
+async.series({
+    one: function(callback){
+        setTimeout(function(){
+            callback(null, 1)
+        }, 200)
+    },
+    two: function(callback){
+        setTimeout(function(){
+            callback(null, 2)
+        }, 100)
+    }
+},
+function(err, results) {
+    // results is now equal to: {one: 1, two: 2}
+})
+
+async.parallel([
+    function(callback){
+        setTimeout(function(){
+            callback(null, 'one');
+        }, 200);
+    },
+    function(callback){
+        setTimeout(function(){
+            callback(null, 'two');
+        }, 100);
+    }
+],
+// optional callback
+function(err, results){
+    // the results array will equal ['one','two'] even though
+    // the second function had a shorter timeout.
+});
+
+
+// an example using an object instead of an array
+async.parallel({
+    one: function(callback){
+        setTimeout(function(){
+            callback(null, 1);
+        }, 200);
+    },
+    two: function(callback){
+        setTimeout(function(){
+            callback(null, 2);
+        }, 100);
+    }
+},
+function(err, results) {
+    // results is now equals to: {one: 1, two: 2}
+});
+
+		6.2.2 async.whilst(test, fn(callback), function (err, [results]))
+		 	  doWhilst(fn, test, function (err, [results]))
+			  until(test, fn, function (err, [results]))
+		 	  doUntil(fn, test, function (err, [results]))
+
+var count = 0;
+
+async.whilst(
+    function () { return count < 5 },
+    function (callback) {
+        count++;
+        setTimeout(function () {
+            callback(null, count)
+        }, 1000)
+    },
+    function (err, n) {
+        // 5 seconds have passed, n = 5
+    }
+)
+
+		6.2.3 async.during(function(callback), fn(callback), function(err, [results]))
+	    	  async.doDuring(fn(callback), function(callback), function(err, [results]))
+	
+var count = 0;
+
+async.during(
+    function (callback) {
+      return callback(null, count < 5)
+    },
+    function (callback) {
+        count++;
+        setTimeout(callback, 1000)
+    },
+    function (err) {
+        // 5 seconds have passed
+    }
+)
+
+		6.2.4 async.forever(fn, function(err))
+	
+async.forever(
+    function(next) {
+        // next is suitable for passing to things that need a callback(err [, whatever]);
+        // it will result in this function being called again.
+    },
+    function(err) {
+        // if next is called with a value in its first parameter, it will appear
+        // in here as 'err', and execution will stop.
+    }
+)
+
+		6.2.5 async.waterfall(tasks, [callback(err, [results])])
+	
+//Inline		
+async.waterfall([
+    function(callback) {
+        callback(null, 'one', 'two')
+    },
+    function(arg1, arg2, callback) {
+      // arg1 now equals 'one' and arg2 now equals 'two'
+        callback(null, 'three')
+    },
+    function(arg1, callback) {
+        // arg1 now equals 'three'
+        callback(null, 'done')
+    }
+], function (err, result) {
+    // result now equals 'done'
+})
+
+// With named functions
+async.waterfall([
+    myFirstFunction,
+    mySecondFunction,
+    myLastFunction,
+], function (err, result) {
+    // result now equals 'done'
+})
+
+function myFirstFunction(callback) {
+  callback(null, 'one', 'two')
+}
+
+function mySecondFunction(arg1, arg2, callback) {
+  // arg1 now equals 'one' and arg2 now equals 'two'
+  callback(null, 'three')
+}
+
+function myLastFunction(arg1, callback) {
+  // arg1 now equals 'three'
+  callback(null, 'done')
+}
+
+// Or, if you need to pass any argument to the first function
+async.waterfall([
+    async.apply(myFirstFunction, 'zero'),
+    mySecondFunction,
+    myLastFunction,
+], function (err, result) {
+    // result now equals 'done'
+})
+
+function myFirstFunction(arg1, callback) {
+  // arg1 now equals 'zero'
+  callback(null, 'one', 'two')
+}
+
+function mySecondFunction(arg1, arg2, callback) {
+  // arg1 now equals 'one' and arg2 now equals 'two'
+  callback(null, 'three')
+}
+
+function myLastFunction(arg1, callback) {
+  // arg1 now equals 'three'
+  callback(null, 'done')
+}
+
+		6.2.5 async.compose((fn1, fn2...)
+
+// Composing functions f(), g(), and h() would produce the result of f(g(h()))
+
+function add1(n, callback) {
+    setTimeout(function () {
+        callback(null, n + 1);
+    }, 10)
+}
+
+function mul3(n, callback) {
+    setTimeout(function () {
+        callback(null, n * 3);
+    }, 10)
+}
+
+var add1mul3 = async.compose(mul3, add1);
+
+add1mul3(4, function (err, result) {
+   // result now equals 15
+})
+
+		6.2.6 async.seq(fn1, fn2...)
+
+// Requires lodash (or underscore), express3 and dresende's orm2.
+// Part of an app, that fetches cats of the logged user.
+// This example uses `seq` function to avoid overnesting and error
+// handling clutter.
+app.get('/cats', function(request, response) {
+  var User = request.models.User;
+  async.seq(
+    _.bind(User.get, User),  // 'User.get' has signature (id, callback(err, data))
+    function(user, fn) {
+      user.getCats(fn)       // 'getCats' has signature (callback(err, data))
+    }
+  )(req.session.user_id, function (err, cats) {
+    if (err) {
+      console.error(err)
+      response.json({ status: 'error', message: err.message })
+    } else {
+      response.json({ status: 'ok', message: 'Cats found', data: cats })
+    }
+  })
+})
+		
+		6.2.7 async.applyEach(fns, args..., callback)
+		
+async.applyEach([enableSearch, updateSchema], 'bucket', callback);
+
+// partial application example:
+async.each(
+    buckets,
+    async.applyEach([enableSearch, updateSchema]),
+    callback
+)
+
+		6.2.8 async.queue/priorityQueue(worker(task, callback), [concurrency])
+
+// create a queue object with concurrency 2
+
+var q = async.queue(function (task, callback) {
+    console.log('hello ' + task.name)
+    callback();
+}, 2)
+
+// assign a callback
+q.drain = function() {
+    console.log('all items have been processed')
+}
+
+// add some items to the queue
+
+q.push({name: 'foo'}, function (err) {
+    console.log('finished processing foo')
+})
+
+q.push({name: 'bar'}, function (err) {
+    console.log('finished processing bar')
+})
+
+// add some items to the queue (batch-wise)
+
+q.push([{name: 'baz'},{name: 'bay'},{name: 'bax'}], function (err) {
+    console.log('finished processing item')
+})
+
+// add some items to the front of the queue
+
+q.unshift({name: 'bar'}, function (err) {
+    console.log('finished processing bar');
+})
+
+		6.2.9 async.cargo(worker(tasks, callback), [payload])
+
+// create a cargo object with payload 2
+
+var cargo = async.cargo(function (tasks, callback) {
+    for(var i=0; i<tasks.length; i++){
+      console.log('hello ' + tasks[i].name)
+    }
+    callback()
+}, 2)
+
+// add some items
+
+cargo.push({name: 'foo'}, function (err) {
+    console.log('finished processing foo')
+})
+cargo.push({name: 'bar'}, function (err) {
+    console.log('finished processing bar')
+})
+cargo.push({name: 'baz'}, function (err) {
+    console.log('finished processing baz')
+})
+
+		6.2.10 async.auto(function(callback, [results]), [concurrency], [function(err, results)])
+		
+async.auto({
+  readData: function(cb, results){
+    fs.readFile('data.txt', 'utf-8', cb)
+  }
+}, callback)
+
+async.auto({
+    get_data: function(callback){
+        console.log('in get_data')
+        // async code to get some data
+        callback(null, 'data', 'converted to array')
+    },
+    make_folder: function(callback){
+        console.log('in make_folder')
+        // async code to create a directory to store a file in
+        // this is run at the same time as getting the data
+        callback(null, 'folder')
+    },
+    write_file: ['get_data', 'make_folder', function(callback, results){
+        console.log('in write_file', JSON.stringify(results))
+        // once there is some data and the directory exists,
+        // write the data to a file in the directory
+        callback(null, 'filename')
+    }],
+    email_link: ['write_file', function(callback, results){
+        console.log('in email_link', JSON.stringify(results))
+        // once the file is written let's email a link to it...
+        // results.write_file contains the filename returned by write_file.
+        callback(null, {'file':results.write_file, 'email':'user@example.com'})
+    }]
+}, function(err, results) {
+    console.log('err = ', err)
+    console.log('results = ', results)
+})
+
+async.parallel([
+    function(callback){
+        console.log('in get_data')
+        // async code to get some data
+        callback(null, 'data', 'converted to array')
+    },
+    function(callback){
+        console.log('in make_folder')
+        // async code to create a directory to store a file in
+        // this is run at the same time as getting the data
+        callback(null, 'folder')
+    }
+],
+function(err, results){
+    async.series([
+        function(callback){
+            console.log('in write_file', JSON.stringify(results))
+            // once there is some data and the directory exists,
+            // write the data to a file in the directory
+            results.push('filename')
+            callback(null)
+        },
+        function(callback){
+            console.log('in email_link', JSON.stringify(results))
+            // once the file is written let's email a link to it...
+            callback(null, {'file':results.pop(), 'email':'user@example.com'})
+        }
+    ])
+})
+
+		6.2.11 async.retry([opts = {times: 5, interval: 0}| 5], task(callback(err, result), results), [callback])
+
+// try calling apiMethod 3 times
+async.retry(3, apiMethod, function(err, result) {
+    // do something with the result
+})
+
+// try calling apiMethod 3 times, waiting 200 ms between each retry 
+async.retry({times: 3, interval: 200}, apiMethod, function(err, result) {
+    // do something with the result
+})
+
+// try calling apiMethod the default 5 times no delay between each retry 
+async.retry(apiMethod, function(err, result) {
+    // do something with the result
+})
+
+async.auto({
+    users: api.getUsers.bind(api),
+    payments: async.retry(3, api.getPayments.bind(api))
+}, function(err, results) {
+  // do something with the results
+})
+
+		6.2.12 async.iterator(tasks)
+
+var iterator = async.iterator([
+    function(){ sys.p('one'); },
+    function(){ sys.p('two'); },
+    function(){ sys.p('three'); }
+]);
+
+node> var iterator2 = iterator()
+'one'
+node> var iterator3 = iterator2()
+'two'
+node> iterator3()
+'three'
+node> var nextfn = iterator2.next()
+node> nextfn();
+'three'
+
+		6.2.13 async.apply(function, arguments..)
+
+// using apply
+async.parallel([
+    async.apply(fs.writeFile, 'testfile1', 'test1'),
+    async.apply(fs.writeFile, 'testfile2', 'test2'),
+])
+
+
+// the same process without using apply
+async.parallel([
+    function(callback){
+        fs.writeFile('testfile1', 'test1', callback)
+    },
+    function(callback){
+        fs.writeFile('testfile2', 'test2', callback)
+    }
+])
+
+node> var fn = async.apply(sys.puts, 'one')
+node> fn('two', 'three')
+one
+two
+three
+
+		6.2.14 async.nextTick(callback)
+
+var call_order = [];
+async.nextTick(function(){
+    call_order.push('two')
+    // call_order now equals ['one','two']
+});
+call_order.push('one')
+
+		6.2.15 async.times/timesSeries/timesLimit(n, function(n, next), [function(err, results)])
+
+// Pretend this is some complicated async factory
+var createUser = function(id, callback) {
+  callback(null, {
+    id: 'user' + id
+  })
+}
+// generate 5 users
+async.times(5, function(n, next){
+    createUser(n, function(err, user) {
+      next(err, user)
+    })
+}, function(err, users) {
+  // we should now have 5 users
+})
+
+	6.3 Utils
+
+		6.3.1 async.memoize(function(name, callback), [hasher])
+		
+var slow_fn = function(name, callback) {
+    // do something
+    callback(null, result)
+}
+
+var fn = async.memoize/unmemoize(slow_fn)
+
+// fn can now be used as if it were slow_fn
+fn('some name', function () {
+    // callback
+})
+
+		6.3.2 async.ensureAsync(function(arg, callback))
+
+function sometimesAsync(arg, callback) {
+  if (cache[arg]) {
+    return callback(null, cache[arg]) // this would be synchronous!!
+  } else {
+    doSomeIO(arg, callback) // this IO would be asynchronous
+  }
+}
+
+// this has a risk of stack overflows if many results are cached in a row
+async.mapSeries(args, sometimesAsync, done)
+
+// this will defer sometimesAsync's callback if necessary,
+// preventing stack overflows
+async.mapSeries(args, async.ensureAsync(sometimesAsync), done)
+
+		6.3.3 async.constant(values...)
+
+async.waterfall([
+  async.constant(42),
+  function (value, next) {
+    // value === 42
+  },
+  //...
+], callback)
+
+async.waterfall([
+  async.constant(filename, "utf8"),
+  fs.readFile,
+  function (fileData, next) {
+    //...
+  }
+  //...
+], callback)
+
+async.auto({
+  hostname: async.constant("https://server.net/"),
+  port: findFreePort,
+  launchServer: ["hostname", "port", function (cb, options) {
+    startServer(options, cb)
+  }],
+  //...
+}, callback)
+
+		6.3.4 async.asyncify/wrapSync(func)
+
+async.waterfall([
+  async.apply(fs.readFile, filename, "utf8"),
+  async.asyncify(JSON.parse),
+  function (data, next) {
+    // data is the result of parsing the text.
+    // If there was a parsing error, it would have been caught.
+  }
+], callback)
+
+async.waterfall([
+  async.apply(fs.readFile, filename, "utf8"),
+  async.asyncify(function (contents) {
+    return db.model.create(contents)
+  }),
+  function (model, next) {
+    // `model` is the instantiated model object. 
+    // If there was an error, this function would be skipped.
+  }
+], callback)
+
+var q = async.queue(async.asyncify(async function (file) {
+  var intermediateStep = await processFile(file);
+  return await somePromise(intermediateStep)
+}));
+
+q.push(files);
+
+		6.3.5 async.log(function, arguments)
+		
+var hello = function(name, callback){
+    setTimeout(function(){
+        callback(null, 'hello ' + name)
+    }, 1000);
+}
+
+node> async.log(hello, 'world');
+'hello world'
+
+		6.3.6 async.dir(function, arguments)
+
+var hello = function(name, callback){
+    setTimeout(function(){
+        callback(null, {hello: name});
+    }, 1000);
+}
+
+node> async.dir(hello, 'world')
+{hello: 'world'}
+
+		6.3.7 async.noConflict()
+		

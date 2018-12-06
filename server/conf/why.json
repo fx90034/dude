@@ -1,0 +1,224 @@
+{
+  "question": "What are you concerned most when you upgrade to Smart Home?",
+  "answer": {
+    "Overall cost": {
+      "question": "What type of the solution do you like most?",
+      "answer": {
+        "Standalone smart devices and sensors": {
+          "question": "Do you like to buy each of the devices with double price?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Dedicated smart hub or bridge": {
+          "question": "Do you like to speand $200 or more to add a smart hub?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Wired network connectivity": {
+          "question": "Do you like to embed RS485 all around your house?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Custom designed smart home": {
+          "question": "Do you like to spend more than $100,000?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "None": {
+          "question": "What is your budget for upgrading to a smart home?",
+          "answer": {
+            "$1000": "<link>",
+            "$2000": "<link>",
+            "$5000": "<link>",
+            "$10000": "<link>"
+          }
+        }
+      }
+    },
+    "Devices compatibility": {
+      "question": "Are you ok to buy many smart devices from different vendors that do not work together?",
+      "answer": {
+        "Downoad APPs for each brand": {
+          "question": "Do you mind to download an APP for each brand of devices you buy?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Restrict to particluar smart devices on one platform": {
+          "question": "Do you mind to stick to only a small set of smart devices?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Predefined hard-wired smart devices": {
+          "question": "Do you mind if the smart devices you buy are not dynamically configurable?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Need multiple hubs to control different groups of devices": {
+          "question": "Do you mind if the smart devices in your home do not collaborate with each other?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "None": {
+          "question": "What is your minumum budget for upgrading to a smart home?",
+          "answer": {
+            "$1000": "<link>",
+            "$2000": "<link>",
+            "$5000": "<link>",
+            "$10000": "<link>"
+          }
+        }
+      }
+    },
+    "Ease of use": {
+      "question": "Which of the following methods do you like to control your devices?",
+      "answer": {
+        "Smart phone": {
+          "question": "Do you like to use your phone to control your device?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Smart hub": {
+          "question": "Do you like to buy a separate hub to control your devices?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Smart speaker": {
+          "question": "Do you like to buy smart speakers to listen to you in every room?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Various connnectivities": {
+          "question": "which of the following ways do you prefer to connect your devices?",
+          "answer": {
+            "Bluetooth": "<link>",
+            "Mesh network (ZigBee, Z-wave)": "<link>",
+            "Infra-red remote": "<link>",
+            "Wi-Fi": "<link>"
+          }
+        }
+      }
+    },
+    "Security and Privacy": {
+      "question": "Which of the following scenarios do you feel comfortable?",
+      "answer": {
+        "Connect to multiple platforms": {
+          "question": "Do you like to expose your daily activities to many cloud servers?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Expopse devices without SSL": {
+          "question": "Are you ok if not all the devices securely connect to the cloud?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Make cloud connection for every command": {
+          "question": "Do you like to send every command to the cloud to control your devices?",
+          "answer": {
+            "Yes": "<link>",
+            "No": "<link>"
+          }
+        },
+        "Let smart speaker always-on listening to you": {
+          "question": "Select a way that you do not mind to be listened?",
+          "answer": {
+            "In bedroom/kitchen/living room": "<link>",
+            "Save each message on the cloud": "<link>",
+            "Always-on listening activities in your home": "<link>",
+            "Your data will be used by the cloud for problem-solving": "<link>",
+            "None": {
+              "message": "Click the back link to go back to give different try.",
+              "link": "<link>"
+            }
+          }
+        },
+        "None": {
+          "question": "What is your minumum budget for upgrading to a smart home?",
+          "answer": {
+            "$1000": "<link>",
+            "$2000": "<link>",
+            "$5000": "<link>",
+            "$10000": "<link>"
+          }
+        }
+      }
+    },
+    "All": {
+      "question": "What kind of SmeatHome do you want to have?",
+      "answer": {
+        "$1000: Automatically turn on/off lights/blinds/windows/curtains": {
+          "question": "Select the features you like to include for lights and blinds",
+          "answer": {
+            "Turn on/off lights under morning/home/sleeping mode": "<link>",
+            "Open/close blinds according to the sunlight and sleep time": "<link>",
+            "Control the lights and blinds according to predefined schedule": "<link>",
+            "Be able to manually control the lights and blinds if necesary": "<link>"
+          }
+        },
+        "$2000: Automatically turn on/off AC working with thermotat and sensors+": {
+          "question": "Select the features you like to include for Air Conditioning",
+          "answer": {
+            "Detect the room temporature by the sensors in each room": "<link>",
+            "Display the date/time and temorature on thermostat": "<link>",
+            "Control the thermostat accoridng to the configuration to turn on/off AC": "<link>",
+            "Control the thermostat accoridng to the configuration to turn on/off heaters": "<link>"
+          }
+        },
+        "$5000: Smart door lock and video door bell+": {
+          "question": "Select the features you like to include for door lock adn video door bell",
+          "answer": {
+            "Scan QR code to open the door": "<link>",
+            "Use Geofencing to open the garage door": "<link>",
+            "Send video streaming data to any display devices at home where people presented": "<link>",
+            "Facial recognition of visitors and report the names pre-configured": "<link>"
+          }
+        },
+        "$10000: Whole-house control based on scene configuration+": {
+          "question": "Select the following scenes you need to support",
+          "answer": {
+            "Morning mode": "<link>",
+            "Leaving home module": "<link>",
+            "Back-home mode": "<link>",
+            "Sleeping mode": "<link>",
+            "Kitchen mode": "<link>",
+            "Bathroom mode": "<link>"
+          }
+        },
+        "Smart and secured mobile payment method": {
+          "question": "Select types of payment methods you can accept",
+          "answer": {
+            "Pay by smart phone": "<link>",
+            "Pay by smart watch": "<link>",
+            "Pay by credit card": "<link>",
+            "None": "<link>"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,170 @@
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+#holder{
+    min-height: 100%;
+    position:relative;
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+#body{
+    padding-bottom: 6px;    /* height of footer */
+}
+
+footer {
+    height: 50px;
+    width:100%;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+}
+
+footer1 {
+    height: 50px;
+    width:100%;
+    position: absolute;
+    left: 100;
+    bottom: 0;
+    padding-bottom: 6px;
+}
+
+body {
+  padding: 20px;
+  padding-top: 20px;
+  padding-bottom: 10px;
+  /* Margin bottom by footer height */
+  margin-bottom: 5px;
+   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+   width: 100%;
+   max-width: 800px;
+   display: block;
+   margin-left: auto;
+   margin-right: auto;
+}
+
+.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+================================
+
+.custom-toggler.navbar-toggler-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,102,203, 0.5)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
+
+.custom-toggler.navbar-toggler {
+  border-color: rgb(255,255,255);
+}
+
+.btn-space {
+    margin-right: 10px;
+}
+
+/* Banner =================================================== */
+[role="banner"] {border-bottom:2px solid #ccc;position:fixed;width:100%;padding: 1em 0 0;margin-bottom: 1em;}
+
+/* contentinfo =================================================== */
+[role="contentinfo"] {padding: 1.5em 0;border-top: 1px solid #a8a8a8;width: 100%;font-size: 20px;font-size: 2rem;margin-bottom: 0;margin-top: 0;line-height:2em;}
+footer[role="contentinfo"] {color: #ccc;font-family: 'Rokkitt', serif;font-size:2rem;line-height:2rem;}
+footer[role="contentinfo"] a {color: #a8a8a8;}
+footer[role="contentinfo"] a:hover {color: #001122;}
+[role="contentinfo"] small {display: block;margin: 0 auto 1.5em;width: 90%;}
+footer[role="contentinfo"] span#feeds {float: right;}
+
+[role="navigation"] {
+  margin: 0 auto;
+  width: 100%;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+#menu {
+  position: absolute;
+  z-index: 3; /* put .gold-box above .green-box and .dashed-box */
+  background: white;
+  width: 100%;
+  left: 0px;
+  top: 0em;
+}
+
+// How TO - Bottom Border Nav Links
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #333;
+    overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+    float: left;
+    display: block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 5px 16px;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid transparent;
+}
+/*
+.topnav a:hover {
+    border-bottom: 3px solid red;
+}
+*/
+.topnav a.active {
+    border-bottom: 3px solid red;
+}
+
+/* [170] CSS Animated Hamburger Icon
+body { background-color: white; height: 100%; }
+h5 { color: black; }
+#nav-toggle span { position: absolute; left: 85%; top: 45%; }
+
+#nav-toggle span,
+#nav-toggle span:before,
+#nav-toggle span:after {
+  cursor: pointer;
+  border-radius: 0px;
+  height: 2px;
+  width:25px;
+  background: black;
+  position: absolute;
+  display: block;
+  content: '';
+}
+#nav-toggle span:before {
+  top: -10px;
+}
+#nav-toggle span:after {
+  bottom: -10px;
+}
+
+#nav-toggle span, #nav-toggle span:before, #nav-toggle span:after {
+  transition: all 500ms ease-in-out;
+}
+#nav-toggle.active span {
+  background-color: transparent;
+}
+#nav-toggle.active span:before, #nav-toggle.active span:after {
+  top: 0;
+}
+#nav-toggle.active span:before {
+  transform: rotate(45deg);
+}
+#nav-toggle.active span:after {
+  transform: rotate(-45deg);
+}
+*/
+/*
+.btn-lg.round {
+	border-radius: 140px;
+}
+
+.btn-lg.sharp {
+  border-radius:0;
+}
+*/
