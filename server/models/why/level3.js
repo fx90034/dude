@@ -29,6 +29,7 @@ debug("!!!body.rows[0].ip = " + body.rows[0].ip)
       return callback(null, null);
 		}
     db.level2.queryByLevel2(level1, level2, ip, user, function(err, body) {
+      var existed = false;
   		if(body != null && body.rows.length > 0) {
 debug("!!!body.rows[0].ip = " + body.rows[0].ip)
         for(var i=0; i<body.rows.length; i++) {
@@ -44,10 +45,11 @@ debug("doc id = " + docId)
         			console.log(body);
         			return callback(null, body);
             });
+            existed = true;
             break;
       		}
         } // end of for(i)
-        if(i == body.rows.length-1) {
+        if(!existed) {
 debug("@Insert level3!!")
           		db.why.insert(record, null, function(err, body) {
           			if(err) {
@@ -61,6 +63,7 @@ debug("@Insert level3!!")
       } // end of if(row>0)
       else {
         db.level1.queryByLevel1(level1, ip, user, function(err, body) {
+          var existed = false;
       		if(body != null && body.rows.length > 0) {
             for(var i=0; i<body.rows.length; i++) {
               if(body.rows[i].level2 == null) {
@@ -76,10 +79,11 @@ debug("doc id = " + docId)
             			console.log(body);
             			return callback(null, body);
                 });
+                existed = true;
                 break;
           		}
             } // end of for(i)
-            if(i == body.rows.length-1) {
+            if(!existed) {
 debug("@Insert level3!!")
           		db.why.insert(record, null, function(err, body) {
           			if(err) {

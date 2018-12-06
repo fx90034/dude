@@ -40,12 +40,18 @@ try {
             },
             "count_level2": {
               "map": function(doc) {
-                emit([doc.level1, doc.leve2, doc.ip, doc.user], 1);
+                emit( doc.leve2, 1);
+              },
+              "reduce": function(key, values) {
+                return sum(values)
               }
             },
             "count_level3": {
               "map": function(doc) {
-                emit([doc.level, doc.leve2, doc.level3, doc.ip, doc.user], 1);
+                emit(doc.level3, 1);
+              },
+              "reduce": function(key, values) {
+                return sum(values)
               }
             }
 /*         },

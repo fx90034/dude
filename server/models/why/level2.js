@@ -29,6 +29,7 @@ debug("!!!body.rows[0].ip = " + body.rows[0].ip)
 		}
 		else {
       db.level1.queryByLevel1(level1, ip, user, function(err, body) {
+        var existed = false;
     		if(body != null && body.rows.length > 0) {
 debug("!!!body.rows[0].ip = " + body.rows[0].key[1])
           for(var i=0; i<body.rows.length; i++) {
@@ -44,11 +45,12 @@ debug("doc id = " + docId)
           			console.log(body);
           			return callback(null, body);
               });
+              existed = true;
               break;
         		}
           } // end of for(i)
 debug("i = " + i)
-          if(i == body.rows.length-1) {
+          if(!existed) {
 debug("@Insert level2!!")
         		db.why.insert(record, null, function(err, body) {
         			if(err) {

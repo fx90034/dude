@@ -20,7 +20,7 @@ debug("Level1 count: " + JSON.stringify(body))
 
 exports.reportByLevel2 = function(level1, level2, callback) {
 debug("reportByLevel2: " + level2);
-  let params = { "level1": level1, "startkey": [level1, level2], "endkey": [level1, level2, {}, {}] };
+  let params = { "level2": level2 };
 	db.why.view('answers', 'count_level2', params, function(err, body) {
 		if(err) {
 			console.error(err);
@@ -36,7 +36,7 @@ debug("Level2 count: " + JSON.stringify(body))
 
 exports.reportByLevel3 = function(level1, level2, level3, callback) {
 debug("reportByLevel3: " + level3);
-  let params = { "level1": level1, "startkey": [level1, level2, level3], "endkey": [level1, level2, level3, {}, {}] };
+  let params = { "level3": level3 };
 	db.why.view('answers', 'count_level3', params, function(err, body) {
 		if(err) {
 			console.error(err);

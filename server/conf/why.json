@@ -120,7 +120,7 @@
         }
       }
     },
-    "Security & privacy": {
+    "Security and Privacy": {
       "question": "Which of the following scenarios do you feel comfortable?",
       "answer": {
         "Connect to multiple platforms": {
@@ -137,14 +137,14 @@
             "No": "<link>"
           }
         },
-        "Make external connection for every activity": {
-          "question": "Do you like to send the every command to the cloud to control your devices?",
+        "Make cloud connection for every command": {
+          "question": "Do you like to send every command to the cloud to control your devices?",
           "answer": {
             "Yes": "<link>",
             "No": "<link>"
           }
         },
-        "Smart speaker listens to you every moment": {
+        "Let smart speaker always-on listening to you": {
           "question": "Select a way that you do not mind to be listened?",
           "answer": {
             "In bedroom/kitchen/living room": "<link>",
