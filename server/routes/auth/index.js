@@ -5,6 +5,9 @@ const validator = require('validator');
 const passport = require('passport');
 const db = require('../../models/users');
 const bcrypt = require('bcrypt');
+const util = require("../apps/util")
+
+// router.use(apps);
 
 // Initialize Passport and restore authentication state, if any, from the session.
 // require('./init')//.init(app);
@@ -37,7 +40,18 @@ debug("username = " + username)
 			 else {
 			  user.name = username;
 			}
-			res.render('apps/main', { user: user });
+		  util.getLevel1(function(err, data) {
+		    if(err) {
+		      console.error(err);
+		      throw err;
+		//      return res.render('error', { error: err });
+		    }
+				else {
+debug("data[0] = " + data[0])
+		    }
+debug("user.name = " + user.name)
+		    res.render('apps/level1', { user: user, data: data });
+		  });
 			return;
 		 }
 /*
@@ -47,7 +61,17 @@ debug(req.cookies.rememberme)
 */
 		if(user) {
 debug('In auth/home: username = ' + user);
-			res.render('apps/main', { title: user, user: user });
+			util.getLevel1(function(err, data) {
+				if(err) {
+					console.error(err);
+					throw err;
+			//      return res.render('error', { error: err });
+				}
+				else {
+			debug("data[0] = " + data[0])
+				}
+				res.render('apps/level1', { user: user.name, data: data });
+			});
 			return;
 		}
 		res.render('auth/home', { message: req.message });

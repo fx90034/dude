@@ -411,8 +411,21 @@ app.get('/', function (req, res) {
 		6.2.5 Push changes to the branch or the master
    	     	  $ git push [--set-upstream origin my-branch]
    	     	  $ git push [origin master]
-	     
-	6.3  Git commands 
+
+	6.3  Make a pull request
+	
+		6.3.1 Click the  Pull Request tab
+		6.3.2 From the Pull Request page, click the green New pull request button
+		6.3.3 In the Example Comparisons box, select the branch you made to compare with master (the original)
+		6.3.4 Give your pull request a title and write a brief description of your changes
+		6.3.5 When you’re satisfied that these are the changes you want to submit, click the big green Create Pull Request button
+		6.3.6 Click the green Merge pull request button to merge the changes into master
+		6.3.7 Click Confirm merge button
+		6.3.8 (Optional) Go ahead and delete the branch, since its changes have been incorporated, with the Delete branch button in the purple box
+		
+		
+		
+	6.4  Git commands 
 	     
 	     $ git status
 	     $ git rm -r folder-name
