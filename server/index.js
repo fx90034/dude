@@ -124,6 +124,8 @@ const auth = require('./routes/auth');
 app.use('/auth', auth);
 const why = require('./routes/why');
 app.use('/why', why);
+const apps = require('./routes/apps');
+app.use('/apps', apps);
 
 // Check session expires
 app.use(function(req, res, next) {

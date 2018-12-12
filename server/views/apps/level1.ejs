@@ -1,63 +1,35 @@
 <!DOCTYPE html>
 <html lang="en">
-<script type="text/javascript">
-var menu_display = "none";
-function show_menu() {
-  if(menu_display == "none") {
-    document.getElementById("menu").style.display = 'inline';
-    document.getElementById("navbarNav").style.display = 'none';
-    document.getElementById("container").style.display = 'none';
-    document.getElementById("footer").style.display = 'none';
-    menu_display = "visible";
-  }
-  else {
-    document.getElementById("menu").style.display = 'none';
-    document.getElementById("navbarNav").style.display = 'inline';
-    document.getElementById("container").style.display = 'inline';
-    document.getElementById("footer").style.display = 'inline';
-    menu_display = "none";
-  }
-// alert(menu_display)
-}
-function close_menu() {
-// alert(menu_display)
-  if(menu_display == "visible") {
-    document.getElementById("menu").style.display = 'none';
-    document.getElementById("navbarNav").style.display = 'inline';
-    document.getElementById("container").style.display = 'inline';
-    document.getElementById("footer").style.display = 'inline';
-    menu_display = "none";
-  }
-}
-</script>
-<% include ../session.ejs%>
 <head>
-    <% include ../head.ejs%>
+  <% include ../session.ejs%>
+  <% include ../head.ejs%>
 </head>
 <body>
 <% include header.ejs%>
-
-<div id="container" style="background-color: #ddd;">
-  <ul class="list-group list-group-flush">
-    <li class="list-group-item ">
-      <button type="button" class="list-group-item list-group-item-action active">
-        <%=data[0] %>
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <button type="button" class="list-group-item list-group-item-action">
-        <%=data[1] %>
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-    <li class="list-group-item d-flex justify-content-between align-items-center">
-      <button type="button" class="list-group-item list-group-item-action">
-        <%=data[2] %>
-      </button>
-      <span class="badge badge-primary badge-pill">0</span>
-    </li>
-  </ul>
+<div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 40px;">
+  <div class="row" style="padding: 20px; background-color: #003366;">
+    <div class="col-4"><img width="42" src='images/1000.jpg'></img></div>
+    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 15px;">
+      <a href="apps/level2?i=0&level1=<%=data[0] %>"><%=data[0] %></a>
+      <span class="badge badge-primary badge-pill"></span>
+    </div>
+  </div>
+  <div class="row" style="padding: 1px; background-color: #004080;"></div>
+  <div class="row" style="padding: 20px; background-color: #003366;">
+    <div class="col-4"><img width="42" src='images/2000.jpg'></img></div>
+    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 10px;">
+      <a href="apps/level2?i=1&level1=<%=data[1] %>"><%=data[1] %></a>
+      <span class="badge badge-primary badge-pill"></span>
+    </div>
+  </div>
+  <div class="row" style="padding: 1px; background-color: #004080;"></div>
+  <div class="row" style="padding: 20px; background-color: #003366;">
+    <div class="col-4"><img width="42" src='images/3000.jpg'></img></div>
+    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 5px;">
+      <a href="apps/level2?i=2&level1=<%=data[2] %>"><%=data[2] %></a>
+      <span class="badge badge-primary badge-pill"></span>
+    </div>
+  </div>
 </div>
 
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
@@ -72,6 +44,10 @@ document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
 </script> -->
 </body>
 <footer>
+  <div style="text-align:center;padding-bottom: 10px;">
+    <a href='https://www.freepik.com/free-vector/collection-of-smart-home-icons-vector_3229576.htm'>
+      <span style="color: #999999;font-size: 10px;">Icon made by Rawpixel.com</span></a>
+  </div>
   <% include ../footer.ejs%>
 </footer>
 </html>

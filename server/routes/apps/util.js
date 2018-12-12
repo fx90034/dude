@@ -40,21 +40,20 @@ debug("appData.length = " + appData.length)
 }
 exports.getLevel2 = function(i, callback) {
   var temp = [];
-  for(var j=0; j<appData[i].length; j++) {
+  for(var j=1; j<appData[i].length; j++) {
     temp.push(appData[i][j][0][0]);
+// debug("appData[i][j][0][0] = " + JSON.stringify(appData[i][j][0][0]))
   }
-  var data = { level2: temp };
-debug("data = " + JSON.stringify(data))
-  return callback(null, data);
+debug("temp = " + JSON.stringify(temp))
+  return callback(null, temp);
 }
 exports.getLevel3 = function(i, j, callback) {
   var temp = [];
-  for(var k=0; k<appData[i][j].length; k++) {
+  for(var k=1; k<appData[i][j].length; k++) {
     temp.push(appData[i][j][k][0]);
   }
-  var data = { level3: temp };
-debug("data = " + JSON.stringify(data))
-  return callback(null, data);
+debug("temp = " + JSON.stringify(temp))
+  return callback(null, temp);
 }
 exports.getData = function(i, j, k, callback) {
 debug(appData[0][0][0][0])
