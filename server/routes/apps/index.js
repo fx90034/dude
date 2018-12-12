@@ -3,7 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const debug = require('debug')('apps');
-const db = require('../../models/apps');
+// const db = require('../../models/apps');
 const util = require('./util');
 
 router.get('/level1', function(req, res) {
