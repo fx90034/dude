@@ -7,29 +7,35 @@
 <body>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 40px;">
-  <div class="row" style="padding: 20px; background-color: #003366;">
-    <div class="col-4"><img width="42" src='images/1000.jpg'></img></div>
-    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 15px;">
-      <a href="apps/level2?i=0&level1=<%=data[0] %>"><%=data[0] %></a>
-      <span class="badge badge-primary badge-pill"></span>
+  <a href="apps/level2?i=0&level1=<%=data[0] %>">
+    <div class="row" style="padding: 20px; background-color: #003366;">
+      <div class="col-4"><img width="42" src='images/<%=data[0] %>.jpg'></img></div>
+      <div class="col-8" style="font-size: 20px; color: #000;padding-top: 15px;">
+        <span style="color: #0080ff"><%=data[0] %></span>
+        <span class="badge badge-primary badge-pill"></span>
+      </div>
     </div>
-  </div>
+  </a>
   <div class="row" style="padding: 1px; background-color: #004080;"></div>
-  <div class="row" style="padding: 20px; background-color: #003366;">
-    <div class="col-4"><img width="42" src='images/2000.jpg'></img></div>
-    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 10px;">
-      <a href="apps/level2?i=1&level1=<%=data[1] %>"><%=data[1] %></a>
-      <span class="badge badge-primary badge-pill"></span>
+  <a href="apps/level2?i=1&level1=<%=data[1] %>">
+    <div class="row" style="padding: 20px; background-color: #003366;">
+      <div class="col-4"><img width="42" src='images/<%=data[1] %>.jpg'></img></div>
+      <div class="col-8" style="font-size: 20px; color: #000;padding-top: 10px;">
+        <span style="color: #0080ff"><%=data[1] %></span>
+        <span class="badge badge-primary badge-pill"></span>
+      </div>
     </div>
-  </div>
+  </a>
   <div class="row" style="padding: 1px; background-color: #004080;"></div>
-  <div class="row" style="padding: 20px; background-color: #003366;">
-    <div class="col-4"><img width="42" src='images/3000.jpg'></img></div>
-    <div class="col-8" style="font-size: 20px; color: #000;padding-top: 5px;">
-      <a href="apps/level2?i=2&level1=<%=data[2] %>"><%=data[2] %></a>
-      <span class="badge badge-primary badge-pill"></span>
+  <a href="apps/level2?i=2&level1=<%=data[2] %>">
+    <div class="row" style="padding: 20px; background-color: #003366;">
+      <div class="col-4"><img width="42" src='images/<%=data[2] %>.jpg'></img></div>
+      <div class="col-8" style="font-size: 20px; color: #000;padding-top: 5px;">
+        <span style="color: #0080ff"><%=data[2] %></span>
+        <span class="badge badge-primary badge-pill"></span>
+      </div>
     </div>
-  </div>
+  </a>
 </div>
 
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>

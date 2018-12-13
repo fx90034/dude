@@ -22,4 +22,12 @@ express-session.js
 
 	3.1  Icons
 
-		blinds: https://thenounproject.com/term/window-shades/54950/
+		3.1.1 Blinds: https://thenounproject.com/term/window-shades/54950/
+		3.1.2 Temperature Sensor: https://thenounproject.com/term/thermostat/20935/
+		thermostat by Luboš Volkov from the Noun Project
+		3.1.3 Window: https://thenounproject.com/search/?q=window&i=77684
+		window by Arthur Shlain from the Noun Project
+		3.1.4 Standing Fan: https://thenounproject.com/search/?q=fan&i=1517883
+		Fan by Deemak Daksina from the Noun Project
+		3.1.5 French Door: https://thenounproject.com/search/?q=french%20door%20refrigerator&i=1710990
+		Refrigerator by anbileru adaleru from the Noun Project

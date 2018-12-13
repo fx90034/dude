@@ -1,7 +1,7 @@
 {
   "Rooms": {
     "Entry": {
-      "Light": [{
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -23,7 +23,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Video door bell": [{
+      "Video Doorbell": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -40,7 +40,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Door sensor": [{
+      "Door Sensor": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -51,7 +51,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Presence sensor": [{
+      "Proximity Sensor": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -59,7 +59,7 @@
       }]
     },
     "Kitchen": {
-      "Light": [{
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -108,8 +108,13 @@
         "image": "<image>",
         "device ID": "<device ID>",
         "active": false
+	  }, {
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
       }],
-      "Display screen": [{
+      "Display Screen": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -117,7 +122,7 @@
       }]
     },
     "Bathroom": {
-      "Light": [{
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -139,7 +144,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Bath shower": [{
+      "Shower": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -157,8 +162,8 @@
         "active": false
       }]
     },
-    "Living room": {
-      "Light": [{
+    "Living Room": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -205,7 +210,7 @@
       }]
     },
     "Bedroom": {
-      "Light": [{
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -244,7 +249,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Alarm clock": [{
+      "Alarm Clock": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -257,7 +262,7 @@
       }]
     },
     "Patio": {
-      "Light": [{
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -279,7 +284,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Outdoor camera": [{
+      "Outdoor Camera": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -293,8 +298,8 @@
     }
   },
   "Scenes": {
-    "Morning mode": {
-      "Light": [{
+    "Morning Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -315,10 +320,38 @@
         "image": "<image>",
         "device ID": "<device ID>",
         "active": false
+      }],
+      "Blinds": [{
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
+      }, {
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
+      }],
+      "TV": [{
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
+      }],
+      "Alarm Clock": [{
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
+      }, {
+        "page": "<link>",
+        "image": "<image>",
+        "device ID": "<device ID>",
+        "active": false
       }]
     },
-    "Leaving mode": {
-      "Light": [{
+    "Away Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -346,7 +379,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Blind": [{
+      "Blinds": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -358,8 +391,8 @@
         "active": false
       }]
     },
-    "Home mode": {
-      "Light": [{
+    "Home Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -387,7 +420,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Blind": [{
+      "Blinds": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -399,8 +432,8 @@
         "active": false
       }]
     },
-    "Evening mode": {
-      "Light": [{
+    "Evening Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -422,7 +455,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Blind": [{
+      "Blinds": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -434,8 +467,8 @@
         "active": false
       }]
     },
-    "Night mode": {
-      "Light": [{
+    "Night Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -457,7 +490,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Blind": [{
+      "Blinds": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -469,8 +502,8 @@
         "active": false
       }]
     },
-    "Movie mode": {
-      "Light": [{
+    "Theater Mode": {
+      "Lights": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -492,7 +525,7 @@
         "device ID": "<device ID>",
         "active": false
       }],
-      "Blind": [{
+      "Blinds": [{
         "page": "<link>",
         "image": "<image>",
         "device ID": "<device ID>",
@@ -506,7 +539,7 @@
     }
   },
   "Devices": {
-    "Light": {
+    "Lights": {
       "Dimmer": [{
         "Page": "<link>",
         "Image": "<image>",
@@ -518,7 +551,29 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-    "Bulb": [{
+      "Lamp": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "Fluorescent Bulb": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+     "Light Bulb": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -531,7 +586,7 @@
       }]
     },
     "Switch": {
-      "Square": [{
+      "Plug": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -542,7 +597,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Round": [{
+      "Socket": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -555,7 +610,7 @@
       }]
     },
     "Sensor": {
-      "Motion": [{
+      "Motion Sensor": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -566,7 +621,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Presence": [{
+      "Infrared Sensor": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -577,7 +632,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Smoke": [{
+      "Proximity Sensor": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -588,7 +643,18 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Temperature": [{
+      "Smoke Detector": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "Temperature Sensor": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -601,7 +667,7 @@
       }]
     },
     "Shelter": {
-      "Blind": [{
+      "Blinds": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -636,7 +702,7 @@
       }]
     },
     "Fan": {
-      "On/Off": [{
+      "Standing Fan": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -647,7 +713,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Mode control": [{
+      "Ceiling Fan": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -683,8 +749,8 @@
         "Device ID": "<Device ID>"
       }]
     },
-    "Video door bell": {
-      "Show on phone": [{
+    "Video doorbell": {
+      "Show on Phone": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -695,7 +761,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Show on screen": [{
+      "Show on Screen": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -707,7 +773,7 @@
         "Device ID": "<Device ID>"
       }]
     },
-    "Display screen": {
+    "Display Screen": {
       "on Refrigerator": [{
         "Page": "<link>",
         "Image": "<image>",
@@ -730,7 +796,18 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "on tv": [{
+      "Computer Screen": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "TV": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -743,7 +820,7 @@
       }]
     },
     "Lock": {
-      "Code": [{
+      "Security Code": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -754,7 +831,7 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "QR code": [{
+      "QR Code": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -778,7 +855,7 @@
       }]
     },
     "Security Camera": {
-      "Indoor": [{
+      "Indoor Camera": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",
@@ -789,7 +866,31 @@
         "Brand": "<Brand>",
         "Device ID": "<Device ID>"
       }],
-      "Outdoor": [{
+      "Outdoor Camera": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }]
+    },
+    "Refrigerator": {
+      "Double Door": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "French Door": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",

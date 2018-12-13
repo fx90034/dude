@@ -6,8 +6,8 @@
 </head>
 <body>
 <% include header.ejs%>
-<div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 40px;">
-  <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:10px;">
+<div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 10px;">
+  <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
     <div class="p-1">
       <p><strong><%=level2 %></strong></p>
     </div>
@@ -19,17 +19,17 @@
   for(var index=1; index<=len; index++) {
     if(data[index-1].indexOf('blinds') != -1)
       blinds = true;
-    img1 = ((j+1)*10+index)*100;
-    img2 = ((j+1)*10+index+1)*100;
+    img1 = ((j+1)*10+index)*10;
+    img2 = ((j+1)*10+index+1)*10;
     img[index-1] = img1 + "";
     img[index] = img2 + "";
 console.log('img[index-1] = ' + img[index-1])
 console.log('img[index] = ' + img[index])
 %>
-  <div class="row" style="padding: 20px; background-color: white;">
+  <div class="row" style="padding: 15px; background-color: white;">
     <div class="col-6">
       <div style="padding-left: 40px;">
-        <div class="col-4"><img width="32" src='images/<%=img[index-1] %>.png'></img></div>
+        <div class="col-4"><img width="32" src='images/<%=data[index-1] %>.png'></img></div>
         <div class="col-8" style="padding-top: 15px;">
           <a href="apps/level3?i=0&j=1&level1=<%=data[index-1] %>">
             <span style="color:#003366;font-size:16px;">
@@ -40,8 +40,9 @@ console.log('img[index] = ' + img[index])
       </div>
     </div>
     <div class="col-6">
-      <div style="padding-left: 40px;">
-        <div class="col-4"><img width="32" src='images/<%=img[index] %>.png'></img></div>
+      <% if(data[index]) { %>
+      <div style="padding-left: 20px;">
+        <div class="col-4"><img width="32" src='images/<%=data[index] %>.png'></img></div>
         <div class="col-8" style="padding-top: 10px;">
           <a href="apps/level3?i=1&j=2&level1=<%=data[index] %>">
             <span style="color:#003366;font-size:16px;">
@@ -50,11 +51,9 @@ console.log('img[index] = ' + img[index])
           <span class="badge badge-primary badge-pill"></span>
         </div>
       </div>
+      <% } %>
     </div>
   </div>
-  <% if(index<len-1) { %>
-  <div class="row" style="padding: 1px;background-color: #004080;"></div>
-  <% } %>
 <% index ++;} %>
 </body>
 <footer>
