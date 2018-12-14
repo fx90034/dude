@@ -7,7 +7,7 @@ const debug = require('debug')('apps');
 const util = require('./util');
 
 router.get('/level1', function(req, res) {
-  util.getData(0, 0, 0, function(err, data) {
+  util.getLevel1(function(err, data) {
     if(err) {
       console.error(err);
       throw err;

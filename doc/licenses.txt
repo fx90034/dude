@@ -21,8 +21,14 @@ express-session.js
 3  Creative Commons
 
 	3.1  Icons
+	
+	  <div style="text-align:center;padding-bottom: 10px;">
+	    <a href='http://www.freepik.com/'>
+	      <span style="color: #999999;font-size: 10px;">Icon made by www.flaticon.com</span></a>
+  	  </div>
 
 		3.1.1 Blinds: https://thenounproject.com/term/window-shades/54950/
+		<span style="color: #999999;font-size: 10px;">blinds by Garrett Knoll from the Noun Project</span>
 		3.1.2 Temperature Sensor: https://thenounproject.com/term/thermostat/20935/
 		thermostat by Luboš Volkov from the Noun Project
 		3.1.3 Window: https://thenounproject.com/search/?q=window&i=77684

@@ -666,7 +666,7 @@
         "Device ID": "<Device ID>"
       }]
     },
-    "Shelter": {
+    "Shade": {
       "Blinds": [{
         "Page": "<link>",
         "Image": "<image>",
@@ -867,6 +867,54 @@
         "Device ID": "<Device ID>"
       }],
       "Outdoor Camera": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }]
+    },
+    "Speaker": {
+      "Music Speaker": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "Subwoofer": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }]
+    },
+    "Heater": {
+      "Water Heater": [{
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }, {
+        "Page": "<link>",
+        "Image": "<image>",
+        "Brand": "<Brand>",
+        "Device ID": "<Device ID>"
+      }],
+      "Tower Heater": [{
         "Page": "<link>",
         "Image": "<image>",
         "Brand": "<Brand>",

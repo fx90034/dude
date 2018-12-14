@@ -5,6 +5,7 @@
   <% include ../head.ejs%>
 </head>
 <body>
+<div class=”main-container”>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 40px;">
   <a href="apps/level2?i=0&level1=<%=data[0] %>">
@@ -37,18 +38,6 @@
     </div>
   </a>
 </div>
-
-<script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
-<script src="/lib/bootstrap/js/popper.min.js"></script>
-<script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-
-<!-- [170] CSS Animated Hamburger Icon
-<script type="text/javascript">
-document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
-  this.classList.toggle( "active" );
-});
-</script> -->
-</body>
 <footer>
   <div style="text-align:center;padding-bottom: 10px;">
     <a href='https://www.freepik.com/free-vector/collection-of-smart-home-icons-vector_3229576.htm'>
@@ -56,4 +45,6 @@ document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
   </div>
   <% include ../footer.ejs%>
 </footer>
+</div>
+</body>
 </html>
