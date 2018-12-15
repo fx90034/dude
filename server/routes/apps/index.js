@@ -55,10 +55,12 @@ router.get('/level3', function(req, res) {
     user = req.session.user;
 debug("apps/level3!!")
 debug('ip = ' + req.ip)
+debug('i = ' + i)
+debug('j = ' + j)
 debug('level1 = ' + level1)
 debug('level2 = ' + level2)
   var answers = [];
-  util.getLevel3(0, j, function(err, data) {
+  util.getLevel3(i, j, function(err, data) {
     if(err) {
       console.error(err);
       throw err;

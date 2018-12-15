@@ -5,50 +5,50 @@
   <% include ../head.ejs%>
 </head>
 <body>
-<div class=”main-container”>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 10px;">
+  <div class="content-inside">
   <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
     <div class="p-1">
       <p><strong><%=level2 %></strong></p>
     </div>
   </div>
 <% var len = data.length;
-  for(var index=1; index<=len; index++) {
+  for(var k=1; k<=len; k++) {
 %>
   <div class="row" style="padding: 15px; background-color: white;">
     <div class="col-6">
-      <a href="apps/level3?i=0&j=1&level1=<%=data[index-1] %>">
+      <a href="apps/level4?i=<%=i %>&j=<%=j %>&k=<%=k %>&level1=<%=level1 %>&level2=<%=level2 %>&level3=<%=data[k-1] %>">
         <div class="text-center" style="padding-bottom: 10px;">
-          <img width="32" src='images/<%=data[index-1] %>.png'></img>
+          <img width="32" src='images/<%=data[k-1] %>.png'></img>
         </div>
         <div class="text-center">
           <span style="color:#003366;font-size:16px;">
-            <strong><%=data[index-1] %></strong>
+            <strong><%=data[k-1] %></strong>
           </span>
         </div>
       </a>
     </div>
     <div class="col-6">
-      <% if(data[index]) { %>
-      <a href="apps/level3?i=1&j=2&level1=<%=data[index] %>">
+      <% if(data[k]) { %>
+      <a href="apps/level4?i=<%=i %>&j=<%=j %>&k=<%=k+1 %>&level1=<%=level1 %>&level2=<%=level2 %>&level3=<%=data[k] %>">
         <div class="text-center" style="padding-bottom: 10px;">
-          <img width="32" src='images/<%=data[index] %>.png'></img>
+          <img width="32" src='images/<%=data[k] %>.png'></img>
         </div>
         <div class="text-center">
           <span style="color:#003366;font-size:16px;">
-            <strong><%=data[index] %></strong>
+            <strong><%=data[k] %></strong>
           </span>
         </div>
       </a>
       <% } %>
     </div>
   </div>
-<% index ++;} %>
+<% k ++;} %>
 </div>
-<footer>
+</div>
+<footer class="footer">
   <% include ./menu.ejs%>
 </footer>
-</div>
 </body>
 </html>
