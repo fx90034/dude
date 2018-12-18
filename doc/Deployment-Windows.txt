@@ -18,8 +18,8 @@
 	
 		 1.3.1  Start the server
 		 		> D:/couchdb/bin/couchdb.cmd -couch_ini H:\COUCHDB\etc\default.ini H:\COUCHDB\etc\local.ini
-		 		$ cd H:\COUCHDB
-		 		$ bin\couchdb.cmd -a H:\COUCHDB\etc\local.ini
+		 		> cd H:\COUCHDB
+		 		> bin\couchdb.cmd -a H:\COUCHDB\etc\local.ini
 		 1.3.2  Change port to 8825 in H:\COUCHDB\etc\local.ini
 		 		[chttpd]
 				port = 8825

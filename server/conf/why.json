@@ -12,7 +12,7 @@
           }
         },
         "Dedicated smart hub or bridge": {
-          "question": "Do you like to speand $200 or more to add a smart hub?",
+          "question": "Do you like to spend $200 or more to add a smart hub?",
           "answer": {
             "Yes": "<link>",
             "No": "<link>"
