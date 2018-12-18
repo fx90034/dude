@@ -192,7 +192,18 @@ debug("remember = " + remember)
 				req.session.user = user;
 				if(ip)
 					signedInUsernames.set(ip, user);
-				res.render('apps/main', { user: newUser });
+				util.getLevel1(function(err, data) {
+					if(err) {
+						console.error(err);
+						throw err;
+			//      return res.render('error', { error: err });
+					}
+					else {
+	debug("data[0] = " + data[0])
+					}
+	debug("user.name = " + user.name)
+					res.render('apps/level1', { user: user, data: data });
+				});
 			}
 
 			else {
@@ -235,7 +246,18 @@ router.post('/login', function(req, res, next) {
       req.session.user = user;
 debug(user)
 debug("in auth/login: req.session.user = " + user.name);
-      return res.render('apps/main', { user: user });
+			util.getLevel1(function(err, data) {
+				if(err) {
+					console.error(err);
+					throw err;
+		//      return res.render('error', { error: err });
+				}
+				else {
+debug("data[0] = " + data[0])
+				}
+debug("user.name = " + user.name)
+				res.render('apps/level1', { user: user, data: data });
+			});
     });
   })(req, res, next);
 });

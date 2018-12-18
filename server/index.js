@@ -126,6 +126,14 @@ const why = require('./routes/why');
 app.use('/why', why);
 const apps = require('./routes/apps');
 app.use('/apps', apps);
+const util = require("./routes/apps/util");
+util.getLevel1(function(err, data) {
+	if(err) {
+		console.error(err);
+		throw err;
+//      return res.render('error', { error: err });
+	}
+});
 
 // Check session expires
 app.use(function(req, res, next) {
