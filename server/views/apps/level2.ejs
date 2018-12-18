@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../session.ejs%>
+  <% include ../head.ejs%>
+</head>
+<body>
+<% include header.ejs%>
+<div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 10px;">
+  <div class="content-inside">
+  <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
+    <div class="p-1">
+      <p><strong><%=level1 %></strong></p>
+    </div>
+  </div>
+<% var len = data.length;
+  for(var j=1; j<=len; j++) {
+%>
+  <div class="row" style="padding: 15px; background-color: white;">
+    <div class="col-6">
+      <a href="apps/level3?i=<%=i %>&j=<%=j %>&level1=<%=level1 %>&level2=<%=data[j-1] %>">
+        <div class="text-center" style="padding-bottom: 10px;">
+          <img width="32" src='images/<%=data[j-1] %>.png'></img>
+        </div>
+        <div class="text-center">
+          <span style="color:#003366;font-size:16px;">
+            <strong><%=data[j-1] %></strong>
+          </span>
+        </div>
+      </a>
+    </div>
+    <div class="col-6">
+      <% if(data[j]) { %>
+      <a href="apps/level3?i=<%=i %>&j=<%=j+1 %>&level1=<%=level1 %>&level2=<%=data[j] %>">
+        <div class="text-center" style="padding-bottom: 10px;">
+          <img width="32" src='images/<%=data[j] %>.png'></img>
+        </div>
+        <div class="text-center">
+          <span style="color:#003366;font-size:16px;">
+            <strong><%=data[j] %></strong>
+          </span>
+        </div>
+      </a>
+      <% } %>
+    </div>
+  </div>
+<% j ++;} %>
+</div>
+</div>
+<footer class="footer">
+  <% include ./menu.ejs%>
+</footer>
+</body>
+</html>

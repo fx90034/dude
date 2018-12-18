@@ -576,3 +576,65 @@ console.log(removedItems);
 // Copy an Array
 var shallowCopy = fruits.slice(); // this is how to make a copy
 // ["Strawberry", "Mango"]
+
+		10.3.8  Object G[189]
+// How to access object elements
+var obj = {
+    key1: value1,
+    key2: value2
+};
+// know the name of the property
+obj.key3 = "value"3";
+// the name of the property is dynamically determined
+var getProperty = function (propertyName) {
+    return obj[propertyName];
+};
+getProperty("key1");
+getProperty("key2");
+getProperty("key3");
+// set
+user["likes birds"] = true;
+// delete
+delete user["likes birds"];
+// "key" in object
+let user = { name: "John", age: 30 };
+alert( "age" in user ); // true, user.age exists
+alert( "blabla" in user ); // false, user.blabla doesn't exist
+// The “for…in” loop
+for(key in object) {
+  // executes the body for each key among object properties
+}
+// Comparison by reference
+// Two objects are equal only if they are the same object.
+let a = {};
+let b = a; // copy the reference
+alert( a == b ); // true, both variables reference the same object
+alert( a === b ); // true
+// two independent objects are not equal, even though both are empty:
+let a = {};
+let b = {}; // two independent objects
+alert( a == b ); // false
+// The Object.assign() method is used to copy the values of all enumerable own properties from one or more source objects to a target object. It will return the target object.
+var obj = {key1: "value1", key2: "value2"};
+var obj2 = {key2:"value4", key3: "value3", key4: undefined};
+_.extend(obj, obj2);
+console.log(obj);
+// ? {key1: "value1", key2: "value4", key3: "value3", key4: undefined}
+// or
+var obj = {key1: "value1", key2: "value2"};
+Object.assign(obj, {key3: "value3"});
+document.body.innerHTML = JSON.stringify(obj);
+// Object.keys, values, entries G[190]
+let user = {
+  name: "John",
+  age: 30
+};
+Object.keys(user) = [name, age]
+Object.values(user) = ["John", 30]
+Object.entries(user) = [ ["name","John"], ["age",30] ]
+// Count properties
+let user = {
+  name: 'John',
+  age: 30
+};
+alert( count(user) ); // 2
