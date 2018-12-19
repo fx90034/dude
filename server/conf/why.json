@@ -169,7 +169,7 @@
       }
     },
     "All": {
-      "question": "What kind of SmeatHome do you want to have?",
+      "question": "What kind of SysHomes do you want to have?",
       "answer": {
         "$1000: Automatically turn on/off lights/blinds/windows/curtains": {
           "question": "Select the features you like to include for lights and blinds",
