@@ -9,44 +9,15 @@ var questions = [[[]]];
 var answers = [[[[]]]];
 
 exports.getData = function(i, j, k, callback) {
-  if(questions[0][0][0] == null) {
-debug("Loading ...")
-    load(function(err, data) {
-      if(err) {
-        console.error(err);
-        return callback(err, null);
-      }
-debug("@@@@@@@@@@Loaded.")
-debug("questions[0][0][0] = " + questions[0][0][0])
-      var data = { question: questions[i][j][k], answers: answers[i][j][k] };
-debug("data = " + JSON.stringify(data))
-      return callback(null, data);
-    });
-  }
-  else {
 debug("i=" + i)
 debug("j=" + j)
 debug("k=" + k)
-    var data = { question: questions[i][j][k], answers: answers[i][j][k] };
+  var data = { question: questions[i][j][k], answers: answers[i][j][k] };
 debug("data = " + JSON.stringify(data))
-    return callback(null, data);
-  }
+  return callback(null, data);
 }
-exports.getAnswer = function( i, j, k, callback) {
-  try {
-    if(questions == null)
-      load();
-    var level1 = why.answer;
-    var level2 = level1.answer;
-    var level3 = level2.answer;
-    var key = level3.answer;
-    var value = why.level1.level2.level3.key;
-    return callback (null, { key, value });
-  } catch(e) {
-    return callback(e, null);
-  }
-}
-function load(callback) {
+exports.load = function(callback) {
+debug("Loading ...")
   util.readJSON(file, function(err, data) {
     if(err) {
       console.error(err);

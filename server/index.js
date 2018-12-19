@@ -126,8 +126,26 @@ const why = require('./routes/why');
 app.use('/why', why);
 const apps = require('./routes/apps');
 app.use('/apps', apps);
-const util = require("./routes/apps/util");
-util.getLevel1(function(err, data) {
+
+// Load why data
+const utilWhy = require("./routes/why/util");
+utilWhy.load(function(err, data) {
+	if(err) {
+		console.error(err);
+		throw err;
+//      return res.render('error', { error: err });
+	}
+});
+// Loading Apps and Devices data
+const utilApps = require("./routes/apps/util");
+utilApps.loadApps(function(err, data) {
+	if(err) {
+		console.error(err);
+		throw err;
+//      return res.render('error', { error: err });
+	}
+});
+utilApps.loadApps(function(err, data) {
 	if(err) {
 		console.error(err);
 		throw err;
