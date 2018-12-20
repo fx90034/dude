@@ -14,11 +14,20 @@
     </div>
   </div>
 <% var len = data.length;
-  for(var k=1; k<=len; k++) {
+   var url1, url2;
+   for(var k=1; k<=len; k++) {
+     url1 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k-1];
+     url2 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k];
+     if(level1 != 'Devices') {
+       url1 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k-1];
+       url2 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k];
+     }
+console.log('!!!url1=' + url1);
+console.log('!!!url2=' + url2);
 %>
   <div class="row" style="padding: 15px; background-color: white;">
     <div class="col-6">
-      <a href="apps/level4?i=<%=i %>&j=<%=j %>&k=<%=k %>&level1=<%=level1 %>&level2=<%=level2 %>&level3=<%=data[k-1] %>">
+      <a href="<%=url1 %>">
         <div class="text-center" style="padding-bottom: 10px;">
           <img width="32" src='images/<%=data[k-1] %>.png'></img>
         </div>
@@ -31,7 +40,7 @@
     </div>
     <div class="col-6">
       <% if(data[k]) { %>
-      <a href="apps/level4?i=<%=i %>&j=<%=j %>&k=<%=k+1 %>&level1=<%=level1 %>&level2=<%=level2 %>&level3=<%=data[k] %>">
+      <a href="<%=url2 %>">
         <div class="text-center" style="padding-bottom: 10px;">
           <img width="32" src='images/<%=data[k] %>.png'></img>
         </div>

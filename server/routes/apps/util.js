@@ -35,6 +35,20 @@ exports.getLevel3 = function(i, j, callback) {
 debug("temp = " + JSON.stringify(temp))
   return callback(null, temp);
 }
+exports.getDeviceByName = function(level3, callback) {
+  var temp = [];
+  for(var i=0; i<appData.length; i++) {
+    for(var j=1; j<appData[i].length; j++) {
+      if(appData[i][j][0] != level3)
+        continue;
+      for(var k=1; k<appData[i][j].length; k++) {
+        temp.push(appData[i][j][k]);
+      }
+    }
+  }
+debug("temp = " + JSON.stringify(temp))
+  return callback(null, temp);
+}
 exports.loadApps = function(callback) {
 debug("Loading Apps ...")
   util.readJSON(appsFile, function(err, data) {
@@ -124,4 +138,12 @@ debug("appData[i][j][k] = " + JSON.stringify(appData[i][j][k]))
     }
     return callback(null, null);
   });
+}
+exports.getDevices = function(level2, level3, callback) {
+  var temp = [];
+  // for(var k=1; k<appData[i][j].length; k++) {
+  //   temp.push(appData[i][j][k]);
+  // }
+debug("temp = " + JSON.stringify(temp))
+  return callback(null, temp);
 }
