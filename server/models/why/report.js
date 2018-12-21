@@ -2,9 +2,9 @@
 const db = require('./index');
 const debug = require('debug')('db');
 
-exports.reportByLevel1 = function(level1, ip, user, callback) {
+exports.reportByLevel1 = function(level1, callback) {
 debug("reportByLevel1: " + level1);
-  let params = { "level1": level1, "startkey": [level1], "endkey": [level1, {}, {}] };
+  let params = { "level1": level1 };
 	db.why.view('answers', 'count_level1', params, function(err, body) {
 		if(err) {
 			console.error(err);

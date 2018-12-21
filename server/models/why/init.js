@@ -12,17 +12,17 @@ try {
          "views": {
             "by_level1": {
                "map": function(doc) {
-                  emit([doc.level1, doc.ip, doc.user], doc._id);
+                  emit(doc.level1, doc._id);
                }
             },
             "by_level2": {
                "map": function(doc) {
-                  emit([doc.level1, doc.level2, doc.ip, doc.user], doc._id);
+                  emit(doc.level2, doc._id);
                }
             },
             "by_level3": {
                "map": function(doc) {
-                  emit([doc.level1, doc.level2, doc.level3, doc.ip, doc.user], doc._id);
+                  emit(doc.level3, doc._id);
                }
             },
             "by_ip": {
@@ -40,7 +40,7 @@ try {
             },
             "count_level2": {
               "map": function(doc) {
-                emit( doc.leve2, 1);
+                emit(doc.leve2, 1);
               },
               "reduce": function(key, values) {
                 return sum(values)

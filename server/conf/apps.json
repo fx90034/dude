@@ -93,7 +93,11 @@
       "Infrared Sensor",
       "Proximity Sensor",
       "Smoke Detector",
-      "Temperature Sensor"
+      "Temperature Sensor",
+      "Window Sensor",
+      "Door Sensor",
+      "Light Sensor",
+      "Humidity Sensor"
     ],
     "Shade": [
       "Blinds",

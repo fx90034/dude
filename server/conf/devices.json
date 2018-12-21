@@ -1,413 +1,741 @@
 {
     "Lights": {
       "Dimmer": [{
-        "Page": "https://www.cnet.com/reviews/belkin-wemo-dimmer-wi-fi-light-switch-review/",
-        "Image": "https://cnet2.cbsistatic.com/img/R0iHDCIrH6DEWo1LqmqwIFnkT9w=/194x146/2017/05/31/5fab7d62-453b-44ef-9a88-8a4cdc84f6dd/wemo-dimmer-3.jpg",
-        "Brand": "Belkin WeMo",
-        "Price": "$59.99"
+      	"name": "Belkin WeMo Dimmer",
+      	"description": "The WeMo Dimmer is Belkin's best-designed smart switch yet, and it comes with a wide range of new, thoughtful features. The upcoming addition of Apple HomeKit support cements WeMo's place as one of the most well-connected smart home platforms on the market.",
+        "page": "https://www.cnet.com/reviews/belkin-wemo-dimmer-wi-fi-light-switch-review/",
+        "image": "https://cnet2.cbsistatic.com/img/R0iHDCIrH6DEWo1LqmqwIFnkT9w=/194x146/2017/05/31/5fab7d62-453b-44ef-9a88-8a4cdc84f6dd/wemo-dimmer-3.jpg",
+        "manufacturer": "Belkin",
+        "brand": "WeMo",
+        "price": "$59.99"
       }, {
-        "Page": "https://www.cnet.com/reviews/lutron-caseta-in-wall-wireless-smart-lighting-kit-review/",
-        "Image": "https://cnet3.cbsistatic.com/img/ZBKrBe1x4XFhIl3j2LIxpLgGesI=/194x146/2016/11/22/cfcca9f1-3d6c-4b1e-8ca9-01f20f74da5d/lutron-caseta-in-wall-wireless-smart-lighting-kit-product-photos-5.jpg",
-        "Brand": "Lutron Caseta",
-        "Price": "$159.90"
+      	"name": "Lutron Caseta In-Wall Wireless Smart Lighting Kit",
+      	"description": "Lutron's in-wall smart switches are reliable performers that work with Alexa, Nest, IFTTT, Apple HomeKit and more. The well-designed Lutron app is easy to use, and offers plenty of helpful features, including geofencing, scene management, and a security mode that'll help make it look like you're home when you're not.",
+        "page": "https://www.cnet.com/reviews/lutron-caseta-in-wall-wireless-smart-lighting-kit-review/",
+        "image": "https://cnet3.cbsistatic.com/img/ZBKrBe1x4XFhIl3j2LIxpLgGesI=/194x146/2016/11/22/cfcca9f1-3d6c-4b1e-8ca9-01f20f74da5d/lutron-caseta-in-wall-wireless-smart-lighting-kit-product-photos-5.jpg",
+        "manufacturer": "Lutron",
+        "brand": "Caseta",
+        "price": "$159.90"
       }],
       "Lamp": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+        "name": "<Name1>",
+		"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Fluorescent Bulb": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
      "Light Bulb": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+       	"name": "<Name>",
+       	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Switch": {
       "Plug": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Socket": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Sensor": {
-      "Motion Sensor": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      "Temperature Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
-      "Infrared Sensor": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      "Humidity Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
-      "Proximity Sensor": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      "Light Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Smoke Detector": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+      "Door Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+       "Window Sensor": [{
+       	"name": "<Name>",
+       	"description": "<description>",
+         "page": "<link>",
+         "image": "<image>",
+         "manufacturer": "<Manufacturer>",
+         "brand": "<Brand>",
+         "price": "<Price>"
+       }, {
+       	"name": "<Name1>",
+       	"description": "<description>",
+         "page": "<link>",
+         "image": "<image>",
+         "manufacturer": "<Manufacturer>",
+         "brand": "<Brand>",
+         "price": "<Price>"
+      }],
+      "Motion Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+      "Infrared Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+      "Proximity Sensor": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+      "Smoke Detector": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Temperature Sensor": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Shade": {
       "Blinds": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Curtain": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Window": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Fan": {
       "Standing Fan": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Ceiling Fan": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Thermostat": {
       "C-wired": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Heater": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Video doorbell": {
       "Show on Phone": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Show on Screen": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Display Screen": {
       "on Refrigerator": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "on mirror": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Computer Screen": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "TV": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Lock": {
       "Security Code": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "QR Code": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Fingerprint": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Security Camera": {
       "Indoor Camera": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Outdoor Camera": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Speaker": {
       "Music Speaker": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
+       "Soundbar": [{
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+       }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Subwoofer": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "DALI PHANTOM-S-woofer",
+      	"description": "",
+        "page": "https://mp.weixin.qq.com/s/gcdupNlRCCS99kCmg5Mzfg",
+        "image": "<image>",
+        "manufacturer": "DALI",
+        "brand": "PHANTOM S",
+        "price": ""
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Heater": {
       "Water Heater": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "Tower Heater": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+       	"name": "<Name1>",
+       	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     },
     "Refrigerator": {
       "Double Door": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }],
       "French Door": [{
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }, {
-        "Page": "<link>",
-        "Image": "<image>",
-        "Brand": "<Brand>",
-        "Price": "<Price>"
+      	"name": "<Name>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
       }]
     }
 }

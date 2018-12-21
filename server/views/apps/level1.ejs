@@ -6,7 +6,13 @@
 </head>
 <body>
 <% include header.ejs%>
+
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 40px;">
+  <div class="text-center" style="font-size:16px;">
+    <div class="p-1">
+      <p><strong>Select any of the following choices to build your smart home.</strong></p>
+    </div>
+  </div>
   <a href="apps/level2?i=0&level1=<%=data[0] %>">
     <div class="row" style="padding: 20px; background-color: #003366;">
       <div class="col-4"><img width="42" src='images/<%=data[0] %>.jpg'></img></div>

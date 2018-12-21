@@ -3,6 +3,9 @@
 const util = require('../util');
 const debug = require('debug')('why_util');
 const file = './conf/why.json';
+const db = require('../../models/why');
+const fs = require('fs');
+const report = './reports/';
 
 var why = null;
 var questions = [[[]]];
@@ -80,5 +83,61 @@ debug("answers[0][j][k][0] = " + JSON.stringify(answers[0][j][k][0]))
       console.error(ex);
     }
     return callback(null, null);
+  });
+}
+exports.report = function(callback) {
+  var answers1 = [];
+  var answers2 = [];
+  var answers3 = [];
+  var line = [];
+  var time = new Date();
+  var file = report + time.toISOString().slice(0, 10) + '.txt';
+  this.getData(0, 0, 0, function(err, data) {
+    if(err) {
+      console.error(err);
+      return callback(err);
+    }
+    else {
+      answers1 = data.answers;
+debug("answers1 = " + answers1)
+      for(var i=0; i<answers1.length; i++) {
+        db.report.reportByLevel1(answers1[i], function(err, count) {
+          line.push("Level1 - " + answers1[i] + ": " + JSON.stringify(count));
+        });
+        this.getData(0, i+1, 0, function(err, data) {
+          if(err) {
+            console.error(err);
+            return callback(err);
+          }
+          else {
+            answers2 = data.answers;
+  debug("answers2 = " + answers2)
+            for(var j=0; j<answers2.length; i++) {
+              db.report.reportByLevel2(answers1[i], answers2[j], function(err, count) {
+                line.push("Level2 - " + answers2[j] + ": " + JSON.stringify(count));
+              });
+              this.getData(0, i+1, j+1, function(err, data) {
+                if(err) {
+                  console.error(err);
+                  return callback(err);
+                }
+                else {
+                  answers3 = data.answers;
+  debug("answers3 = " + answers3)
+                  for(var k=0; j<answers3.length; i++) {
+                    db.report.reportByLevel3(answers1[i], answers2[j], answers3[k], function(err, count) {
+                      line.push("Level2 - " + answers2[j] + ": " + JSON.stringify(count));
+                    });
+                  } // for(k)
+                }
+              });
+            } // for(j)
+          }
+        });
+      } // for(i)
+      fs.appendFile(file, JSON.stringify(line), (err) => {
+        if(err) return callback(err);
+      });
+    }
   });
 }

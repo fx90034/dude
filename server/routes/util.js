@@ -1,7 +1,7 @@
 // ./routes/util.js
 
 const fs = require('fs');
-const debug = require('debug')('http');
+const debug = require('debug')('routes');
 
 exports.readJSON = function(filePath, callback) {
   fs.readFile(filePath, function(err, data) {
