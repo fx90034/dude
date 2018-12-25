@@ -5,6 +5,7 @@ const debug = require('debug')('why_util');
 const file = './conf/why.json';
 const db = require('../../models/why');
 const fs = require('fs');
+const path = require('path')
 const report = './reports/';
 
 var why = null;
@@ -91,9 +92,7 @@ exports.report = function(callback) {
   var answers3 = [];
   var line = [];
   var time = new Date();
-  if(!file) {
-    fs.mkdir(file);
-  }
+  fs.existsSync(report) || fs.mkdirSync(report);
   var file = report + time.toISOString().slice(0, 10) + '.txt';
   this.getData(0, 0, 0, function(err, data) {
     if(err) {
