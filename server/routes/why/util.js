@@ -91,6 +91,9 @@ exports.report = function(callback) {
   var answers3 = [];
   var line = [];
   var time = new Date();
+  if(!file) {
+    fs.mkdir(file);
+  }
   var file = report + time.toISOString().slice(0, 10) + '.txt';
   this.getData(0, 0, 0, function(err, data) {
     if(err) {
