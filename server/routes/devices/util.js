@@ -54,6 +54,7 @@ debug("getDevices ...")
 }
 exports.loadDevices = function(callback) {
   db.getLatestDeviceTime(function(err, last) {
+    var updateDevice = true;
     if(last) {
       try {
         var stats = fs.statSync(devicesFile);
@@ -61,7 +62,7 @@ exports.loadDevices = function(callback) {
 console.log('last_update_date = "' + last + '"');
 console.log('lastModifiedDate = ' + JSON.stringify(stats.mtime));
         if(mtime.getTime() <= (new Date(last)).getTime())
-          return callback(null, null);
+          updateDevice = false;
       } catch(ex) {
         console.error(ex);
       }
@@ -106,11 +107,13 @@ debug("subgroup[i][0] = " + JSON.stringify(subgroup[i][0]))
 //              device["active"] = false;
               device["last_update_date"] = new Date(Date.now());
   debug("device = " + JSON.stringify(device))
-              db.addDevice(device, function(err, data) {
-                if(err) {
-                  console.error(err);
-                }
-              });
+              if(updateDevice) {
+                db.addDevice(device, function(err, data) {
+                  if(err) {
+                    console.error(err);
+                  }
+                });
+              }
             }
           }
         }
