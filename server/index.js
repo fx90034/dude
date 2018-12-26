@@ -127,7 +127,7 @@ app.use('/why', why);
 const apps = require('./routes/apps');
 app.use('/apps', apps);
 
-// Load why data
+// Load why data into memory
 const utilWhy = require("./routes/why/util");
 utilWhy.load(function(err, data) {
 	if(err) {
@@ -136,7 +136,7 @@ utilWhy.load(function(err, data) {
 //      return res.render('error', { error: err });
 	}
 });
-// Loading Apps and Devices data
+// Loading Apps data into memory
 const utilApps = require("./routes/apps/util");
 utilApps.loadApps(function(err, data) {
 	if(err) {
@@ -145,7 +145,17 @@ utilApps.loadApps(function(err, data) {
 //      return res.render('error', { error: err });
 	}
 });
-utilApps.loadApps(function(err, data) {
+// Loading Devices data into memory and database
+const utilDevices = require("./routes/devices/util");
+utilDevices.loadDevices(function(err, data) {
+	if(err) {
+		console.error(err);
+		throw err;
+//      return res.render('error', { error: err });
+	}
+});
+// Run report for why_util
+utilWhy.report(function(err, data) {
 	if(err) {
 		console.error(err);
 		throw err;

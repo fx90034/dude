@@ -5,14 +5,14 @@ function checkSessionTimeout() {
   console.log("now = " + now)
   console.log("time = " + time)
   console.log("now - time = " + (now-time))
-  if(now - time >= 300*1000) {
+  if(now - time >= 300*1000) { // 5 min.
  // alert('expired!')
     window.location.href = '/';
     return;
   }
   window.setTimeout('checkSessionTimeout()', 300*1000);
 }
-window.setTimeout('checkSessionTimeout()', 400*1000);
+window.setTimeout('checkSessionTimeout()', 400*1000);  // a little longer than 5 min.
 document.addEventListener("click", function() {
   time = new Date(Date.now());
 });

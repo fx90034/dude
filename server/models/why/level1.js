@@ -18,9 +18,6 @@ debug("record = " + JSON.stringify(record));
         return callback(null, body);
       });
   }
-  db.report.reportByLevel1(level1, ip, user, function(err, count) {
-    console.log("Level1 count: " + JSON.stringify(count));
-  });
 	this.queryByLevel1(level1, ip, user, function(err, body) {
 		if(body != null && body.rows.length > 0) {
 debug("!!!body.rows[0].ip = " + body.rows[0].ip)

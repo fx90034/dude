@@ -14,7 +14,7 @@ exports.report = require('./report');
 exports.queryByIP = function(ip, user, callback) {
 debug("queryByIP: " + ip);
   let params = { "ip": ip, "startkey": [ip], "endkey": [ip, {}]};
-	why.view('answer', 'by_ip', params, function(err, body) {
+	db.view('answer', 'by_ip', params, function(err, body) {
 		if(err) {
 			console.error(err);
 			return callback(err, null);
