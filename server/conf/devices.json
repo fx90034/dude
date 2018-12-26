@@ -70,6 +70,23 @@
       }]
     },
     "Switch": {
+      "Switch": [{
+      	"name": "Illumra Self-Powered Dual-Rocker Friends of Hue Zigbee Light Switch ",
+      	"description": "The Illumra smart switch offers seamless control of your Hue lights and HomeKit accessories and worked perfectly in our tests, and it's a cinch to install it in an existing gang box or elsewhere on the wall with mounting tape. The self-powering tech inside means you won't need to wire it in anywhere or worry about changing batteries.",
+        "page": "https://www.cnet.com/reviews/illumra-self-powered-dual-rocker-friends-of-hue-zigbee-light-switch-review/?ftag=CAD6b2b181&bhid=",
+        "image": "https://c-4tvylwolbz88x24jula0x2ejizpzahapjx2ejvt.g00.cnet.com/g00/3_c-4ddd.jula.jvt_/c-4TVYLWOLBZ88x24oaawzx3ax2fx2fjula0.jizpzahapj.jvtx2fptnx2fR5UvjPelhdWE3BP-0NIeOSAduGXx3dx2f7e7x3a1709e9503x2f507e134x2f9785x2f89x2f97x2f28654i56-mlk8-1569-h89i-l6ljk5ij2ik7x2fptn-7925.qwnx3fp87j.thyrx3dpthnl_$/$/$/$/$/$/$/$/$/$",
+        "manufacturer": "Illumra",
+        "brand": "Illumra",
+        "price": "$49.95"
+      }, {
+      	"name": "<Name1>",
+      	"description": "<description>",
+        "page": "<link>",
+        "image": "<image>",
+        "manufacturer": "<Manufacturer>",
+        "brand": "<Brand>",
+        "price": "<Price>"
+      }],
       "Plug": [{
       	"name": "<Name>",
       	"description": "<description>",

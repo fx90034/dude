@@ -1,6 +1,8 @@
+// ./routes/auth/index.js
+
 const express = require('express');
 const router = express.Router();
-const debug = require('debug')('http');
+const debug = require('debug')('auth');
 const validator = require('validator');
 const passport = require('passport');
 const db = require('../../models/users');

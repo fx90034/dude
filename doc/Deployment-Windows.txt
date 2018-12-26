@@ -63,7 +63,7 @@
 
 	1.6  Set up debugging mode
 		 $ cd server
-		 $ set DEBUG=http,routes,db,why,why_util,apps,apps_util,devices,devices_util
+		 $ set DEBUG=http,routes,db,auth,why,why_util,apps,apps_util,devices,devices_util
 		 $ nodemon index.js
 		 
 	1.7  Initialize database

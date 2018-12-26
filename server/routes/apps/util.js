@@ -11,7 +11,9 @@ var devices = [];
 var appData = [[[]]];
 
 exports.getLevel1 = function(callback) {
-  if(!menu) {
+// debug("appData[i][j][0] = " + JSON.stringify(appData[0][0][0]))
+// debug("menu = " + JSON.stringify(menu))
+  if(menu.length == 0) {
     for(var i=0; i<appData.length; i++) {
       menu.push(appData[i][0][0]);
     }
@@ -22,7 +24,7 @@ debug("menu = " + JSON.stringify(menu))
 exports.getLevel2 = function(i, callback) {
   var temp = [];
   if(appData[i][0][0] === 'Rooms') {
-    if(!rooms) {
+    if(rooms.length == 0) {
       for(var j=1; j<appData[i].length; j++) {
         rooms.push(appData[i][j][0]);
 // debug("appData[i][j][0] = " + JSON.stringify(appData[i][j][0]))
@@ -31,7 +33,7 @@ exports.getLevel2 = function(i, callback) {
     temp = rooms;
   }
   else if(appData[i][0][0] === 'Scenes') {
-    if(!scenes) {
+    if(scenes.length == 0) {
       for(var j=1; j<appData[i].length; j++) {
         scenes.push(appData[i][j][0]);
 // debug("appData[i][j][0] = " + JSON.stringify(appData[i][j][0]))
@@ -40,7 +42,7 @@ exports.getLevel2 = function(i, callback) {
     temp = scenes;
   }
   else if(appData[i][0][0] === 'Devices') {
-    if(!devices) {
+    if(devices.length == 0) {
       for(var j=1; j<appData[i].length; j++) {
         devices.push(appData[i][j][0]);
 // debug("appData[i][j][0] = " + JSON.stringify(appData[i][j][0]))

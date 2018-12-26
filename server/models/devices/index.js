@@ -83,3 +83,20 @@ exports.update = function(obj, key, callback) {
   db.insert(obj, key, callback);
  });
 }
+exports.queryBySubgroup = function(group, subgroup, callback) {
+debug("queryBySubgroup: " + group);
+debug("queryBySubgroup: " + subgroup);
+  let params = { "subgroup": subgroup,"startkey": [subgroup], "endkey": [subgroup, {}],  include_docs: true };
+	db.view('device', 'by_subgroup', params, function(err, body) {
+		if(err) {
+			console.error(err);
+			return callback(err, null);
+		}
+debug("rows = " + body.rows.length)
+		if(body.rows.length == 0)
+			return callback(null, null);
+    else {
+      return callback(null, body.rows);
+    }
+	});
+}

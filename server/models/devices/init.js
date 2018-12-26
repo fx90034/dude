@@ -35,7 +35,7 @@ try {
             },
             "by_subgroup": {
                "map": function(doc) {
-                  emit(doc.subgroup, doc._id);
+                  emit([doc.subgroup, doc.group], doc._id);
                }
             },
             "count_subgroup": {

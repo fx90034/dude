@@ -26,19 +26,30 @@ exports.getSubgroup = function(i, callback) {
 debug("temp = " + JSON.stringify(temp))
   return callback(null, temp);
 }
-exports.getDeviceByName = function(group, subgroup, name, callback) {
+exports.getDevieSubgroupByName = function(level3, callback) {
+debug("level3 = " + level3 + "!")
   var temp = [];
-  for(var i=0; i<subgroup.length; i++) {
-    for(var j=1; j<subgroup[i].length; j++) {
-      if(subgroup[i][j][0] != level3)
-        continue;
-      for(var k=1; k<subgroup[i][j].length; k++) {
-        temp.push(subgroup[i][j][k]);
+  for(var i=0; i<group.length; i++) {
+    if(group[i] == level3) {
+      debug("group[i] = " + group[i] + "!")
+      debug("subgroup[i].length = " + subgroup[i].length )
+      for(var j=1; j<subgroup[i].length; j++) {
+debug("subgroup[i][j] = " + subgroup[i][j] )
+        temp.push(subgroup[i][j]);
       }
     }
   }
 debug("temp = " + JSON.stringify(temp))
   return callback(null, temp);
+}
+exports.getDevices = function(group, subgroup, callback) {
+debug("getDevices ...")
+  db.queryBySubgroup(group, subgroup, function(err, rows) {
+    if(err) {
+      return callback(err, null);
+    }
+    return callback(null, rows);
+  });
 }
 exports.loadDevices = function(callback) {
 debug("Loading Devices ...")
@@ -62,7 +73,7 @@ console.log("lastModifiedDate = " + time);
         var level2;
         var level3;
         group = Object.keys(level0); // "Lights", "Switch", "Lock", ...
-debug("!group = " + group)
+debug("group = " + group)
         for(var i=0; i<group.length; i++) {
           subgroup[i] = [];
           subgroup[i][0] = group[i];
@@ -72,9 +83,9 @@ debug("subgroup[i][0] = " + JSON.stringify(subgroup[i][0]))
   debug("level2Keys = " + level2Keys)
           for(var j=1; j<=level2Keys.length; j++) {
   debug('j = ' + j)
-             var key = level2Keys[j-1]; // "Dimmer"
-  debug("key = " + JSON.stringify(key))
-            level2 = level1[key];
+             subgroup[i][j] = level2Keys[j-1]; // "Dimmer"
+  debug("key = " + JSON.stringify(subgroup[i][j]))
+            level2 = level1[subgroup[i][j]];
   // debug("level2 = " +  JSON.stringify(level2))
             for(var k=1; k<=level2.length; k++) {
   debug('k = ' + k)
@@ -86,7 +97,7 @@ debug("subgroup[i][0] = " + JSON.stringify(subgroup[i][0]))
                 device[keys[l]] = deviceObj[keys[l]];
               }
               device["group"] = group[i];
-              device["subgroup"] = key;
+              device["subgroup"] = subgroup[i][j];
 //              device["active"] = false;
               device["last_time_stamp"] = new Date(Date.now());
   debug("device = " + JSON.stringify(device))

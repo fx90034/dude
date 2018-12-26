@@ -5,6 +5,7 @@ const router = express.Router();
 const debug = require('debug')('apps');
 // const db = require('../../models/apps');
 const util = require('./util');
+const deviceUtil = require('../devices/util')
 
 router.get('/level1', function(req, res) {
   util.getLevel1(function(err, data) {
@@ -87,28 +88,30 @@ debug('level1 = ' + level1)
 debug('level2 = ' + level2)
 debug('level3 = ' + level3)
   if(level1 === 'Devices') {
-    util.getDevices(level2, level3, function(err, data) {
+    deviceUtil.getDevices(level2, level3, function(err, data) {
       if(err) {
         console.error(err);
         throw err;
   //      return res.render('error', { error: err });
       }
       else {
-  debug("data[0] = " + data[0])
+        if(data != null) {
+  debug("data[0] = " + JSON.stringify(data[0]))
+        }
       }
-  debug("user.name = " + user.name)
+  debug("user = " + user)
       res.render('apps/list', { user: user, level1: level1, level2: level2, level3: level3, data: data });
     });
   }
   else {
-    util.getDeviceByName(level3, function(err, data) {
+    deviceUtil.getDevieSubgroupByName(level3, function(err, data) {
       if(err) {
         console.error(err);
         throw err;
   //      return res.render('error', { error: err });
       }
       else {
-  debug("data[0] = " + data[0])
+  debug("data[0] = " + JSON.stringify(data[0]))
       }
   debug("user.name = " + user.name)
       res.render('apps/level3', { user: user, level1: 'Devices', level2: level3, data: data });
