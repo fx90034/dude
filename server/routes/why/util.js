@@ -91,9 +91,6 @@ exports.report = function(callback) {
   var answers2 = [];
   var answers3 = [];
   var line = [];
-  var time = new Date();
-  fs.existsSync(report) || fs.mkdirSync(report);
-  var file = report + time.toISOString().slice(0, 10) + '.txt';
   this.getData(0, 0, 0, function(err, data) {
     if(err) {
       console.error(err);
@@ -137,9 +134,14 @@ debug("answers1 = " + answers1)
           }
         });
       } // for(i)
-      fs.appendFile(file, JSON.stringify(line), (err) => {
-        if(err) return callback(err);
-      });
+      if(line.length > 0) {
+        var time = new Date();
+        fs.existsSync(report) || fs.mkdirSync(report);
+        var file = report + time.toISOString().slice(0, 10) + '.txt';
+        fs.writeFile(file, JSON.stringify(line), (err) => {
+          if(err) return callback(err);
+        });
+      }
     }
   });
 }

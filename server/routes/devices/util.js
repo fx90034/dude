@@ -4,6 +4,7 @@ const util = require('../util');
 const debug = require('debug')('devices_util');
 const devicesFile = './conf/devices.json';
 const db = require('../../models/devices');
+const fs = require('fs');
 
 var group = [];
 var subgroup = [[]];
@@ -52,17 +53,21 @@ debug("getDevices ...")
   });
 }
 exports.loadDevices = function(callback) {
-debug("Loading Devices ...")
-  db.getLatestDeviceTime(function(err, data) {
-    if(data) {
-      var last = data.last_update_date;
-      var time = devicesFile.lastModifiedDate;
-console.log("last_update_date = " + last);
-console.log("lastModifiedDate = " + time);
-      if(last &&  time < last)
-        return callback(null, null);
+  db.getLatestDeviceTime(function(err, last) {
+    if(last) {
+      try {
+        var stats = fs.statSync(devicesFile);
+        var mtime = new Date(stats.mtime);
+console.log('last_update_date = "' + last + '"');
+console.log('lastModifiedDate = ' + JSON.stringify(stats.mtime));
+        if(mtime.getTime() <= (new Date(last)).getTime())
+          return callback(null, null);
+      } catch(ex) {
+        console.error(ex);
+      }
     }
     util.readJSON(devicesFile, function(err, data) {
+console.log("Loading Devices ...")
       if(err) {
         console.error(err);
         throw err;
@@ -99,7 +104,7 @@ debug("subgroup[i][0] = " + JSON.stringify(subgroup[i][0]))
               device["group"] = group[i];
               device["subgroup"] = subgroup[i][j];
 //              device["active"] = false;
-              device["last_time_stamp"] = new Date(Date.now());
+              device["last_update_date"] = new Date(Date.now());
   debug("device = " + JSON.stringify(device))
               db.addDevice(device, function(err, data) {
                 if(err) {

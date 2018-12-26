@@ -12,7 +12,7 @@ try {
           "views": {
             "by_last_update_date": {
                "map": function(doc) {
-                  emit(doc.last_update_date, doc._id);
+                  emit(doc.last_update_date, doc.last_update_date);
                }
             },
             "by_name": {

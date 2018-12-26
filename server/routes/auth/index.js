@@ -34,28 +34,28 @@ router.get('/start',
 debug("req.ip = " + req.ip)
 debug("username = " + username)
 		let user = req.session.user;
-		 if(username) {
-			 if(user == null) {
-				 user = { name: username };
-				 req.session.user = user;
-			 }
-			 else {
-			  user.name = username;
-			}
-		  util.getLevel1(function(err, data) {
-		    if(err) {
-		      console.error(err);
-		      throw err;
-		//      return res.render('error', { error: err });
-		    }
-				else {
-debug("data[0] = " + data[0])
-		    }
-debug("user.name = " + user.name)
-		    res.render('apps/level1', { user: user, data: data });
-		  });
-			return;
+		if(username) {
+		 if(user == null) {
+			 user = { name: username };
+			 req.session.user = user;
 		 }
+		 else {
+		  user.name = username;
+		}
+		util.getLevel1(function(err, data) {
+		  if(err) {
+		    console.error(err);
+		    throw err;
+		//      return res.render('error', { error: err });
+		  }
+			else {
+debug("data[0] = " + data[0])
+		  }
+debug("user.name = " + user.name)
+		  res.render('apps/level1', { user: user, data: data });
+		});
+		return;
+		}
 /*
 debug(req.cookies.rememberme)
 		if(req.cookies.rememberme == 1)
@@ -141,6 +141,8 @@ debug('validation failed: ' + username)
    }
 
    else {
+		 user = { name: username };
+		 req.session.user = user;
      res.render('auth/credential', { user: username, type: type, message: '' });
    }
   });
@@ -191,7 +193,7 @@ debug("remember = " + remember)
 				}
 */
 				newUser._id = body.id;
-				req.session.user = user;
+				req.session.user.name = user;
 				if(ip)
 					signedInUsernames.set(ip, user);
 				util.getLevel1(function(err, data) {
@@ -203,7 +205,7 @@ debug("remember = " + remember)
 					else {
 	debug("data[0] = " + data[0])
 					}
-	debug("user.name = " + user.name)
+	debug("user = " + user)
 					res.render('apps/level1', { user: user, data: data });
 				});
 			}

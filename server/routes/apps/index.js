@@ -113,7 +113,7 @@ debug('level3 = ' + level3)
       else {
   debug("data[0] = " + JSON.stringify(data[0]))
       }
-  debug("user.name = " + user.name)
+  debug("user = " + user)
       res.render('apps/level3', { user: user, level1: 'Devices', level2: level3, data: data });
     });
   }

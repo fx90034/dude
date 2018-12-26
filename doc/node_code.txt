@@ -597,6 +597,18 @@ var download_file_wget = function(file_url) {
     });
 };
 
+	8.6  Find last modified file date [211]
+// For node v 4.0.0 and later:
+fs.stat("/dir/file.txt", function(err, stats){
+    var mtime = new Date(stats.mtime);
+    console.log(mtime);
+});
+// or synchronously:
+var stats = fs.statSync("/dir/file.txt");
+var mtime = new Date(stats.mtime);
+console.log(mtime);
+console.log(mtime.getTime()); // convert to millisecond
+
 9  Scheduler [105][07]
 
 	9.1  Running job every 10 minutes

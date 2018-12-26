@@ -5,9 +5,11 @@
    document.getElementById("next").disabled = false;
    document.getElementById("next").classList.remove("btn-secondary");
    document.getElementById("next").classList.remove("disabled");
-   document.getElementById("next").classList.add("btn-dark");
+   document.getElementById("next").classList.add("btn-outline-dark");
 
-   document.getElementById("form").action = "/auth/pass";
+   document.getElementById("signup").disabled = false;
+   document.getElementById("signup").classList.remove("btn-outline-dark");
+   document.getElementById("signup").classList.add("btn-dark");
  }
  function signup() {
    document.getElementById("form").action = "/auth/signup";
@@ -54,10 +56,10 @@
 
     <footer style="margin-bottom: 3px;">
         <div class="d-flex justify-content-center">
-            <button class="btn btn-outline-dark btn-lg font-weight-bold"
+            <button class="btn btn-dark btn-lg font-weight-bold" id="signup"
                         style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-                        tabindex="-1" role="button" onclick="signup();">Sign Up</button>
-            <button class="btn btn-secondary btn-lg font-weight-bold disabled" id="next"
+                        tabindex="-1" role="button" disabled onclick="signup();">Sign Up</button>
+            <button class="btn btn-outline-dark btn-lg font-weight-bold disabled" id="next"
                         style="font-size:medium; border-radius: 22px; width: 120px;"
                         tabindex="-1" role="button" disabled onclick="pass();">Next</button>
         </div>

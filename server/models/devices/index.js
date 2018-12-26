@@ -7,18 +7,19 @@ const db = require('nano')('http://localhost:' + config.db.port + '/devices');
 const debug = require('debug')('db');
 
 exports.getLatestDeviceTime = function(callback) {
-debug('getLatestDeviceTime ...');
-  let params = { descending: true, limit:1 };
+console.log('getLatestDeviceTime ...');
+  let params = { last_update_date: {}, descending: true, limit:1 };
 	db.view('device', 'by_last_update_date', params, function(err, body) {
 		if(err) {
 			console.error(err);
 			return callback(err, null);
 		}
-debug(body)
+console.log(body)
+console.log("rows.length = " + body.rows.length)
 		if(body.rows.length == 0)
 			return callback(null, null);
 		else
-			return callback(null, body.value);
+			return callback(null, body.rows[0].value);
 	});
 }
 exports.addDevice = function(record, callback) {
