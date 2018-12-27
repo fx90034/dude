@@ -2,7 +2,7 @@
 
 const env = process.env.NODE_ENV || 'dev'
 const config = require('../../conf/config.' + env);
-var nano = require('nano')('http://localhost:' + config.db.port);
+var nano = require('nano')('http://dylansun:shianing123@localhost:' + config.db.port);
 console.log("Start to initialize database 'users'...")
 try {
   nano.db.destroy('users', function() {

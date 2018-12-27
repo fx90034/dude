@@ -1,0 +1,73 @@
+.list{
+  margin-top:20px;
+}
+
+.lheadings{
+  margin-top:10px;
+  font-family: 'PT Sans', sans-serif;
+  margin-bottom:40px;
+}
+
+.listitem{
+  width:920px;
+  height:80px;
+  font-family: 'PT Sans', sans-serif;
+  font-size:16px;
+  box-sizing:border-box;
+  overflow:hidden;
+  color:#3e4d66;
+}
+
+.iimg{
+  float:left;
+  overflow:hidden;
+  width:110px;
+}
+
+.iname{
+  margin-left:20px;
+  padding-top:2px;
+  margin-right:20px;
+  float:left;
+  width:450px;
+}
+
+.iprice{
+  width:105px;
+  float:left;
+  padding-top:7px;
+  margin-left:10px;
+  font-size:14px;
+}
+
+.idesc{
+  font-size:14px;
+  margin-top:2px;
+  margin-left:5px;
+  box-sizing:border-box;
+  padding-right:60px;
+}
+
+.iimgi{
+  border-style:solid;
+  border-color:#817B6F;
+  border-width:2px;
+  border-radius:4px;
+}
+
+.heading{
+  font-size:20px;
+  margin-left:132px;
+  text-decoration:underline;
+  padding-bottom:10px;
+}
+
+a{
+  color:#3e4d66;
+  text-decoration:none;
+}
+
+.hr{
+  opacity:1 !important;
+  color:black !important;
+}
