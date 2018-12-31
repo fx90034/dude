@@ -13,15 +13,26 @@
   <div class="heading">
     <%=data[0].doc.group %>, <%=data[0].doc.subgroup %>
   </div>
-  <% for(var i=0; i<data.length; i++) { %>
-
   <div id="list" class="list">
-    <div id="listitem1" class="listitem">
+  <%  var forms = [];
+      for(var i=0; i<data.length; i++) {
+        forms[i] = 'list' + i;
+console.log('!!!rooms=' + rooms);
+console.log('!!!scenes=' + scenes);
+console.log('!!!data[i].doc._id=' + data[i].doc._id);
+console.log('!!!doc=' + JSON.stringify(data[i].doc));
+  %>
+    <div class="listitem">
+      <form id='<%=forms[i] %>' method='post' action='apps/level5'>
+      <input type='hidden' name='id' value='<%=data[i].doc._id %>'>
+      <input type='hidden' name='doc' value='<%=JSON.stringify(data[i].doc) %>'>
+      <input type='hidden' name='rooms' value='<%=rooms %>'>
+      <input type='hidden' name='scenes' value='<%=scenes %>'>
       <div class="iimg">
         <img class="iimgi" src=<%= data[i].doc.image %> height="80px"/>
       </div>
       <div class="iname">
-        <a href="apps/level4?>">
+        <a href='javascript:void(0)' onclick="javascript:document.getElementById('<%=forms[i] %>').submit();">
           <b>
           <%=data[i].doc.name %></b>
         </a>
@@ -32,6 +43,7 @@
       <div class="iprice">
         <%=data[i].doc.price %>
       </div>
+      </form>
     </div>
     <hr>
 <% } %>
@@ -40,6 +52,5 @@
     <% include ./menu.ejs%>
   </footer>
 </div>
-
 </body>
 </html>

@@ -87,7 +87,7 @@ exports.update = function(obj, key, callback) {
 exports.queryBySubgroup = function(group, subgroup, callback) {
 debug("queryBySubgroup: " + group);
 debug("queryBySubgroup: " + subgroup);
-  let params = { "subgroup": subgroup,"startkey": [subgroup], "endkey": [subgroup, {}],  include_docs: true };
+  let params = { "subgroup": subgroup,"startkey": [subgroup], "endkey": [subgroup, {}], include_docs: true };
 	db.view('device', 'by_subgroup', params, function(err, body) {
 		if(err) {
 			console.error(err);
