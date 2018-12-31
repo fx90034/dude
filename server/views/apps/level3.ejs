@@ -7,7 +7,7 @@
 <body>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 10px;">
-  <div class="content-inside">
+  <div class="content-inside" style="padding-bottom: 10px;">
   <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
     <div class="p-1">
       <p><strong><%=level2 %></strong></p>
@@ -18,10 +18,14 @@
    for(var k=1; k<=len; k++) {
      url1 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k-1];
      url2 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k];
-     if(level1 != 'Devices') {
-       url1 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k-1];
-       url2 = 'apps/level4?level1=' + level1 + '&level2=' + level2 + '&level3=' + data[k];
-     }
+       if(rooms) {
+         url1 = url1 + '&rooms=' + rooms;
+         url2 = url2 + '&rooms=' + rooms;
+       }
+       if(scenes) {
+         url1 = url1 + '&scenes=' + scenes;
+         url2 = url2 + '&scenes=' + scenes;
+       }
 console.log('!!!url1=' + url1);
 console.log('!!!url2=' + url2);
 %>

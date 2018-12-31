@@ -52,7 +52,7 @@ debug("username = " + username)
 debug("data[0] = " + data[0])
 		  }
 debug("user.name = " + user.name)
-		  res.render('apps/level1', { user: user, data: data });
+		  res.render('apps/level1', { user: user.name, data: data });
 		});
 		return;
 		}
@@ -260,7 +260,7 @@ debug("in auth/login: req.session.user = " + user.name);
 debug("data[0] = " + data[0])
 				}
 debug("user.name = " + user.name)
-				res.render('apps/level1', { user: user, data: data });
+				res.render('apps/level1', { user: user.name, data: data });
 			});
     });
   })(req, res, next);

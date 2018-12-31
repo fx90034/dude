@@ -2,8 +2,8 @@
 
 const env = process.env.NODE_ENV || 'dev'
 const config = require('../../conf/config.' + env);
-exports.devices = require('nano')('http://http://dylansun:shianing123@localhost:' + config.db.port + '/devices');
-const db = require('nano')('http://http://dylansun:shianing123@localhost:' + config.db.port + '/devices');
+exports.devices = require('nano')('http://http://localhost:' + config.db.port + '/devices');
+const db = require('nano')('http://http://localhost:' + config.db.port + '/devices');
 const debug = require('debug')('db');
 
 exports.getLatestDeviceTime = function(callback) {
@@ -87,7 +87,7 @@ exports.update = function(obj, key, callback) {
 exports.queryBySubgroup = function(group, subgroup, callback) {
 debug("queryBySubgroup: " + group);
 debug("queryBySubgroup: " + subgroup);
-  let params = { "subgroup": subgroup,"startkey": [subgroup], "endkey": [subgroup, {}],  include_docs: true };
+  let params = { "subgroup": subgroup,"startkey": [subgroup], "endkey": [subgroup, {}], include_docs: true };
 	db.view('device', 'by_subgroup', params, function(err, body) {
 		if(err) {
 			console.error(err);
