@@ -11,7 +11,7 @@
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;padding-top: 10px;">
   <div class="heading">
-    <a><%=data[0].doc.group %></a>, <%=data[0].doc.subgroup %>
+    <a href="apps/level4?level1=Rooms&level2=Front Door&level3=<%=data[0].doc.group %>&rooms=<%=rooms%>"><%=data[0].doc.group %></a> > <%=data[0].doc.subgroup %>
   </div>
   <div id="list" class="list">
   <%  var forms = [];
