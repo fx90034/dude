@@ -2,17 +2,13 @@
   margin-top:20px;
 }
 
-.lheadings{
-  margin-top:10px;
-  font-family: 'PT Sans', sans-serif;
-  margin-bottom:40px;
-}
-
 .listitem{
-  width:920px;
+  width:735px;
   height:80px;
   font-family: 'PT Sans', sans-serif;
   font-size:16px;
+  padding-right:10px;
+  padding-left:10px;
   box-sizing:border-box;
   overflow:hidden;
   color:#3e4d66;
@@ -21,7 +17,8 @@
 .iimg{
   float:left;
   overflow:hidden;
-  width:110px;
+  width:70px;
+  padding-top:10px;
 }
 
 .iname{
@@ -57,9 +54,9 @@
 
 .heading{
   font-size:20px;
-  margin-left:132px;
-  text-decoration:underline;
+  margin-left:10px;
   padding-bottom:10px;
+  margin-top:20px;
 }
 
 a{
@@ -70,4 +67,43 @@ a{
 .hr{
   opacity:1 !important;
   color:black !important;
+}
+
+@media only screen and (max-width: 600px) {
+  .list{
+    width:100% !important;
+  }
+  .listitem {
+    width:95% !important;
+    margin:0 auto !important;
+    height:120px;
+    padding-right:0px !important;
+    padding-left:0px !important;
+  }
+  .iname{
+    margin-left:5px !important;
+    padding-top:0px !important;
+    margin-right:5px !important;
+    width:50% !important;
+  }
+  .iprice{
+    width:18% !important;
+    padding-top:7px;
+    margin-left:10px;
+    font-size:14px;
+    text-align:right;
+  }
+  .idesc{
+    font-size:14px;
+    margin-top:1px !important;
+    margin-left:0px !important;
+    box-sizing:border-box;
+    padding-right:2px !important;
+  }
+  .heading{
+    font-size:18px !important;
+    margin:20px auto !important;
+    width:160px;
+    text-align:center;
+  }
 }

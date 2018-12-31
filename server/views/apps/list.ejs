@@ -11,7 +11,7 @@
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;padding-top: 10px;">
   <div class="heading">
-    <%=data[0].doc.group %>, <%=data[0].doc.subgroup %>
+    <a href="apps/level4?level1=Rooms&level2=Front Door&level3=<%=data[0].doc.group %>&rooms=<%=rooms%>"><%=data[0].doc.group %></a> > <%=data[0].doc.subgroup %>
   </div>
   <div id="list" class="list">
   <%  var forms = [];
@@ -29,7 +29,7 @@ console.log('!!!doc=' + JSON.stringify(data[i].doc));
       <input type='hidden' name='rooms' value='<%=rooms %>'>
       <input type='hidden' name='scenes' value='<%=scenes %>'>
       <div class="iimg">
-        <img class="iimgi" src=<%= data[i].doc.image %> height="80px"/>
+        <img class="iimgi" src=<%= data[i].doc.image %> height="50px"/>
       </div>
       <div class="iname">
         <a href='javascript:void(0)' onclick="javascript:document.getElementById('<%=forms[i] %>').submit();">
@@ -46,8 +46,9 @@ console.log('!!!doc=' + JSON.stringify(data[i].doc));
       </form>
     </div>
     <hr>
+    </div>
 <% } %>
-  </div>
+
   <footer class="footer">
     <% include ./menu.ejs%>
   </footer>

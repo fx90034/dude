@@ -2,8 +2,8 @@
 
 const env = process.env.NODE_ENV || 'dev'
 const config = require('../../conf/config.' + env);
-exports.devices = require('nano')('http://http://localhost:' + config.db.port + '/devices');
-const db = require('nano')('http://http://localhost:' + config.db.port + '/devices');
+exports.devices = require('nano')('http://' + config.cloud.credential + 'http://localhost:' + config.db.port + '/devices');
+const db = require('nano')('http://http://' + config.cloud.credential + 'localhost:' + config.db.port + '/devices');
 const debug = require('debug')('db');
 
 exports.getLatestDeviceTime = function(callback) {
