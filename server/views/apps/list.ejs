@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../session.ejs %>
+  <% include ../head.ejs %>
+  <link href="/css/list.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=PT+Sans" rel="stylesheet">
+
+</head>
+<body>
+<% include header.ejs%>
+<div id="container" style="max-width: 720px;margin: 0 auto;padding-top: 10px;">
+  <div class="heading">
+    <a href="apps/level4?level1=Rooms&level2=Entry&level3=Lights"><%=data[0].doc.group %></a> > <%=data[0].doc.subgroup %>
+  </div>
+  <% for(var i=0; i<data.length; i++) { %>
+  <div id="list" class="list">
+    <div id="listitem1" class="listitem">
+      <div class="iimg">
+        <img class="iimgi" src=<%= data[i].doc.image %> height="50px"/>
+      </div>
+      <div class="iname">
+        <a href="apps/level4?>">
+          <b>
+          <%=data[i].doc.name %></b>
+        </a>
+        <div class="idesc">
+          <%=data[i].doc.description.substring(0,100)+"..." %>
+        </div>
+      </div>
+      <div class="iprice">
+        <%=data[i].doc.price %>
+      </div>
+    </div>
+    <hr>
+  </div>
+<% } %>
+
+
+</div>
+
+<footer class="footer">
+  <% include ./menu.ejs%>
+</footer>
+
+
+</body>
+</html>
