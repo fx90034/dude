@@ -2,8 +2,8 @@
 
 const env = process.env.NODE_ENV || 'dev'
 const config = require('../../conf/config.' + env);
-exports.apps = require('nano')('http://localhost:' + config.db.port + '/apps');
-const db = require('nano')('http://localhost:' + config.db.port + '/apps');
+exports.apps = require('nano')('http://' + config.cloud.credential + 'localhost:' + config.db.port + '/apps');
+const db = require('nano')('http://' + config.cloud.credential + 'localhost:' + config.db.port + '/apps');
 const debug = require('debug')('db');
 
 exports.report = require('./report');
