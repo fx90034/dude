@@ -121,6 +121,7 @@ debug("subgroup[i][0] = " + JSON.stringify(subgroup[i][0]))
         console.error(ex);
         return callback(ex, null);
       }
+console.log("Loading Devices ... Done.")
       return callback(null, null);
     });
   });

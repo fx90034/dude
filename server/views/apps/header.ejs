@@ -1,8 +1,8 @@
 <%
 var username = '';
-console.log("!!!user.name=" + user.name)
-if(user.name && user.name.indexOf("@") != -1)
-  username = user.name.split('@')[0];
+console.log("!!!user=" + user)
+if(user && user.indexOf("@") != -1)
+  username = user.split('@')[0];
 %>
 <script type="text/javascript">
 var current = 'Home';
@@ -204,7 +204,7 @@ function toggle_active(current, redirect) {
   <div class="d-flex justify-content-center">
       <button class="btn btn-outline-dark btn-lg font-weight-bold"
                   style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-                  tabindex="-1" role="button" onclick="signout();">Sign Out</button>
+                  tabindex="-1" role="button" onclick="javascript: window.location.href = 'auth/logout';">Sign Out</button>
       <a class="nav-link" href="/auth/feedback">Feedback</a>
   </div>
 </div>

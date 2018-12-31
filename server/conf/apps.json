@@ -1,6 +1,6 @@
 {
   "Rooms": {
-    "Entry": [
+    "Front Door": [
       "Lights",
       "Switch",
       "Video Doorbell",
@@ -16,6 +16,12 @@
       "Refrigerator",
       "Display Screen"
     ],
+    "Master Bathroom": [
+      "Lights",
+      "Switch",
+      "Shower",
+      "Mirror"
+    ],
     "Bathroom": [
       "Lights",
       "Switch",
@@ -28,6 +34,12 @@
       "Clock",
       "TV",
       "Thermostat"
+    ],
+    "Master Bedroom": [
+      "Lights",
+      "Switch",
+      "Blinds",
+      "TV"
     ],
     "Bedroom": [
       "Lights",
