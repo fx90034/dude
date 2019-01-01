@@ -3,37 +3,36 @@
 <head>
   <% include ../session.ejs%>
   <% include ../head.ejs%>
+  <link href="/css/detail.css" rel="stylesheet" type="text/css">
 </head>
 <body>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;margin: 0 auto;width: 100%;padding-top: 10px;">
   <div class="content-inside" style="height:600px;">
   <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
-    <div class="p-1">
-      <p style="text-align:left; margin-left:10px;"><strong>
+    <div class="p-1 heading">
+      <p style="text-align:left; color:#3e4d66; margin-left:10px;"><strong>
         <a style="color:#3e4d66; text-decoration:none;" href='apps/level2?level1=Devices&level2=<%=data.group %>'><%=data.group %></a>&nbsp;>
         <a style="color:#3e4d66; text-decoration:none;" href='apps/level3?level1=Devices&level2=<%=data.group %>&level3=<%=data.subgroup %>'><%=data.subgroup %></a>
+        > <a style="color:#3e4d66" href='<%=data.page %>'> <%=data.name %> </a>
       </strong></p>
     </div>
   </div>
-  <div class="row" style="padding: 15px; background-color: white;">
-    <div class="col-6" style="margin-top:58px;">
-      <div class="text-center" style="padding-bottom: 10px;width:380px">
-        <img src='<%=data.image %>' width="225px"></img>
+  <div class="row itemrow" style="padding: 15px; background-color: white;">
+    <div class="col-5" style="margin-top:5px;">
+      <div style="padding-bottom: 10px;width:380px">
+        <img class="itemimg" src='<%=data.image %>'></img>
       </div>
     </div>
-    <div class="col-6">
-      <div class="text-center" style="padding-top:10px; padding-bottom:30px; padding-left:15px; padding-right:15px">
-        <p style="color:#003366;font-size:20px;">
-          <a style="color:#3e4d66" href='<%=data.page %>'>
-            <strong><%=data.name %></strong></a>
-        </p>
-        <p style="text-align:left;color:#003366;font-size:16px;line-height:24px;"><%=data.description %></p>
+
+    <div class="col-7">
+      <div class="text-center" class="col2">
+        <p class="itemdesc" style="text-align:left;color:#003366;font-size:16px;line-height:24px;"><%=data.description %></p>
       </div>
       <p style="margin-left:20px;margin-bottom:10px;">
         Room:
       </p>
-      <select class="custom-select" name="carlist" form="carform" style="margin-left:20px; margin-bottom:10px; width:150px; height:30px;">
+      <select class="custom-select itemsel" name="carlist" form="carform">
         <option value="volvo">Volvo</option>
         <option value="saab">Saab</option>
         <option value="opel">Opel</option>
@@ -42,14 +41,14 @@
       <p style="margin-left:20px;margin-bottom:10px;">
         Section:
       </p>
-      <select class="custom-select" name="carlist" form="carform" style="margin-left:20px; width:150px; height:30px;">
+      <select class="custom-select itemsel" name="carlist" form="carform">
         <option value="volvo">Volvo</option>
         <option value="saab">Saab</option>
         <option value="opel">Opel</option>
         <option value="audi">Audi</option>
       </select>
       <br/>
-      <button type="button" class="btn btn-success" style="margin-left:20px;margin-top:20px;width:150px;">Add to cart</button>
+      <button type="button" class="btn btn-success itembutton">Add to cart</button>
     </a>
     </div>
   </div>
