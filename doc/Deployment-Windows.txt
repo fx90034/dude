@@ -57,9 +57,12 @@
 	1.5  Download and install npm packages
 		 $ npm install
 		 or
-		 $ npm i basic-auth body-parser connect-ensure-login cookie-parser cors debug 
-		   ejs ejs-locals errorhandler express express-session morgan nano npm passport 
-		   passport-local path serve-favicon validator bcrypt
+		 $ npm i basic-auth body-parser connect-ensure-login cookie-parser cors debug ejs ejs-locals errorhandler express express-session morgan nano npm passport passport-local path serve-favicon validator bcrypt
+		 https://www.freecodecamp.org/forum/t/solved-cant-install-bcrypt/76994
+		 Run as Administrator
+		 $ npm install --global --production windows-build-tools
+		 $ npm install -g node-gyp
+		 $ npm install bcrypt --save
 
 	1.6  Set up debugging mode
 		 $ cd server
