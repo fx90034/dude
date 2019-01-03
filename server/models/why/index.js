@@ -2,8 +2,8 @@
 
 const env = process.env.NODE_ENV || 'dev'
 const config = require('../../conf/config.' + env);
-exports.why = require('nano')('http://localhost:' + config.db.port + '/why');
-const db = require('nano')('http://localhost:' + config.db.port + '/why');
+exports.why = require('nano')('http://' + config.cloud.credential + 'localhost:' + config.db.port + '/why');
+const db = require('nano')('http://' + config.cloud.credential + 'localhost:' + config.db.port + '/why');
 const debug = require('debug')('db');
 
 exports.level1 = require('./level1');

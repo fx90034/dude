@@ -495,3 +495,12 @@ app.get('/', function (req, res) {
 		$ docker-machine ls
 		$ docker-machine rm my-docker-machine
 		
+8  Linux commands G[213]
+
+	8.1  Check disk and memory space
+		 $ df -m
+		 $ free -m
+		 $ cat /proc/meminfo
+		 $ vmstat -s
+		 $ top
+		 
