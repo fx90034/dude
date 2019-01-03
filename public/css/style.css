@@ -30,7 +30,7 @@ body {
    margin-right: auto;
 }
 .content-inside {
-  height: 400px;
+  height: 500px;
   overflow-x: hidden;
   overflow-y: auto;
   -webkit-overflow-scrolling: touch;
@@ -164,3 +164,9 @@ h5 { color: black; }
   border-radius:0;
 }
 */
+
+@media only screen and (max-width: 600px) {
+  .content-inside{
+    height:300px;
+  }
+}
