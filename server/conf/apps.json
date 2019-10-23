@@ -87,6 +87,42 @@
       "Lights",
       "Switch",
       "Blinds"
+    ],
+    "Shower Mode": [
+      "Speaker",
+      "Switch",
+      "Water",
+      "Steam",
+      "Lights",
+      "Blinds"
+    ],
+    "Bath Mode": [
+      "Temperature",
+      "Water Depth",
+      "Speaker",
+      "Switch",
+      "Lights",
+      "Blinds"
+    ],
+    "Makeup Mode": [
+      "Speaker",
+      "Makeup mirror",
+      "Task Calendar",
+      "Lighting levels",
+      "Blinds"
+    ],
+    "Toilet Mode": [
+      "Multi-colored ambient lighting",
+      "Heatedf seat",
+      "Speaker",
+      "Fan",
+      "Windows",
+      "Blinds"
+    ],
+    "Visting Mode": [
+      "Video Doorbell",
+      "Door Lock",
+      "Speaker"
     ]
   },
   "Devices": {
