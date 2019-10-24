@@ -201,7 +201,8 @@ https://www.digitalocean.com/community/tutorials/how-to-install-couchdb-from-sou
 	1.4  Install dependencies
 		 $ npm i basic-auth body-parser connect-ensure-login cookie-parser cors ejs ejs-locals errorhandler express express-session formidable morgan passport passport-local path serve-favicon validator bcrypt debug
 	
-2  Installation for development environment
+	
+2  Installation for deployment environment
 
 	2.1  Install Git
 		 https://www.liquidweb.com/kb/how-to-install-git-on-centos-6/
