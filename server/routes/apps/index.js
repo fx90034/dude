@@ -41,12 +41,17 @@ router.get('/level2', function(req, res) {
   let scenes = req.query.scenes;
   if(req.session.user)
     user = req.session.user;
+  else {
+    res.render('auth/home', { message: "Please enable cookie and enter a valid username to get started." });
+    return;
+  }
 debug("apps/level2!!")
 debug('ip = ' + req.ip)
 debug('i = ' + i)
 debug('level1 = ' + level1)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
+debug('req.session.user = ' + req.session.user.name)
   appUtil.getLevel2(i, function(err, data) {
     if(err) {
       console.error(err);
