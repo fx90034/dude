@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../head.ejs%>
+</head>
+<body>
+<% include header.ejs%>
+<div id="container" style="max-width: 720px;width: 100%;padding: 20px 0px 10px 0px;">
+  <div class="text-center" style="font-size:18px;">
+    <div class="p-1" style="color: #003366">
+      <strong>Smart Home packages that<br>fit your needs and pocket.</strong>
+    </div>
+    <div class="text-center" style="font-size:14px;">
+      <div class="p-1" style="color: #003366">
+        <p>Keep adding on new devices that are always compatible.<br>
+      </div>
+    </div>
+  </div>
+  <div class="row d-flex justify-content-center" style="margin-top: 0px">
+    <img src='images/<%= data %>.png' width="50%" class="center"></img>
+  </div>
+  <p>
+  <div class="text-center" style="font-size:14px;">
+    <div class="p-1" style="color: #003366">
+      <p>Or you can <a href="apps/level1">customize</a> it by picking up from <br>
+        <a href="apps/level2?i=0&level1=Rooms">Rooms</a>,
+        <a href="apps/level2?i=0&level1=Scene">Scene</a> and
+        <a href="apps/level2?i=0&level1=Devices">Devices</a>.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

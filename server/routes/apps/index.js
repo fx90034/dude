@@ -8,11 +8,50 @@ const appUtil = require('./util');
 const appUsers = require('./users');
 const deviceUtil = require('../devices/util')
 
+router.get('/packages', function(req, res) {
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+  appUtil.getPackages(function(err, data) {
+    if(err) {
+      console.error(err);
+      throw err;
+//      return res.render('error', { error: err });
+    }
+    else {
+debug("data[0] = " + data[0])
+    }
+    var params = { user: null, data: data };
+debug("params = " + JSON.stringify(params))
+    res.render('apps/packages', params);
+  });
+});
+
+router.get('/package', function(req, res) {
+  let package = req.query.package;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+debug('package = ' + package)
+    var params = { user: username, data: package };
+debug("params = " + JSON.stringify(params))
+    res.render('apps/package', params);
+});
+
 router.get('/level1', function(req, res) {
   let rooms = req.query.rooms;
   let scenes = req.query.scenes;
-  debug('rooms = ' + rooms)
-  debug('scenes = ' + scenes)
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+debug('rooms = ' + rooms)
+debug('scenes = ' + scenes)
   appUtil.getLevel1(function(err, data) {
     if(err) {
       console.error(err);
@@ -22,8 +61,7 @@ router.get('/level1', function(req, res) {
     else {
 debug("data[0] = " + data[0])
     }
-debug("user.name = " + user.name)
-    var params = { user: user, data: data };
+    var params = { user: username, data: data };
     if(rooms)
       params['rooms'] = rooms;
     if(scenes)
@@ -34,24 +72,25 @@ debug("params = " + JSON.stringify(params))
 });
 
 router.get('/level2', function(req, res) {
-  let user = null;
   let i = req.query.i;
   let level1 = req.query.level1;
   let rooms = req.query.rooms;
   let scenes = req.query.scenes;
-  if(req.session.user)
-    user = req.session.user;
-  else {
-    res.render('auth/home', { message: "Please enable cookie and enter a valid username to get started." });
-    return;
-  }
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+  // else {
+  //   res.render('auth/home', { message: "Please enable cookie and enter a valid username to get started." });
+  //   return;
+  // }
 debug("apps/level2!!")
 debug('ip = ' + req.ip)
 debug('i = ' + i)
 debug('level1 = ' + level1)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
-debug('req.session.user = ' + req.session.user.name)
+debug('req.session.user = ' + username)
   appUtil.getLevel2(i, function(err, data) {
     if(err) {
       console.error(err);
@@ -61,8 +100,7 @@ debug('req.session.user = ' + req.session.user.name)
     else {
 debug("data[0] = " + data[0])
     }
-debug("user.name = " + user.name)
-    var params = { i: i, level1: level1, user: user.name, data: data };
+    var params = { i: i, level1: level1, user: username, data: data };
     if(level1 === 'Rooms' & scenes) {
       params['rooms'] = '';
       params['scenes'] = scenes;
@@ -81,15 +119,16 @@ debug("params = " + JSON.stringify(params))
 });
 
 router.get('/level3', function(req, res) {
-  let user = null;
   let i = req.query.i;
   let j = req.query.j;
   let level1 = req.query.level1;
   let level2 = req.query.level2;
   let rooms = req.query.rooms;
   let scenes = req.query.scenes;
-  if(req.session.user)
-    user = req.session.user;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
 debug("apps/level3!!")
 debug('ip = ' + req.ip)
 debug('i = ' + i)
@@ -98,6 +137,7 @@ debug('level1 = ' + level1)
 debug('level2 = ' + level2)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
+debug('user = ' + username)
   appUtil.getLevel3(i, j, function(err, data) {
     if(err) {
       console.error(err);
@@ -107,8 +147,7 @@ debug('scenes = ' + scenes)
     else {
 debug("data[0] = " + data[0])
     }
-debug("user.name = " + user.name)
-    var params = { i: i, j: j, level1: level1, level2: level2, user: user.name, data: data };
+    var params = { i: i, j: j, level1: level1, level2: level2, user: username, data: data };
     if(level1 === 'Rooms') {
       params['rooms'] = level2;
       params['scenes'] = '';
@@ -129,14 +168,15 @@ debug("params = " + JSON.stringify(params))
 });
 
 router.get('/level4', function(req, res) {
-  let user = null;
   let level1 = req.query.level1;
   let level2 = req.query.level2;
   let level3 = req.query.level3;
   let rooms = req.query.rooms;
   let scenes = req.query.scenes;
-  if(req.session.user)
-    user = req.session.user.name;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
 debug("apps/level4!!")
 debug('user = ' + user)
 debug('ip = ' + req.ip)
@@ -145,6 +185,7 @@ debug('level2 = ' + level2)
 debug('level3 = ' + level3)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
+debug('user = ' + username)
   if(level1 === 'Devices') {
     deviceUtil.getDevices(level2, level3, function(err, data) {
       if(err) {
@@ -157,7 +198,6 @@ debug('scenes = ' + scenes)
   debug("data[0] = " + JSON.stringify(data[0]))
         }
       }
-  debug("user = " + user)
       var params = { user: user, data: data }
       if(rooms) {
         params['rooms'] = rooms;
@@ -182,7 +222,7 @@ debug("params = " + JSON.stringify(params))
         throw err;
   //      return res.render('error', { error: err });
       }
-      var params = { user: user, level1: 'Devices', level2: level3, data: data };
+      var params = { user: username, level1: 'Devices', level2: level3, data: data };
       if(rooms) {
         params['rooms'] = level2;
         params['scenes'] = '';
@@ -198,19 +238,20 @@ debug("params = " + JSON.stringify(params))
   debug("params = " + JSON.stringify(params))
   debug("data[0] = " + JSON.stringify(data[0]))
   debug("user = " + user)
-      res.render('apps/level3', params);
+      res.render('apps/level4', params);
     });
   }
 });
 
 router.post('/level5', function(req, res) {
-  let user = null;
   let id = req.body.id;
   let rooms = req.body.rooms;
   let scenes = req.body.scenes;
   let doc = req.body.doc;
-  if(req.session.user)
-    user = req.session.user.name;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
 debug("apps/level5!!")
 debug('user = ' + user)
 debug('ip = ' + req.ip)
@@ -218,6 +259,7 @@ debug('id = ' + id)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
 debug('doc = ' + doc)
+debug('user = ' + username)
   appUsers.getDevice(user, id, function(err, data) {
     if(err) {
       console.error(err);
@@ -232,8 +274,7 @@ debug("data = " + JSON.stringify(data))
         data = doc;
       }
     }
-debug("user = " + user)
-    var params = { user: user, data: JSON.parse(data) }
+    var params = { user: username, data: JSON.parse(data) }
     if(rooms) {
       params['rooms'] = rooms;
       params['scenes'] = '';

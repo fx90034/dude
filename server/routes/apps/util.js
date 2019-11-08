@@ -9,7 +9,12 @@ var rooms = [];
 var scenes = [];
 var devices = [];
 var appData = [[[]]];
+var packages = ["rose", "gold", "platinum"];
 
+exports.getPackages = function(callback) {
+debug("packages = " + JSON.stringify(packages))
+    return callback(null, packages);
+}
 exports.getLevel1 = function(callback) {
 // debug("appData[i][j][0] = " + JSON.stringify(appData[0][0][0]))
 // debug("menu = " + JSON.stringify(menu))

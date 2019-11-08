@@ -111,15 +111,7 @@
       "Lighting levels",
       "Blinds"
     ],
-    "Toilet Mode": [
-      "Multi-colored ambient lighting",
-      "Heatedf seat",
-      "Speaker",
-      "Fan",
-      "Windows",
-      "Blinds"
-    ],
-    "Visting Mode": [
+    "Visiting Mode": [
       "Video Doorbell",
       "Door Lock",
       "Speaker"
