@@ -82,7 +82,6 @@ debug('isEmail: username = ' + username)
 				return;
 			}
 		}
-
 		res.render('auth/home', { message: "Please enter a valid username to get started." });
 	});
 
@@ -212,6 +211,10 @@ app.post('/login',
 	});
 */
 router.post('/login', function(req, res, next) {
+	let redirect = 'apps/getPackages';
+	if(req.session.redirect)
+		redirect = req.session.redirect;
+debug("req.session.redirect = " + redirect);
   passport.authenticate('local', function(err, user, info) {
     if (err) {
 			console.error(err);
@@ -223,39 +226,35 @@ router.post('/login', function(req, res, next) {
 			console.error(info.message);
 			return res.render('auth/pass', { username: '', message: info.message });
 		}
-    req.logIn(user, function(err) {
-      if (err) { return next(err); }
-      req.session.user = user;
-debug(user)
-debug("in auth/login: req.session.user = " + user.name);
-			util.getLevel1(function(err, data) {
-				if(err) {
-					console.error(err);
-					throw err;
-		//      return res.render('error', { error: err });
-				}
-				else {
-debug("data[0] = " + data[0])
-				}
-debug("user.name = " + user.name)
-				res.render('apps/level1', { user: user.name, data: data });
-			});
-    });
+//     req.logIn(user, function(err) {
+//       if (err) { return next(err); }
+//       req.session.user = user;
+// debug(user)
+// debug("in auth/login: req.session.user = " + user.name);
+//     });
+		req.session.user = user;
+debug("@@@@redirect = " + redirect);
+		res.redirect(redirect);
   })(req, res, next);
 });
 
 router.get('/logout',
 	function(req, res){
+		let redirect = 'apps/getPackages';
+		if(req.session.redirect)
+			redirect = req.session.redirect;
+debug("req.session.redirect = " + redirect);
 console.log("user " + req.session.user.name + " logged out.");
-		req.logout();
 //		req.session.reset();
+	 	req.logout();
 		req.session.destroy(function(err) {
 			if(err) {
 				console.log(err);
 			} else {
-				res.render('auth/../index');
+//				res.render('auth/../index');
 			}
 	 });
+	 res.redirect(redirect);
 });
 
 router.get('/profile',

@@ -78,6 +78,25 @@ debug(JSON.stringify(body.rows[i]))
     }
 	});
 }
+exports.queryDeviceById = function(id, callback) {
+debug("queryDeviceById: " + id);
+  let params = { "id": id, "startkey": [id], "endkey": [id, {}], include_docs: true };
+	db.view('device', 'by_device_id', params, function(err, body) {
+		if(err) {
+			console.error(err);
+			return callback(err, null);
+		}
+debug(body)
+debug(body.rows.length)
+		if(body.rows.length == 0)
+			return callback(null, null);
+    body.rows.forEach((doc) => {
+console.log(doc.value);
+      if(doc.value._id === id)
+        return callback(null, doc.value);
+    });
+	});
+}
 exports.update = function(obj, key, callback) {
  db.get(key, function (error, existing) {
   if(!error) obj._rev = existing._rev;
