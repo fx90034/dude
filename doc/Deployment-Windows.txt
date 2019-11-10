@@ -201,3 +201,10 @@
 	4.4	 Create a file and right click the file, then click "Git commit"
 	4.5	 Go to GitHub to create a project and copy the origin URL (main or branch)
 	4.6	 Right click the file and choose TortoiseGit -> Push, enter the origin URL for the Repository, upload the PuTTYkey		 
+
+5  Bootstrap
+
+	5.1  Keep footer at the bottom of the page
+		 <div class="navbar navbar-default navbar-static-bottom navbar-fixed-bottom">
+		 
+	

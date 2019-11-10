@@ -27,7 +27,7 @@ exports.getSubgroup = function(i, callback) {
 debug("temp = " + JSON.stringify(temp))
   return callback(null, temp);
 }
-exports.getDeviceGroupByName = function(name, callback) {
+exports.getSubgroupByName = function(name, callback) {
 debug("name = " + name + "!")
   var temp = [];
   for(var i=0; i<group.length; i++) {

@@ -8,6 +8,17 @@ const appUtil = require('./util');
 const appUsers = require('./users');
 const deviceUtil = require('../devices/util')
 
+router.get('/inspiring', function(req, res) {
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+  var params = { user: username }; 
+  req.session.redirect = '../../apps/inspiring';
+  res.render('apps/inspiring', params);
+});
+
 router.get('/packages', function(req, res) {
   let user = req.session.user;
   let username = null;
@@ -23,9 +34,9 @@ debug('user = ' + username)
     else {
 debug("data[0] = " + data[0])
     }
-    var params = { user: null, data: data };
+    var params = { user: username, data: data };
 debug("params = " + JSON.stringify(params))
-    req.session.redirect = '../apps/packages';
+    req.session.redirect = '../../apps/packages';
     res.render('apps/packages', params);
   });
 });
@@ -97,7 +108,7 @@ debug('level2 = ' + level2)
 debug('rooms = ' + rooms)
 debug('scenes = ' + scenes)
 debug('req.session.user = ' + username)
-if(level1 != 'Devices') {
+// if(level1 == 'Devices') {
   appUtil.getLevel2(i, function(err, data) {
     if(err) {
       console.error(err);
@@ -124,34 +135,6 @@ debug("params = " + JSON.stringify(params))
     req.session.redirect = '../apps/level2?rooms=' + rooms + '&scenes=' + scenes + '&level1=' + level1 + '&i=' + i;
     res.render('apps/level2', params);
   });
-}
-else {
-    deviceUtil.getDeviceSubgroupByName(level2, function(err, data) {
-      if(err) {
-        console.error(err);
-        throw err;
-  //      return res.render('error', { error: err });
-      }
-      var params = { user: username, level1: level1, level2: level2, data: data };
-      if(rooms) {
-        params['rooms'] = level2;
-        params['scenes'] = '';
-      }
-      else if(scenes) {
-        params['rooms'] = '';
-        params['scenes'] = level2;
-      }
-      else {
-        params['rooms'] = '';
-        params['scenes'] = '';
-      }
-  debug("params = " + JSON.stringify(params))
-  debug("data[0] = " + JSON.stringify(data[0]))
-  debug("user = " + user)
-      req.session.redirect = '../apps/level4?rooms=' + params['rooms']  + '&scenes=' + params['scenes'] + '&level1=' + level1 + '&level2=' + level2 + '&level3=' + data[0];
-      res.render('apps/level3', params);
-    });
-}
 });
 
 router.get('/level3', function(req, res) {

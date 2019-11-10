@@ -27,7 +27,7 @@
     </div>
   </a>
   <br>
-  <a href="apps/<%=data[1] %>">
+  <a href="apps/package?package=<%=data[1] %>">
     <div class="row" style="padding: 10px; border: 0px solid #003366; margin:0  auto; height: 80px; width: 400px; ">
       <div class="col-4" style="font-size: 20px; background-image: url(images/<%=data[1] %>.jpg); padding-top: 15px; text-align: center;">
         <span class="badge badge-primary badge-pill">$2000+</span>
@@ -38,7 +38,7 @@
     </div>
   </a>
   <br>
-  <a href="apps/=<%=data[2] %>">
+  <a href="apps/package?package=<%=data[2] %>">
     <div class="row" style="padding: 10px; border: 0px solid #003366; margin: 0 auto; height: 80px; width: 400px; ">
       <div class="col-4" style="font-size: 20px; background-image: url(images/<%=data[2] %>.jpg); padding-top: 15px; text-align: center;">
         <span class="badge badge-primary badge-pill">$5000+</span>
@@ -57,6 +57,9 @@
         <a href="apps/level2?i=0&level1=Devices">Devices</a>.</p>
     </div>
   </div>
+  <footer class="footer">
+    <% include ../footer.ejs%>
+  </footer>
 </div>
 </body>
 </html>
