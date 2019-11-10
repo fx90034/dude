@@ -21,7 +21,7 @@ body {
   padding-top: 20px;
   padding-bottom: 0px;
   /* Margin bottom by footer height
-  margin-bottom: 5px; */
+  margin-bottom: 40px; */
    font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
    width: 100%;
    max-width: 800px;
@@ -39,6 +39,8 @@ footer {
   width: 100%;
   bottom: 0;
   position: absolute;
+/*  height: 50px;
+  line-height: 50px; */
 }
 
 .center {

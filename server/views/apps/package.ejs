@@ -5,29 +5,25 @@
 </head>
 <body>
 <% include header.ejs%>
-<div id="container" style="max-width: 720px;width: 100%;padding: 20px 0px 10px 0px;">
-  <div class="text-center" style="font-size:18px;">
-    <div class="p-1" style="color: #003366">
-      <strong>Smart Home packages that<br>fit your needs and pocket.</strong>
-    </div>
-    <div class="text-center" style="font-size:14px;">
-      <div class="p-1" style="color: #003366">
-        <p>Keep adding on new devices that are always compatible.<br>
-      </div>
+<div id="container" style="max-width: 720px;width: 100%;padding: 0px 0px 0px 0px;">
+  <div style="color: #ffede7;background-image: url('images/<%= data %>.jpg'); padding: 8px 10px 8px 10px;background-repeat: no-repeat;background-position: center; font-size: 18px;" class="text-center">
+    <strong>Morning Mode</strong>
+  </div>
+  <div class="text-center" style="font-size:14px; padding-top: 8px;">
+    <div class="p-1" style="color: #003366;">
+      Rose package can meet your basic needs with a lowest budget.
     </div>
   </div>
-  <div class="row d-flex justify-content-center" style="margin-top: 0px">
-    <img src='images/<%= data %>.png' width="50%" class="center"></img>
+  <div>
+    <img src='images/<%= data %>.png' class="img-responsive center" style="max-width: 100%; and height: auto;padding-top: 10px"></img>
   </div>
   <p>
-  <div class="text-center" style="font-size:14px;">
-    <div class="p-1" style="color: #003366">
-      <p>Or you can <a href="apps/level1">customize</a> it by picking up from <br>
-        <a href="apps/level2?i=0&level1=Rooms">Rooms</a>,
-        <a href="apps/level2?i=0&level1=Scene">Scene</a> and
-        <a href="apps/level2?i=0&level1=Devices">Devices</a>.</p>
-    </div>
+    <div class="text-center">
+    <button type="button" class="btn-sm btn-success itembutton">Add to cart</button>
   </div>
+  <footer class="footer">
+    <% include ./package_footer.ejs%>
+  </footer>
 </div>
 </body>
 </html>
