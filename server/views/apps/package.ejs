@@ -6,16 +6,14 @@
 <body>
 <% include header.ejs%>
 <div id="container" style="max-width: 720px;width: 100%;padding: 0px 0px 0px 0px;">
-  <div style="color: #ffede7;background-image: url('images/<%= data %>.jpg'); padding: 8px 10px 8px 10px;background-repeat: no-repeat;background-position: center; font-size: 18px;" class="text-center">
-    <strong>Morning Mode</strong>
+  <div style="color: #ffede7;background-image: url('images/<%=data[0] %>.jpg'); padding: 8px 10px 8px 10px;background-repeat: no-repeat;background-position: center; font-size: 18px;" class="text-center">
+    <strong><%=data[1] %></strong>
   </div>
   <div class="text-center" style="font-size:14px; padding-top: 8px;">
-    <div class="p-1" style="color: #003366;">
-      Rose package can meet your basic needs with a lowest budget.
-    </div>
+    <div class="p-1" style="color: #003366;"><%=data[2] %></div>
   </div>
   <div>
-    <img src='images/<%= data %>.png' class="img-responsive center" style="max-width: 100%; and height: auto;padding-top: 10px"></img>
+    <img src='images/<%=data[0] %>.png' class="img-responsive center" style="max-width: 100%; and height: auto;padding-top: 10px"></img>
   </div>
   <p>
     <div class="text-center">

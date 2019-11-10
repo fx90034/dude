@@ -14,7 +14,7 @@ router.get('/inspiring', function(req, res) {
   if(user)
     username = user.name;
 debug('user = ' + username)
-  var params = { user: username }; 
+  var params = { user: username };
   req.session.redirect = '../../apps/inspiring';
   res.render('apps/inspiring', params);
 });
@@ -32,7 +32,7 @@ debug('user = ' + username)
 //      return res.render('error', { error: err });
     }
     else {
-debug("data[0] = " + data[0])
+debug("data[0][0] = " + data[0][0])
     }
     var params = { user: username, data: data };
 debug("params = " + JSON.stringify(params))
@@ -49,10 +49,29 @@ router.get('/package', function(req, res) {
     username = user.name;
 debug('user = ' + username)
 debug('package = ' + package)
-    var params = { user: username, data: package };
+  appUtil.getPackages(function(err, data) {
+    if(err) {
+      console.error(err);
+      throw err;
+//      return res.render('error', { error: err });
+    }
+    else {
+debug("data[0][0] = " + data[0][0])
+    }
+    var line = [];
+    for(var i=0; i<3; i++) {
+      if(data[i][0] === package) {
+        for(var j=0; j<3; j++) {
+          line.push(data[i][j]);
+        }
+        break;
+      }
+    }
+    var params = { user: username, data: line };
 debug("params = " + JSON.stringify(params))
     req.session.redirect = '../apps/package?package=' + package;
     res.render('apps/package', params);
+  });
 });
 
 router.get('/level1', function(req, res) {

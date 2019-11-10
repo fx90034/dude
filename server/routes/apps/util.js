@@ -9,10 +9,21 @@ var rooms = [];
 var scenes = [];
 var devices = [];
 var appData = [[[]]];
-var packages = ["rose", "gold", "platinum"];
+var packages = [[]];
+var lines = ["rose|Morning Mode|Rose package can meet your basic needs with a lowest budget.",
+             "gold|Video Doorbell|Gold package is most economical with rich featurs.",
+             "platinum|Whole House|Platinum package comes with all luxury devices communicated with each other."];
 
 exports.getPackages = function(callback) {
-debug("packages = " + JSON.stringify(packages))
+  for(var i=0; i<3; i++) {
+debug(lines[i])
+    packages[i] = [];
+    var elements = lines[i].split("|");
+    for(var j=0; j<3; j++) {
+debug(elements[j])
+      packages[i].push(elements[j]);
+    }
+  }
     return callback(null, packages);
 }
 exports.getLevel1 = function(callback) {
