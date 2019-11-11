@@ -23,6 +23,7 @@ debug("menu = " + JSON.stringify(menu))
 }
 exports.getLevel2 = function(i, callback) {
   var temp = [];
+debug("appData[i][0][0] = " + appData[i][0][0])
   if(appData[i][0][0] === 'Rooms') {
     if(rooms.length == 0) {
       for(var j=1; j<appData[i].length; j++) {

@@ -37,7 +37,7 @@
 		 # vi local.ini
 		 [chttpd]
 		 port = 8825
-		 bind_address = 166.62.124.226
+		 bind_address = 166.62.124.226 (0.0.0.0)
 		 # service couchdb start|stop|status
 		 
 		 1.2.1 Installation using the Apache CouchDB convenience binary packages
@@ -307,3 +307,47 @@ https://www.digitalocean.com/community/tutorials/how-to-install-couchdb-from-sou
 		 # su - bingo
 		 $ cd dude/server
 		 $ node models/init.js
+		 
+		 
+5 Deploy on GoDaddy
+
+	5.1  Configure Httpd server as Virtual Host on port 80
+		 # vi /etc/httpd/conf/httpd.conf
+	 	 ServerName www.syshomes.com:80
+	 	 
+		 <VirtualHost *:80>
+		     ServerAdmin service@www.syshomes.com
+		     DocumentRoot /www/docs/www.syshomes.com
+		     ErrorLog logs/www.syshomes.com-error_log
+		     CustomLog logs/www.syshomes.com-access_log common
+		   ProxyPreserveHost On
+		   ProxyRequests Off
+		   ServerName syshomes.com
+		   ServerAlias www.syshomes.com
+		   ProxyPass / http://syshomes.com:3000/
+		   ProxyPassReverse / http://syshomes.com:3000/
+		 </VirtualHost>
+
+	5.2  Add SSL certificate with mod_ssl
+	
+	5.3  Use forever to run node as a daemon
+		 $ forever start|stop|list app.js
+	
+	5.4  Start the couchdb service
+		 $ service couchdb start|stop|restart|status
+		 
+	5.5	 PM2 is a Production Process Manager for Node.js applications with a built-in Load Balancer.
+		 Start and Daemonize any application:
+		 $ pm2 start app.js
+
+		 Load Balance 4 instances of api.js:
+		 $ pm2 start api.js -i 4
+
+		 Monitor in production:
+		 $ pm2 monitor
+
+		 Make pm2 auto-boot at server restart:
+		 $ pm2 startup
+
+		 To go further checkout:
+		 http://pm2.io/

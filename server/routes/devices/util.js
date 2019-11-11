@@ -27,7 +27,19 @@ exports.getSubgroup = function(i, callback) {
 debug("temp = " + JSON.stringify(temp))
   return callback(null, temp);
 }
-exports.getDevieSubgroupByName = function(level3, callback) {
+exports.getSubgroupByName = function(name, callback) {
+debug("name = " + name + "!")
+  var temp = [];
+  for(var i=0; i<group.length; i++) {
+    if(group[i] == name) {
+      debug("group[i] = " + group[i] + "!")
+        temp.push(group[i]);
+    }
+  }
+debug("temp = " + JSON.stringify(temp))
+  return callback(null, temp);
+}
+exports.getDeviceSubgroupByName = function(level3, callback) {
 debug("level3 = " + level3 + "!")
   var temp = [];
   for(var i=0; i<group.length; i++) {
@@ -46,6 +58,15 @@ debug("temp = " + JSON.stringify(temp))
 exports.getDevices = function(group, subgroup, callback) {
 debug("getDevices ...")
   db.queryBySubgroup(group, subgroup, function(err, rows) {
+    if(err) {
+      return callback(err, null);
+    }
+    return callback(null, rows);
+  });
+}
+exports.getDeviceById = function(id, callback) {
+debug("getDeviceById...")
+  db.queryDeviceById(id, function(err, rows) {
     if(err) {
       return callback(err, null);
     }

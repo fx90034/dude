@@ -12,8 +12,8 @@
   <div class="text-center" style="color:#003366;font-size:20px;padding-bottom:0px;">
     <div class="p-1 heading">
       <p style="text-align:left; color:#3e4d66; margin-left:10px;"><strong>
-        <a style="color:#3e4d66; text-decoration:none;" href='apps/level2?level1=Devices&level2=<%=data.group %>'><%=data.group %></a>&nbsp;>
-        <a style="color:#3e4d66; text-decoration:none;" href='apps/level3?level1=Devices&level2=<%=data.group %>&level3=<%=data.subgroup %>'><%=data.subgroup %></a>
+        <a style="color:#3e4d66; text-decoration:none;" href='../apps/level2?level1=Devices&level2=<%=data.group %>'><%=data.group %></a>&nbsp;>
+        <a style="color:#3e4d66; text-decoration:none;" href='../apps/level4?level1=Devices&level2=<%=data.group %>&level3=<%=data.subgroup %>&i=<%=data.i %>&j=<%=data.j %>'><%=data.subgroup %></a>
         > <a style="color:#3e4d66" href='<%=data.page %>'> <%=data.name %> </a>
       </strong></p>
     </div>
@@ -29,18 +29,14 @@
       <div class="text-center" class="col2">
         <p class="itemdesc" style="text-align:left;color:#003366;font-size:16px;line-height:24px;"><%=data.description %></p>
       </div>
-      <p style="margin-left:20px;margin-bottom:10px;">
-        Room:
-      </p>
+      <p style="margin-left:20px;margin-bottom:10px;">Room:</p>
       <select class="custom-select itemsel" name="carlist" form="carform">
         <option value="volvo">Volvo</option>
         <option value="saab">Saab</option>
         <option value="opel">Opel</option>
         <option value="audi">Audi</option>
       </select>
-      <p style="margin-left:20px;margin-bottom:10px;">
-        Section:
-      </p>
+      <p style="margin-left:20px;margin-bottom:10px;">Section:</p>
       <select class="custom-select itemsel" name="carlist" form="carform">
         <option value="volvo">Volvo</option>
         <option value="saab">Saab</option>

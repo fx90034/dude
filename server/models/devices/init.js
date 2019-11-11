@@ -20,6 +20,11 @@ try {
                   emit( [doc.name, doc.group, doc.subgroup], doc._rev);
                }
             },
+            "by_device_id": {
+              "map": function(doc) {
+                 emit([doc._id], doc);
+              }
+            },
             "by_group": {
                "map": function(doc) {
                   emit(doc.group, doc._id);

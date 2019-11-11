@@ -8,8 +8,9 @@ const debug = require('debug')('db');
 
 exports.report = require('./report');
 
-exports.queryUserDevice = function(id, user, callback) {
+exports.queryUserDevice = function(user, id, callback) {
 debug("queryUserDevice: " + id);
+debug("user = " + user);
   let params = { "id": id, "startkey": [id, user], "endkey": [id, {}], include_docs: true };
 	db.view('active', 'by_device_id', params, function(err, body) {
 		if(err) {

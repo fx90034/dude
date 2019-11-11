@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../head.ejs%>
+</head>
+<body>
+<% include header.ejs%>
+<div id="container" style="max-width: 720px;width: 100%;padding: 20px 0px 10px 0px;">
+  <div class="text-center" style="font-size:18px;">
+    <div class="p-1" style="color: #003366">
+      <strong>Smart Home packages that<br>fit your needs and pocket.</strong>
+    </div>
+    <div class="text-center" style="font-size:14px;">
+      <div class="p-1" style="color: #003366">
+        <p>Keep adding on new devices that are always compatible.<br>
+      </div>
+    </div>
+  </div>
+  <a href="apps/package?package=<%=data[0][0] %>">
+    <div class="row" style="padding: 10px; border: 0px solid #003366; margin: auto; height: 80px; width: 400px; ">
+      <div class="col-4" style="font-size: 20px; background-image: url(images/<%=data[0][0] %>.jpg); padding-top: 15px; text-align: center;">
+        <span class="badge badge-primary badge-pill">$500+</span>
+      </div>
+      <div class="col-8" style="font-size: 12px; color: #0080ff; padding-top: 2px;">
+        <span style="color: #003366">Basic features for your trail, with sensors, dimmer, light, shade, video doorbell, a Universal Voice Control (UVC) and optional fan, coffe maker or toaster.</span>
+      </div>
+    </div>
+  </a>
+  <br>
+  <a href="apps/package?package=<%=data[1][0] %>">
+    <div class="row" style="padding: 10px; border: 0px solid #003366; margin:0  auto; height: 80px; width: 400px; ">
+      <div class="col-4" style="font-size: 20px; background-image: url(images/<%=data[1][0] %>.jpg); padding-top: 15px; text-align: center;">
+        <span class="badge badge-primary badge-pill">$2000+</span>
+      </div>
+      <div class="col-8" style="font-size: 12px; color: #0080ff; padding-top: 2px;">
+        <span style="color: #003366">Standard features for a whole-house solution with a display screen and 2-way intercom and more sensors, switches, plugs, dimmers and lights.</span>
+      </div>
+    </div>
+  </a>
+  <br>
+  <a href="apps/package?package=<%=data[2][0] %>">
+    <div class="row" style="padding: 10px; border: 0px solid #003366; margin: 0 auto; height: 80px; width: 400px; ">
+      <div class="col-4" style="font-size: 20px; background-image: url(images/<%=data[2][0] %>.jpg); padding-top: 15px; text-align: center;">
+        <span class="badge badge-primary badge-pill">$5000+</span>
+      </div>
+      <div class="col-8" style="font-size:12px; color: #0080ff; padding-top: 2px;">
+        <span style="color: #003366">Premium features with additional options available for doollock, garage opener, themostat and a display screen on the refrigerator.</span>
+      </div>
+    </div>
+  </a>
+  <p>
+  <div class="text-center" style="font-size:14px;">
+    <div class="p-1" style="color: #003366">
+      <p>Or you can <a href="apps/level1">customize</a> it by picking up from <br>
+        <a href="apps/level2?i=0&level1=Rooms">Rooms</a>,
+        <a href="apps/level2?i=0&level1=Scene">Scene</a> and
+        <a href="apps/level2?i=0&level1=Devices">Devices</a>.</p>
+    </div>
+  </div>
+</div>
+</body>
+</html>

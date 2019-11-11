@@ -162,6 +162,17 @@ utilWhy.report(function(err, data) {
 //      return res.render('error', { error: err });
 	}
 });
+// Loading Packages data into memory
+const utilPackages = require("./routes/apps/packages");
+console.log("Loading Packages ...");
+utilPackages.loadPackages(function(err, data) {
+	if(err) {
+		console.error(err);
+		throw err;
+//      return res.render('error', { error: err });
+	}
+});
+
 
 // Check session expires
 app.use(function(req, res, next) {

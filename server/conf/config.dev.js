@@ -5,7 +5,7 @@ config.cloud = {};
 config.db = {};
 config.web = {};
 
-config.cloud.credential = '';
+config.cloud.credential = 'bingobo:841101c@';
 config.cloud.uri = process.env.DUOSTACK_DB_REDIS;
 
 config.db.host = 'localhost';
