@@ -6,6 +6,7 @@ const debug = require('debug')('apps');
 // const db = require('../../models/apps');
 const appUtil = require('./util');
 const appUsers = require('./users');
+const appPackages = require('./packages');
 const deviceUtil = require('../devices/util')
 
 router.get('/inspiring', function(req, res) {
@@ -25,7 +26,7 @@ router.get('/packages', function(req, res) {
   if(user)
     username = user.name;
 debug('user = ' + username)
-  appUtil.getPackages(function(err, data) {
+  appPackages.getPackages(function(err, data) {
     if(err) {
       console.error(err);
       throw err;
@@ -49,7 +50,7 @@ router.get('/package', function(req, res) {
     username = user.name;
 debug('user = ' + username)
 debug('package = ' + package)
-  appUtil.getPackages(function(err, data) {
+  appPackages.getPackages(function(err, data) {
     if(err) {
       console.error(err);
       throw err;
@@ -71,6 +72,28 @@ debug("data[0][0] = " + data[0][0])
 debug("params = " + JSON.stringify(params))
     req.session.redirect = '../apps/package?package=' + package;
     res.render('apps/package', params);
+  });
+});
+
+router.get('/package_list', function(req, res) {
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+  appPackages.getPackages(function(err, data) {
+    if(err) {
+      console.error(err);
+      throw err;
+//      return res.render('error', { error: err });
+    }
+    else {
+debug("data[0][0] = " + data[0][0])
+    }
+    var params = { user: username, data: data };
+debug("params = " + JSON.stringify(params))
+    req.session.redirect = '../../apps/packages';
+    res.render('apps/package_list', params);
   });
 });
 

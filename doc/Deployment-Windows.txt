@@ -207,4 +207,7 @@
 	5.1  Keep footer at the bottom of the page
 		 <div class="navbar navbar-default navbar-static-bottom navbar-fixed-bottom">
 		 
-	
+	5.2  Responsive iframe using Bootstrap
+		 <div class="embed-responsive embed-responsive-16by9">
+		   <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/zpOULjyy-n8?rel=0" allowfullscreen></iframe>
+		 </div>

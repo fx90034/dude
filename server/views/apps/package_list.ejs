@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../session.ejs %>
+  <% include ../head.ejs %>
+  <link href="/css/list.css" rel="stylesheet" type="text/css">
+
+</head>
+<body>
+<% include header.ejs%>
+<div id="container" style="max-width: 720px;margin: 0 auto;padding-top: 10px;">
+  <div class="heading">
+    <a href="apps/level4?level1=Rooms&level2=Front Door&level3=<%=data[0].doc.group %>&rooms=<%=rooms%>"><%=data[0].doc.group %></a> > <%=data[0].doc.subgroup %>
+  </div>
+  <div id="list" class="list">
+  <%  var forms = [];
+      for(var i=0; i<data.length; i++) {
+        forms[i] = 'list' + i;
+console.log('!!!rooms=' + rooms);
+console.log('!!!scenes=' + scenes);
+console.log('!!!data[i].doc._id=' + data[i].doc._id);
+console.log('!!!doc=' + JSON.stringify(data[i].doc));
+  %>
+    <div class="listitem">
+      <form id='<%=forms[i] %>' method='post' action='apps/level5'>
+      <input type='hidden' name='id' value='<%=data[i].doc._id %>'>
+      <input type='hidden' name='doc' value='<%=JSON.stringify(data[i].doc) %>'>
+      <input type='hidden' name='rooms' value='<%=rooms %>'>
+      <input type='hidden' name='scenes' value='<%=scenes %>'>
+      <div class="iimg">
+        <img class="iimgi" src=<%= data[i].doc.image %> height="50px"/>
+      </div>
+      <div class="iname">
+        <a href='javascript:void(0)' onclick="javascript:document.getElementById('<%=forms[i] %>').submit();">
+          <b>
+          <%=data[i].doc.name %></b>
+        </a>
+        <div class="idesc">
+          <%=data[i].doc.description.substring(0,100)+"..." %>
+        </div>
+      </div>
+      <div class="iprice">
+        <%=data[i].doc.price %>
+      </div>
+      </form>
+    </div>
+    <hr>
+    </div>
+<% } %>
+
+  <footer class="footer">
+    <% include ./menu.ejs%>
+  </footer>
+</div>
+</body>
+</html>

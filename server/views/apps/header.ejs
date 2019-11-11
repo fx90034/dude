@@ -15,14 +15,16 @@ function show_menu() {
     document.getElementById("menu").style.display = 'inline';
     document.getElementById("navbarNav").style.display = 'none';
     document.getElementById("container").style.display = 'none';
-    document.getElementById("footer").style.display = 'none';
+    if(document.getElementById("footer"))
+      document.getElementById("footer").style.display = 'none';
     menu_display = "visible";
   }
   else {
     document.getElementById("menu").style.display = 'none';
     document.getElementById("navbarNav").style.display = 'inline';
     document.getElementById("container").style.display = 'inline';
-    document.getElementById("footer").style.display = 'inline';
+    if(document.getElementById("footer"))
+      document.getElementById("footer").style.display = 'inline';
     menu_display = "none";
   }
 // alert(menu_display)
@@ -33,19 +35,20 @@ function close_menu() {
     document.getElementById("menu").style.display = 'none';
     document.getElementById("navbarNav").style.display = 'inline';
     document.getElementById("container").style.display = 'inline';
-    document.getElementById("footer").style.display = 'inline';
+    if(document.getElementById("footer"))
+      document.getElementById("footer").style.display = 'inline';
     menu_display = "none";
   }
 }
 function toggle_active(current, redirect, username) {
   if(current == 'Home') {
     document.getElementById("home").classList.add("active");
-    document.getElementById("about").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
     if(username != '') {
-      document.getElementById("profile").classList.remove("active");
-      document.getElementById("messages").classList.remove("active");
-      document.getElementById("settings").classList.remove("active");
-      document.getElementById("switch").classList.remove("active");
+      document.getElementById("packages").classList.remove("active");
       document.getElementById("signout").classList.remove("active");
     }
     else {
@@ -54,64 +57,83 @@ function toggle_active(current, redirect, username) {
     if(redirect)
       window.location.href = '/';
   }
-  else if(current == 'Profile') {
+  else if(current == 'DreamHome') {
     document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.add("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-    document.getElementById("signout").classList.remove("active");
-  }
-  else if(current == 'Messages') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.add("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-  }
-  else if(current == 'Settings') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.add("active");
-    document.getElementById("switch").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
-    document.getElementById("signout").classList.remove("active");
-  }
-  else if(current == 'Switch') {
-    document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.add("active");
-    document.getElementById("about").classList.remove("active");
-    document.getElementById("signout").classList.remove("active");
+    document.getElementById("dream").classList.add("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
+    if(username != '') {
+      document.getElementById("packages").classList.remove("active");
+      document.getElementById("signout").classList.remove("active");
+    }
+    else {
+      document.getElementById("signin").classList.remove("active");
+    }
     if(redirect)
-      window.location.href = 'auth/home';
+      window.location.href = "apps/inspiring";
   }
-  else if(current == 'About') {
+  else if(current == 'HomeAdvisors') {
     document.getElementById("home").classList.remove("active");
-    document.getElementById("about").classList.add("active");
-    if(username) {
-      document.getElementById("profile").classList.remove("active");
-      document.getElementById("messages").classList.remove("active");
-      document.getElementById("settings").classList.remove("active");
-      document.getElementById("switch").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.add("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
+    if(username != '') {
+      document.getElementById("packages").classList.remove("active");
       document.getElementById("signout").classList.remove("active");
     }
     else {
       document.getElementById("signin").classList.remove("active");
     }
   }
+  else if(current == 'Installation') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.add("active");
+    document.getElementById("devices").classList.remove("active");
+    document.getElementById("packages").classList.remove("active");
+    if(username != '')
+      document.getElementById("signout").classList.remove("active");
+    else
+      document.getElementById("signin").classList.remove("active");
+  }
+  else if(current == 'Packages') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
+    document.getElementById("packages").classList.add("active");
+    if(username != '')
+      document.getElementById("signout").classList.remove("active");
+    else
+      document.getElementById("signin").classList.remove("active");
+    if(redirect)
+      window.location.href = 'apps/packages';
+  }
+  else if(current == 'Devices') {
+    document.getElementById("home").classList.remove("active");
+    document.getElementById("devices").classList.add("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("packages").classList.remove("active");
+    if(username != '')
+      document.getElementById("signout").classList.remove("active");
+    else
+      document.getElementById("signin").classList.remove("active");
+    if(redirect)
+      window.location.href = "apps/level1";
+  }
   else if(current == 'Signout') {
     document.getElementById("home").classList.remove("active");
-    document.getElementById("profile").classList.remove("active");
-    document.getElementById("messages").classList.remove("active");
-    document.getElementById("settings").classList.remove("active");
-    document.getElementById("switch").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("packages").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
     document.getElementById("signout").classList.add("active");
     if(redirect)
       window.location.href = "auth/logout";
@@ -119,7 +141,11 @@ function toggle_active(current, redirect, username) {
   else if(current == 'Signin') {
     document.getElementById("signin").classList.add("active");
     document.getElementById("home").classList.remove("active");
-    document.getElementById("about").classList.remove("active");
+    document.getElementById("dream").classList.remove("active");
+    document.getElementById("advisors").classList.remove("active");
+    document.getElementById("installation").classList.remove("active");
+    document.getElementById("packages").classList.remove("active");
+    document.getElementById("devices").classList.remove("active");
     if(redirect)
       window.location.href = "auth/home";
   }
@@ -131,7 +157,7 @@ function toggle_active(current, redirect, username) {
     <img src="images/logo.jpg" width="40" height="40" alt="">
     <span style="font-size:20px" class="aliagn-bottom"><b> &nbsp; SysHomes &nbsp; </b></span>
   </a>
-  <button class="navbar-toggler flow-right" type="button" style="border-color: rgb(255,255,255);"
+  <button class="navbar-toggler" type="button" style="border-color: rgb(255,255,255);float: right !important;"
           onclick="show_menu();">
   <!--
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
@@ -146,21 +172,20 @@ function toggle_active(current, redirect, username) {
         <a class="nav-link" id="home" onclick='javascript:toggle_active("Home", true, "<%=username %>");'
            onmouseover='javascript:toggle_active("Home", false, "<%=username %>")'>Home</a>
       </li>
-      <%   if(user) { %>
       <li class="nav-item">
-        <a class="nav-link" id="profile" onclick='javascript:toggle_active("Profile", true, "<%=username %>");'
-           onmouseover='javascript:toggle_active("Profile", false, "<%=username %>")');'>Profile</a>
+        <a class="nav-link" id="dream" onclick='javascript:toggle_active("DreamHome", true, "<%=username %>");'
+           onmouseover='javascript:toggle_active("DreamHome", false, "<%=username %>")');'>DreamHome</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="messages" onclick='javascript:toggle_active("Messages", true, "<%=username %>");'
-           onmouseover='javascript:toggle_active("Messages", false, "<%=username %>")');'>Messages</a>
+        <a class="nav-link" id="advisors" onclick='javascript:toggle_active("HomeAdvisors", true, "<%=username %>");'
+           onmouseover='javascript:toggle_active("HomeAdvisors", false, "<%=username %>")');'>HomeAdvisors</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="settings" onclick='javascript:toggle_active("Settings", true, "<%=username %>");'
-           onmouseover='javascript:toggle_active("Settings", false, "<%=username %>")');'>Settings</a>
+        <a class="nav-link" id="installation" onclick='javascript:toggle_active("Installation", true, "<%=username %>");'
+           onmouseover='javascript:toggle_active("Installation", false, "<%=username %>")');'>Installation</a>
 <!-- dropdown
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
-        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Settings</a>
+        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">installation</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
             <a class="dropdown-item" href="#">Action</a>
             <a class="dropdown-item" href="#">Another action</a>
@@ -169,13 +194,12 @@ function toggle_active(current, redirect, username) {
 -->
       </li>
       <li class="nav-item">
-        <a class="nav-link" id="switch" onclick='javascript:toggle_active("Switch", true, "<%=username %>");'
-           onmouseover='javascript:toggle_active("Switch", false, "<%=username %>");'>Switch User</a>
+        <a class="nav-link" id="devices" onclick='javascript:toggle_active("Devices", true, "<%=username %>");'
+           onmouseover='javascript:toggle_active("Devices", false, "<%=username %>");'>Devices</a>
       </li>
-      <% } %>
       <li class="nav-item">
-        <a class="nav-link" id="about" onclick='javascript:toggle_active("About", true, "<%=username %>");'
-           onmouseover='javascript:toggle_active("About", false, "<%=username %>");'>About</a>
+        <a class="nav-link" id="packages" onclick='javascript:toggle_active("Packages", true, "<%=username %>");'
+           onmouseover='javascript:toggle_active("Packages", false, "<%=username %>");'>Packages</a>
       </li>
       <%   if(user) { %>
       <li class="nav-item">
@@ -193,12 +217,18 @@ function toggle_active(current, redirect, username) {
   </div>
 </nav>
 <div style="display:none; position: relative; width:100%; margin:0px; padding:0px;" id="menu">
-  <div style="margin:0px; padding-bottom:20px; border-bottom:2px solid; border-color:lightgrey">
+  <div style="margin:0px; padding:0px 20px 20px 20px; border-bottom:2px solid; border-color:lightgrey">
+    <%   if(user == null) {
+      username = '&nbsp;';
+    }
+    %>
     <span class="font-weight-bold" style="font-size:20px;"><%=username %></span>
-    <a href="javascript:close_menu();" style="float: right"><img src="images/icons8-delete-32.png"></a>
+    <a href="javascript:close_menu();">
+      <img style="margin:0px; padding:0px;float: right" src="images/icons8-delete-32.png">
+    </a>
   </div>
   <div style="margin-bottom:100px">
-  <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:10px; ">
+  <ul class="navbar-nav" style="font-size:16px;margin:0px; padding:0px 20px 10px 20px; ">
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="/" style="display: block;">
       <span style="color:black;">Home</span>
@@ -206,24 +236,26 @@ function toggle_active(current, redirect, username) {
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="#" style="display: block;">
-      <span style="color:black;">Profile</span>
+      <span style="color:black;">DreamHome</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="#" style="display: block;">
-      <span style="color:black;">Messages</span>
+      <span style="color:black;">HomeAdvisors</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="#" style="display: block;">
-      <span style="color:black;">Settings</span>
+      <span style="color:black;">Installation</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
+    <%   if(user) { %>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="auth/home" style="display: block;">
-      <span style="color:black;">Switch User</span>
+      <span style="color:black;">SwitchUser</span>
       <img src="images/icons8-more-than-24.png" style="width:16px;float:right;"></a>
     </li>
+    <% } %>
     <li style="border-bottom:1px solid; border-color:lightgrey;padding-top:10px;padding-bottom:10px;">
       <a href="#" style="display: block;">
       <span style="color:black;">About</span>
@@ -232,9 +264,18 @@ function toggle_active(current, redirect, username) {
   </ul>
   </div>
   <div class="d-flex justify-content-center">
+    <%   if(user) { %>
       <button class="btn btn-outline-dark btn-lg font-weight-bold" id="signout_menu"
               style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-              tabindex="-1" role="button" onclick="javascript: window.location.href = 'auth/logout';">Sign Out</button>
+              tabindex="-1" role="button" onclick="javascript: window.location.href = 'auth/logout';">
+              Sign Out</button>
+    <% }
+     else { %>
+      <button class="btn btn-outline-dark btn-lg font-weight-bold" id="signin_menu"
+              style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
+              tabindex="-1" role="button" onclick="javascript: window.location.href = 'auth/home';">
+              Sign In</button>
+    <% } %>
       <a class="nav-link" href="/auth/feedback">Feedback</a>
   </div>
 </div>

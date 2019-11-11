@@ -17,8 +17,10 @@
   </div>
   <p>
     <div class="text-center">
-    <button type="button" class="btn-sm btn-success itembutton">Add to cart</button>
-  </div>
+      <a href="apps/package_list?package=<%=data[0] %>">
+        <button type="button" class="btn btn-success itembutton btn-sm">Add to cart</button>
+      </a>
+    </div>
   <footer class="footer">
     <% include ./package_footer.ejs%>
   </footer>
