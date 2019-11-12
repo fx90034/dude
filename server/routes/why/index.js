@@ -4,7 +4,29 @@ const debug = require('debug')('why');
 const db = require('../../models/why');
 const util = require('./util');
 
+router.get('/promises', function(req, res) {
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
+  util.getPromises(function(err, data) {
+    if(data == null) {
+      console.error(err);
+      throw err;
+//      return res.render('error', { error: err });
+    }
+    req.session.redirect = '../../why/promises';
+    res.render('why/promises', { user: username, promises: data });
+  });
+});
+
 router.get('/level1', function(req, res) {
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
   var question = '';
   var answers = [];
   util.getData(0, 0, 0, function(err, data) {
@@ -20,18 +42,21 @@ debug("question = " + question)
 debug("answers = " + answers)
 debug("answer = " + data.answers[0])
     }
-    res.render('why/level1', { question: question, answers: answers });
+    req.session.redirect = '../../why/level1';
+    res.render('why/level1', { user: username, question: question, answers: answers });
   });
 });
 
 router.get('/level2', function(req, res) {
-  let user = null;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
   let j = req.query.j;
   let level1 = req.query.level1;
-  if(req.session.user)
-    user = req.session.user.name;
 debug("why/level2!!")
-debug('user = ' + user)
+debug('user = ' + username)
 debug('ip = ' + req.ip)
 debug('j = ' + j)
 debug('level1 = ' + level1)
@@ -56,22 +81,25 @@ debug('level1 = ' + level1)
 debug("question = " + question)
 debug("answers = " + answers)
         }
-        res.render('why/level2', { j: j, level1: level1, question: question, answers: answers });
+        req.session.redirect = '../../why/level2?j=' + j + '&level1=' + level1;
+        res.render('why/level2', { user: username, j: j, level1: level1, question: question, answers: answers });
       });
     }
   });
 });
 
 router.get('/level3', function(req, res) {
-  let user = null;
+  let user = req.session.user;
+  let username = null;
+  if(user)
+    username = user.name;
+debug('user = ' + username)
   let j = req.query.j;
   let k = req.query.k;
   let level1 = req.query.level1;
   let level2 = req.query.level2;
-  if(req.session.user)
-    user = req.session.user.name;
 debug("why/level3!!")
-debug('user = ' + user)
+debug('user = ' + username)
 debug('ip = ' + req.ip)
 debug('level1 = ' + level1)
 debug('level2 = ' + level2)
@@ -94,7 +122,8 @@ debug('level2 = ' + level2)
 debug("question = " + question)
 debug("answers = " + answers)
         }
-        res.render('why/level3', { j: j, k: k, level1: level1, level2: level2, question: question, answers: answers });
+        req.session.redirect = '../../why/level3?j=' + j + '&level1=' + level1 + '&k=' + k + '&level2=' + level2;
+        res.render('why/level3', { user: username, j: j, k: k, level1: level1, level2: level2, question: question, answers: answers });
       });
     }
   });

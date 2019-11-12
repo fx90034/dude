@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <% include ../head.ejs%>
+</head>
+<body>
+<% include ../apps/header.ejs%>
+<% console.log(promises.length); %>
+<div id="container" style="max-width: 720px;width: 100%;padding: 0px 0px 0px 0px;">
+  <% for(var i=0; i<promises.length; i++) { %>
+  <div class="row d-flex justify-content-center" style="margin-top: 20px">
+      <img src='images/<%=promises[i] %>.png' class="center"></img>
+  </div>
+  <p>
+  <p>
+  <% } %>
+</div>
+<% include ../footer.ejs%>
+</body>
+</html>

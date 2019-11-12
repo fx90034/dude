@@ -331,7 +331,7 @@ https://www.digitalocean.com/community/tutorials/how-to-install-couchdb-from-sou
 	5.2  Add SSL certificate with mod_ssl
 	
 	5.3  Use forever to run node as a daemon
-		 $ forever start|stop|list app.js
+		 $ forever start|stop|list index.js
 	
 	5.4  Start the couchdb service
 		 $ service couchdb start|stop|restart|status

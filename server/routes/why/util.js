@@ -11,7 +11,11 @@ const report = './reports/';
 var why = null;
 var questions = [[[]]];
 var answers = [[[[]]]];
+var promises = ["vision", "mission", "problems", "market", "cost"];
 
+exports.getPromises = function(callback) {
+  return callback(null, promises);
+}
 exports.getData = function(i, j, k, callback) {
 debug("i=" + i)
 debug("j=" + j)
