@@ -1,8 +1,8 @@
 {
-  "question": "What are you concerned most when you upgrade to Smart Home?",
+  "question": "What stops you from upgrading to Smart Home?",
   "answer": {
     "Overall cost": {
-      "question": "What type of the solution do you like most?",
+      "question": "What type of the solutions do you like most?",
       "answer": {
         "Standalone smart devices and sensors": {
           "question": "Do you like to buy each of the devices with double price?",
@@ -44,7 +44,7 @@
       }
     },
     "Devices compatibility": {
-      "question": "Are you ok to buy many smart devices from different vendors that do not work together?",
+      "question": "Are you ok to buy many imcompatible smart devices from different vendors?",
       "answer": {
         "Downoad APPs for each brand": {
           "question": "Do you mind to download an APP for each brand of devices you buy?",
@@ -54,7 +54,7 @@
           }
         },
         "Restrict to particluar smart devices on one platform": {
-          "question": "Do you mind to stick to only a small set of smart devices?",
+          "question": "Do you mind to stick to a limited set of smart devices?",
           "answer": {
             "Yes": "<link>",
             "No": "<link>"
@@ -131,7 +131,7 @@
           }
         },
         "Expopse devices without SSL": {
-          "question": "Are you ok if not all the devices securely connect to the cloud?",
+          "question": "Are you ok if not all the devices connecting to the cloud securely?",
           "answer": {
             "Yes": "<link>",
             "No": "<link>"

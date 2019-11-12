@@ -17,7 +17,7 @@ integrity='sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeV
 crossorigin='anonymous'>
 </head>
 <body>
-<% include header.ejs%>
+<% include ../apps/header.ejs%>
 <div id="container" style="background-color: #fff;margin:10px;">
   <div class="text-center" style="font-size:16px;">
     <div class="p-1">
@@ -52,13 +52,11 @@ crossorigin='anonymous'>
       <div class="d-flex justify-content-center" style="font-size:16px;padding-top:10px;">
           <button class="btn btn-outline-dark btn-lg font-weight-bold"
                       style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
-                      tabindex="-1" role="button" onclick="javacript:history.go(-1);">Back</button>
-          <button class="btn btn-outline-dark btn-lg font-weight-bold"
-                      style="font-size:medium; border-radius: 22px; width: 120px; margin-right: 10px;"
                       tabindex="-1" role="button" onclick="startover();">Start Over</button>
       </div>
     </div>
 </div>
+</body>
 
 <script src="/lib/bootstrap/js/jquery-3.3.1.slim.min.js"></script>
 <script src="/lib/bootstrap/js/popper.min.js"></script>
@@ -70,10 +68,5 @@ document.querySelector( "#nav-toggle" ).addEventListener( "click", function() {
   this.classList.toggle( "active" );
 });
 </script> -->
-</body>
-<footer>
-<!--
-  <% include ../footer.ejs%>
--->
-</footer>
+
 </html>
